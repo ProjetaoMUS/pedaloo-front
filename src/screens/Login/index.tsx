@@ -14,6 +14,8 @@ import {
 
 import { useState } from 'react';
 
+const logo = require('../../../assets/logo.png');
+
 const LoginOptionButton = ({optionName, icon, callback}) => {
 	return (
 		<Link onPress={callback}>
@@ -33,12 +35,7 @@ const LoginForm = () => {
 
 	return (
 		<Center flex={1} bg="white" px={10}>
-			<Box
-				w="130px" h="130px"mb={12} bg="#D9D9D9"
-				alignItems="center" justifyContent="center"
-			>
-				logo
-			</Box>
+			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo" mt={-12} />
 
 			<FormControl>
 				<FormControl.Label>e-mail</FormControl.Label>
@@ -80,13 +77,9 @@ export function Login() {
 
 	return (
 		<Center flex={1} bg="white" >
-			<Box w="130px" h="130px"mb={6} bg="#D9D9D9"
-				alignItems="center" justifyContent="center"
-			>
-				logo
-			</Box>
+			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo" mt={-12} />
 
-			<Text fontSize="xl" color="black" mb={12} bold>Lorem ipsum dolor sit amet, consectetur.</Text>
+			<Text fontSize="xl" color="black" mt={-12} mb={12} bold>Lorem ipsum dolor sit amet, consectetur.</Text>
 
 			<VStack space={3} w="70%">
 				<LoginOptionButton optionName="Apple" icon={<CircleIcon color="#BEBBBB" />} />
