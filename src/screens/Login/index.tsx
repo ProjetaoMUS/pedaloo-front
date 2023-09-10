@@ -8,7 +8,8 @@ import {
 	CircleIcon,
 	FormControl,
 	Input,
-	Button
+	Button,
+	Pressable
 } from 'native-base';
 
 import { useState } from 'react';
@@ -28,6 +29,8 @@ const LoginOptionButton = ({optionName, icon, callback}) => {
 };
 
 const LoginForm = () => {
+	const [showPassword, setShowPassword] = useState(false);
+
 	return (
 		<Center flex={1} bg="white" px={10}>
 			<FormControl>
@@ -37,7 +40,14 @@ const LoginForm = () => {
 
 			<FormControl mb="12">
 				<FormControl.Label>senha</FormControl.Label>
-				<Input type="password" />
+				<Input
+					type={showPassword ? "text" : "password"}
+					InputRightElement={
+						<Pressable onPress={() => setShowPassword(!showPassword)}>
+          					<CircleIcon color="#BEBBBB" mr="2" />
+          				</Pressable>
+      				}
+				/>
 			</FormControl>
 
 			<Button
