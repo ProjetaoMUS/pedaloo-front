@@ -1,4 +1,5 @@
-import { Text, View, FlatList} from 'react-native';
+import { useState, useEffect } from 'react';
+import { Text, View, FlatList, Image} from 'react-native';
 
 import { styles } from './styles';
 
@@ -11,7 +12,7 @@ interface ParkingPlace {
 }
 
 export function ParkingPlaces() {
-  const data: ParkingPlace[] = [
+  const original_data: ParkingPlace[] = [
     {
       name: 'Sorveteria Gelada',
       rating: 4.86,
@@ -82,31 +83,35 @@ export function ParkingPlaces() {
       cost_per_hour: 4.0,
       parking_spaces: 3,
     },
-];
+  ];
 
 
   const renderName = (name: string) => (
-    <Text>{name}</Text>
+    <Text style={styles.name}>{name}</Text>
   );
 
   const renderRating = (rating: number) => (
-    <Text>Avaliação: {rating}/5</Text>
+    <View style={{flexDirection: 'row'}}>
+      <Text style={styles.rating}>Avaliação: {rating.toFixed(2)}/5  </Text>
+      <Text style={styles.ratingStars}>{'\u2B50'.repeat(rating | 0) + '\u2606'.repeat((6 - rating) | 0)}</Text>
+    </View>
   );
 
   const renderDistance = (distance: number) => (
-    <Text>Distância: {distance} metros</Text>
+    <Text style={styles.distance}>Distância: {distance} metros</Text>
   );
 
   const renderCost = (cost: number) => (
-    <Text>Custo por hora: R${cost.toFixed(2)}</Text>
+    <Text style={styles.cost}>Custo por hora: R${cost.toFixed(2)}</Text>
   );
 
   const renderParkingSpaces = (spaces: number) => (
-    <Text>Vagas restantes: {spaces}</Text>
+    <Text style={spaces < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {spaces}</Text>
   );
 
   const renderItem = ({ item }: { item: ParkingPlace }) => (
     <View style={styles.item}>
+      {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
       {renderName(item.name)}
       {renderRating(item.rating)}
       {renderDistance(item.distance_from_user)}
@@ -118,10 +123,10 @@ export function ParkingPlaces() {
   return (
     <View>
       <View style={styles.header}>
-        <Text style={styles.heading}>Pontos Perto De Você</Text>
+        <Text style={styles.headerText}>Pontos Perto De Você</Text>
       </View>
       <FlatList
-        data={data}
+        data={original_data}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
       />
