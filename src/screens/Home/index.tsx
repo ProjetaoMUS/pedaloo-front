@@ -1,20 +1,22 @@
-import { Text, View, TextInput } from 'react-native';
+import { View } from 'react-native';
+import { Search } from '../Search'
+import React, { useState } from 'react';
 
 import { styles } from './styles';
-import { Loading } from '../Loading';
+import { Maps } from '../Maps';
 
-export function Home() {
+export function Home({ navigation }) {
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearchTextChange = (text) => {
+    setSearchText(text);
+  };
   return(
-    <View style={styles.container}>
-      <Text style={styles.nameApp}>App name</Text>
-      <Text style={styles.description}>description here</Text>
-		
-      <TextInput 
-        style={styles.input} 
-        placeholder='test input'
-        placeholderTextColor="#6B6B6B"
-      />
-			<Loading />
-    </View>
+      <View style={styles.container}>
+        <Search  placeholder="Search"
+        onChangeText={handleSearchTextChange}
+        value={searchText}/>
+        <Maps />
+      </View>
   )
 }
