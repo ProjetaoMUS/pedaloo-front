@@ -33,6 +33,13 @@ const LoginForm = () => {
 
 	return (
 		<Center flex={1} bg="white" px={10}>
+			<Box
+				w="130px" h="130px"mb={12} bg="#D9D9D9"
+				alignItems="center" justifyContent="center"
+			>
+				logo
+			</Box>
+
 			<FormControl>
 				<FormControl.Label>e-mail</FormControl.Label>
 				<Input type="email" />
