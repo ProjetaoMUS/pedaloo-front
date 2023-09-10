@@ -2,6 +2,7 @@ import { Text, View, TextInput } from 'react-native';
 
 import { styles } from './styles';
 import { Loading } from '../Loading';
+import { ReservationScreen } from '../ReservationScreen';
 
 export function Home() {
   return(
