@@ -14,8 +14,23 @@ import {
 } from 'native-base';
 
 import { useState } from 'react';
+import { encode } from 'base-64';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// If you deploy this to production, I will break into your house
+// and throw foam noodles at you for a week
+const API_BASE_URL = "TODO: read server adress from .env file"
 
 const logo = require('../../../assets/logo.png');
+
+const saveData = async (key, value) => {
+  try {
+    await AsyncStorage.setItem(key, value);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const LoginOptionButton = ({optionName, icon, callback}) => {
 	return (
@@ -33,18 +48,40 @@ const LoginOptionButton = ({optionName, icon, callback}) => {
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const peformLogin = () => {
+		if (!global.btoa) {
+	  		global.btoa = encode;
+		}
+
+		axios
+			.post(API_BASE_URL + 'auth/login/', {}, {
+				auth: {
+					username: email,
+					password: password
+				}
+			})
+			.then(res => {
+				saveData('token', res.data.token);
+			})
+			.catch(err => console.log(err))
+	}
 
 	return (
 		<Box w="100%" px="10" alignItems="center">
 			<FormControl>
 				<FormControl.Label>e-mail</FormControl.Label>
-				<Input type="email" />
+				<Input type="email" value={email} onChangeText={setEmail} />
 			</FormControl>
 
 			<FormControl mb="12">
 				<FormControl.Label>senha</FormControl.Label>
 				<Input
 					type={showPassword ? "text" : "password"}
+					value={password}
+					onChangeText={setPassword}
 					InputRightElement={
 						<Pressable onPress={() => setShowPassword(!showPassword)}>
           					<CircleIcon color="#BEBBBB" mr="2" />
@@ -60,6 +97,7 @@ const LoginForm = () => {
 					bg: "#BEBBBB",
 					_text: { color: "muted.700" }
 				}}
+				onPress={peformLogin}
 			>
 				Entrar
 			</Button>
