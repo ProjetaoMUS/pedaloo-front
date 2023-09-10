@@ -4,6 +4,10 @@
     "slug": "pedaloo",
     "version": "1.0.0",
     "orientation": "portrait",
+    "permissions": [
+      "ACCESS_COARSE_LOCATION",
+      "ACCESS_FINE_LOCATION"
+    ],
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
