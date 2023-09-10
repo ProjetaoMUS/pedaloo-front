@@ -9,7 +9,8 @@ import {
 	FormControl,
 	Input,
 	Button,
-	Pressable
+	Pressable,
+	IconButton
 } from 'native-base';
 
 import { useState } from 'react';
@@ -85,6 +86,17 @@ export function Login() {
 
 	return (
 		<Box flex={1} bg="white" alignItems="center">
+			{ inLoginForm &&
+				<IconButton
+					position="absolute"
+					top="5"
+					left="5"
+					onPress={() => setInLoginForm(!inLoginForm)}
+					borderRadius="full"
+					icon={<CircleIcon color="#BEBBBB" size="2xl" />}
+				/>
+			}
+
 			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo"  mt={12} />
 
 			{ inLoginForm
