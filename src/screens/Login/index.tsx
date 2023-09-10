@@ -1,8 +1,8 @@
 import { Center, VStack, Text, Box, Image, Link, CircleIcon } from 'native-base';
 
-const LoginOptionButton = ({optionName, icon}) => {
+const LoginOptionButton = ({optionName, icon, callback}) => {
 	return (
-		<Link>
+		<Link onPress={callback}>
 	      <Box w="100%" py="1.5" pl="2"
 	        bg="#D9D9D9" rounded="full"
 	        alignItems="center" flexDirection="row"
@@ -29,7 +29,8 @@ export function Login() {
 				<LoginOptionButton optionName="Apple" icon={<CircleIcon color="#BEBBBB" />} />
 				<LoginOptionButton optionName="Google" icon={<CircleIcon color="#BEBBBB" />} />
 				<LoginOptionButton optionName="Facebook" icon={<CircleIcon color="#BEBBBB" />} />
-				<LoginOptionButton optionName="e-mail" icon={<CircleIcon color="#BEBBBB" />} />
+				<LoginOptionButton optionName="e-mail" icon={<CircleIcon color="#BEBBBB" />}
+					callback={() => { console.log('Continuing with e-mail')}} />
 			</VStack>
 		</Center>
 	)
