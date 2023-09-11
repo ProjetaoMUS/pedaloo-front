@@ -18,19 +18,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { performLogin } from '../../api/auth';
 
-const logo = require('../../../assets/logo.png');
+const logo = require('../../../assets/green-logo.png');
 
 const LoginOptionButton = ({ optionName, icon, callback }) => {
 	return (
 		<Link onPress={callback}>
 			<Box w="100%" py="1.5" pl="2"
-				bg="#D9D9D9" rounded="full"
+				bg="#003714" rounded="full"
 				alignItems="center" flexDirection="row"
 			>
 				<Box size={21} alignItems="center" justifyContent="center">
 					{icon}
 				</Box>
-				<Text flex={1} ml={4}>Continuar com {optionName}</Text>
+				<Text flex={1} color="white" ml={4}>Continuar com {optionName}</Text>
 			</Box>
 		</Link>
 	)
@@ -90,20 +90,21 @@ export function Login({ onLogin }) {
 
 	const LoginOptions = () => (
 		<Box w="100%" alignItems="center" mt={-12}>
-			<Text fontSize="xl" color="black" mb={12} bold>Lorem ipsum dolor sit amet, consectetur.</Text>
+			<Text fontSize="2xl" color="#003714" mb={1} bold>Estacione sua bicicleta</Text>
+			<Text fontSize="2xl" color="#003714" mb={10} bold>Perto & com segurança.</Text>
 
 			<VStack space={3} w="70%">
 				<LoginOptionButton optionName="Apple"
-					icon={<Ionicons name="logo-apple" color="black" size={16} />} />
+					icon={<Ionicons name="logo-apple" color="white" size={16} />} />
 
 				<LoginOptionButton optionName="Google"
-					icon={<Ionicons name="logo-facebook" color="black" size={16} />} />
+					icon={<Ionicons name="logo-facebook" color="white" size={16} />} />
 
 				<LoginOptionButton optionName="Facebook"
-					icon={<Ionicons name="logo-google" color="black" size={16} />} />
+					icon={<Ionicons name="logo-google" color="white" size={16} />} />
 
 				<LoginOptionButton optionName="e-mail"
-					icon={<Ionicons name="mail-outline" color="black" size={16} />}
+					icon={<Ionicons name="mail-outline" color="white" size={16} />}
 					callback={() => { setInLoginForm(true) }} />
 			</VStack>
 		</Box>
