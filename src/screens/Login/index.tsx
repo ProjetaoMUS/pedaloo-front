@@ -20,19 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { performLogin } from '../../api/auth';
 
-// If you deploy this to production, I will break into your house
-// and throw foam noodles at you for a week
-const API_BASE_URL = "TODO: read server adress from .env file"
-
 const logo = require('../../../assets/logo.png');
-
-const saveData = async (key, value) => {
-	try {
-		await AsyncStorage.setItem(key, value);
-	} catch (err) {
-		console.log(err);
-	}
-};
 
 const LoginOptionButton = ({ optionName, icon, callback }) => {
 	return (
@@ -50,7 +38,7 @@ const LoginOptionButton = ({ optionName, icon, callback }) => {
 	)
 };
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin })  => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -90,7 +78,7 @@ const LoginForm = () => {
 					bg: "#BEBBBB",
 					_text: { color: "muted.700" }
 				}}
-				onPress={() => performLogin(email, password)}
+				onPress={() => performLogin(email, password) && onLogin()}
 			>
 				Entrar
 			</Button>
@@ -99,7 +87,7 @@ const LoginForm = () => {
 	)
 }
 
-export function Login() {
+export function Login({ onLogin }) {
 	const [inLoginForm, setInLoginForm] = useState(false);
 
 	const LoginOptions = () => (
@@ -139,7 +127,7 @@ export function Login() {
 			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo" mt={12} />
 
 			{inLoginForm
-				? <LoginForm />
+				? <LoginForm onLogin={onLogin} />
 				: <LoginOptions />
 			}
 		</Box>
