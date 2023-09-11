@@ -1,7 +1,7 @@
 import { Text, View, FlatList, Image} from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
 import { Pressable } from 'native-base';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 
 import { styles } from './styles';
