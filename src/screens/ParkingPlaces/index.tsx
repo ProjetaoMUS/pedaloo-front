@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react';
 import { Text, View, FlatList, Image} from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
+import { Pressable } from 'native-base';
+import { useState } from 'react';
+import { ReservationScreen } from '../ReservationScreen';
+
 import { styles } from './styles';
 import { Search } from '../Search'
 
@@ -57,23 +60,30 @@ export function ParkingPlaces() {
     return distance | 0;
   }
 
+  const [seeReservation, setSeeReservation] = useState(false);
+  
   const renderItem = (userLocation: number[]) => ({ item }: { item: ParkingPlace } ) => (
     <View style={styles.item}>
-      {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
-      <Text style={styles.name}>{item.name}</Text>
-      {/*<View style={{flexDirection: 'row'}}>
-        <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
-        <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
-      </View>*/}
-      <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
-      <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
-      <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
-    </View>
+      <Pressable onPress={() => { setSeeReservation(true) } }>
+        {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
+        <Text style={styles.name}>{item.name}</Text>
+        {/*<View style={{flexDirection: 'row'}}>
+          <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
+          <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
+        </View>*/}
+        <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
+        <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
+        <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
+      </Pressable>  
+  </View>
   );
+
+  if (seeReservation)
+    return <ReservationScreen />
 
   const userLatitude = -8.063169;
   const userLongitude = -34.871139;
-
+    
   return (
     <View style={{paddingBottom:130}}>
       <View style={{paddingVertical:30}}>
@@ -84,6 +94,6 @@ export function ParkingPlaces() {
         renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
       />
-    </View>
-  );
+   </View>
+   );
 };

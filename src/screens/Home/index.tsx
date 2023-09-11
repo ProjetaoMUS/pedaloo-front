@@ -3,8 +3,6 @@ import { Search } from '../Search'
 import React, { useState } from 'react';
 
 import { styles } from './styles';
-import { Loading } from '../Loading';
-import { ReservationScreen } from '../ReservationScreen';
 import { Maps } from '../Maps';
 
 export function Home({ navigation }) {

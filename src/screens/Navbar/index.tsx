@@ -4,8 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens
 import { Home } from '../Home';
-import { Booking } from '../Booking'
-import { Profile } from '../Profile'
+import { Login } from '../Login';
+import { ParkingPlaces } from '../ParkingPlaces';
 
 //Screen names
 const homeName = "Home";
@@ -47,8 +47,8 @@ export function Navbar() {
       }}>
 
       <Tab.Screen name={homeName} component={Home} />
-      <Tab.Screen name={bookingName} component={Booking} />
-      <Tab.Screen name={profileName} component={Profile} />
+      <Tab.Screen name={bookingName} component={ParkingPlaces} />
+      <Tab.Screen name={profileName} component={Login} />
 
     </Tab.Navigator>
   );

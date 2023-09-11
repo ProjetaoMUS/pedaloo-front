@@ -1,11 +1,9 @@
 import {
-	Center,
 	VStack,
 	Text,
 	Box,
 	Image,
 	Link,
-	CircleIcon,
 	FormControl,
 	Input,
 	Button,
@@ -20,37 +18,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { performLogin } from '../../api/auth';
 
-// If you deploy this to production, I will break into your house
-// and throw foam noodles at you for a week
-const API_BASE_URL = "TODO: read server adress from .env file"
-
-const logo = require('../../../assets/logo.png');
-
-const saveData = async (key, value) => {
-	try {
-		await AsyncStorage.setItem(key, value);
-	} catch (err) {
-		console.log(err);
-	}
-};
+const logo = require('../../../assets/green-logo.png');
 
 const LoginOptionButton = ({ optionName, icon, callback }) => {
 	return (
 		<Link onPress={callback}>
 			<Box w="100%" py="1.5" pl="2"
-				bg="#D9D9D9" rounded="full"
+				bg="#003714" rounded="full"
 				alignItems="center" flexDirection="row"
 			>
 				<Box size={21} alignItems="center" justifyContent="center">
 					{icon}
 				</Box>
-				<Text flex={1} ml={4}>Continuar com {optionName}</Text>
+				<Text flex={1} color="white" ml={4}>Continuar com {optionName}</Text>
 			</Box>
 		</Link>
 	)
 };
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin })  => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -90,7 +76,7 @@ const LoginForm = () => {
 					bg: "#BEBBBB",
 					_text: { color: "muted.700" }
 				}}
-				onPress={() => performLogin(email, password)}
+				onPress={() => performLogin(email, password) && onLogin()}
 			>
 				Entrar
 			</Button>
@@ -99,25 +85,26 @@ const LoginForm = () => {
 	)
 }
 
-export function Login() {
+export function Login({ onLogin }) {
 	const [inLoginForm, setInLoginForm] = useState(false);
 
 	const LoginOptions = () => (
 		<Box w="100%" alignItems="center" mt={-12}>
-			<Text fontSize="xl" color="black" mb={12} bold>Lorem ipsum dolor sit amet, consectetur.</Text>
+			<Text fontSize="2xl" color="#003714" mb={1} bold>Estacione sua bicicleta</Text>
+			<Text fontSize="2xl" color="#003714" mb={10} bold>Perto & com segurança.</Text>
 
 			<VStack space={3} w="70%">
 				<LoginOptionButton optionName="Apple"
-					icon={<Ionicons name="logo-apple" color="black" size={16} />} />
+					icon={<Ionicons name="logo-apple" color="white" size={16} />} />
 
 				<LoginOptionButton optionName="Google"
-					icon={<Ionicons name="logo-facebook" color="black" size={16} />} />
+					icon={<Ionicons name="logo-facebook" color="white" size={16} />} />
 
 				<LoginOptionButton optionName="Facebook"
-					icon={<Ionicons name="logo-google" color="black" size={16} />} />
+					icon={<Ionicons name="logo-google" color="white" size={16} />} />
 
 				<LoginOptionButton optionName="e-mail"
-					icon={<Ionicons name="mail-outline" color="black" size={16} />}
+					icon={<Ionicons name="mail-outline" color="white" size={16} />}
 					callback={() => { setInLoginForm(true) }} />
 			</VStack>
 		</Box>
@@ -139,7 +126,7 @@ export function Login() {
 			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo" mt={12} />
 
 			{inLoginForm
-				? <LoginForm />
+				? <LoginForm onLogin={onLogin} />
 				: <LoginOptions />
 			}
 		</Box>
