@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { Text, View, FlatList, Image} from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
 import { styles } from './styles';
+import { Search } from '../Search'
 
 interface ParkingPlace {
   id: number;
   name: string;
-  parkingSpacesCount: number;
+  parking_spaces_count: number;
   images: string | null;
   address: string;
   description: string;
@@ -14,7 +15,7 @@ interface ParkingPlace {
   latitude: number;
   longitude: number;
 }
-
+//Error fetching parking places: Axios Error: Network Error
 export function ParkingPlaces() {
   const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
   
@@ -23,12 +24,11 @@ export function ParkingPlaces() {
     async function fetchParkingPlaces() {
       try {
         const data = await getPartnerLocations();
-        setParkingPlaceData(data);
+        setParkingPlaceData(data['data']);
       } catch (error) {
         console.error('Error fetching parking places:', error);
       }
     }
-
     fetchParkingPlaces();
   }, []);
 
@@ -54,7 +54,7 @@ export function ParkingPlaces() {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = earthRadius * c;
   
-    return distance;
+    return distance | 0;
   }
 
   const renderItem = (userLocation: number[]) => ({ item }: { item: ParkingPlace } ) => (
@@ -66,8 +66,8 @@ export function ParkingPlaces() {
         <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
       </View>*/}
       <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
-      <Text style={styles.cost}>Custo por hora: R${item.price.toFixed(2)}</Text>
-      <Text style={item.parkingSpacesCount < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parkingSpacesCount}</Text>
+      <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
+      <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
     </View>
   );
 
@@ -75,7 +75,10 @@ export function ParkingPlaces() {
   const userLongitude = -34.871139;
 
   return (
-    <View style={{paddingBottom:30}}>
+    <View style={{paddingBottom:130}}>
+      <View style={{paddingVertical:30}}>
+        <Search/>
+      </View>
       <FlatList
         data={parkingPlaceData}
         renderItem={renderItem([userLatitude, userLongitude])}

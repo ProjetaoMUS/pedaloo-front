@@ -2,7 +2,7 @@ import axios from 'axios';
 import { encode } from 'base-64';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_BASE_URL = "YOUR_SERVER_ADDRESS_HERE";
+const API_BASE_URL = "http://192.168.5.113:8000/";
 
 export const getPartnerLocations = async () => {
   try {
