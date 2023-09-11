@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
+    borderRadius: 10
   },
   item: {
     margin: 10,
@@ -17,6 +18,8 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    marginTop: 5,
+    padding: 5
   },
   rating: {
     fontSize: 16,
@@ -41,7 +44,7 @@ export const styles = StyleSheet.create({
   },
   parkingSpacesCritical: {
     fontSize: 16,
-    color: 'red'
+    color: 'red',
   }
 });
 

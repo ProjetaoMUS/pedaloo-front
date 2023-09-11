@@ -86,7 +86,7 @@ export function ParkingPlaces() {
 
   const renderItem = ({ item }: { item: ParkingPlace }) => (
       <View style={styles.item}>
-        {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
+        {<Image source={{uri: 'https://plus.unsplash.com/premium_photo-1658526992090-e15722e684c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80', width:370, height: 100}}/>}
         <Text style={styles.name}>{item.name}</Text>
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
