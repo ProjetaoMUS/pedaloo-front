@@ -1,118 +1,97 @@
 import { Text, View, FlatList, Image} from 'react-native';
+import { getPartnerLocations } from '../../api/partnerLocation'
 import { Pressable } from 'native-base';
 import { useState } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 
 import { styles } from './styles';
+import { Search } from '../Search'
 
 interface ParkingPlace {
+  id: number;
   name: string;
-  rating: number;
-  distanceFromUser: number;
-  costPerHour: number;
-  parkingSpaces: number;
+  parking_spaces_count: number;
+  images: string | null;
+  address: string;
+  description: string;
+  price: number;
+  latitude: number;
+  longitude: number;
 }
-
+//Error fetching parking places: Axios Error: Network Error
 export function ParkingPlaces() {
-  const original_data: ParkingPlace[] = [
-    {
-      name: 'Sorveteria Gelada',
-      rating: 4.86,
-      distanceFromUser: 50.0,
-      costPerHour: 5.0,
-      parkingSpaces: 1,
-    },
-    {
-      name: 'Mercadinho Bom de Preço',
-      rating: 4.66,
-      distanceFromUser: 140.0,
-      costPerHour: 4.0,
-      parkingSpaces: 14,
-    }, 
-    {
-      name: 'Padaria da Esquina',
-      rating: 4.64,
-      distanceFromUser: 200.0,
-      costPerHour: 3.5,
-      parkingSpaces: 6,
-    },
-    {
-      name: 'Restaurante Sabor Caseiro',
-      rating: 4.28,
-      distanceFromUser: 75.0,
-      costPerHour: 6.0,
-      parkingSpaces: 8,
-    },
-    {
-      name: 'Cafeteria Aconchegante',
-      rating: 4.93,
-      distanceFromUser: 90.0,
-      costPerHour: 4.5,
-      parkingSpaces: 3,
-    },
-    {
-      name: 'Loja de Bicicletas BikeMania',
-      rating: 4.75,
-      distanceFromUser: 110.0,
-      costPerHour: 3.0,
-      parkingSpaces: 9,
-    },
-    {
-      name: 'Bar do João',
-      rating: 3.81,
-      distanceFromUser: 160.0,
-      costPerHour: 2.4,
-      parkingSpaces: 5,
-    },
-    {
-      name: 'Farmácia Saúde e Bem-estar',
-      rating: 4.63,
-      distanceFromUser: 180.0,
-      costPerHour: 4.0,
-      parkingSpaces: 4,
-    },
-    {
-      name: 'Academia Fitness Plus',
-      rating: 4.95,
-      distanceFromUser: 210.0,
-      costPerHour: 3.0,
-      parkingSpaces: 10,
-    },
-    {
-      name: 'Pet Shop Amigo Fiel',
-      rating: 4.9,
-      distanceFromUser: 120.0,
-      costPerHour: 4.0,
-      parkingSpaces: 3,
-    },
-  ];
+  const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
+  
+  useEffect(() => {
+    // Fetch parking place data when the component mounts
+    async function fetchParkingPlaces() {
+      try {
+        const data = await getPartnerLocations();
+        setParkingPlaceData(data);
+      } catch (error) {
+        console.error('Error fetching parking places:', error);
+      }
+    }
+    fetchParkingPlaces();
+  }, []);
+
+  function calculateDistance(coords1, coords2) {
+    const lat1 = coords1[0];
+    const lat2 = coords2[0];
+    const lon1 = coords1[1];
+    const lon2 = coords2[1];
+    const earthRadius = 6371000; // Earth's radius in meters (mean value)
+  
+    // Convert latitude and longitude from degrees to radians
+    const lat1Rad = (lat1 * Math.PI) / 180;
+    const lon1Rad = (lon1 * Math.PI) / 180;
+    const lat2Rad = (lat2 * Math.PI) / 180;
+    const lon2Rad = (lon2 * Math.PI) / 180;
+  
+    // Haversine formula
+    const dLat = lat2Rad - lat1Rad;
+    const dLon = lon2Rad - lon1Rad;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = earthRadius * c;
+  
+    return distance | 0;
+  }
 
   const [seeReservation, setSeeReservation] = useState(false);
-
-  const renderItem = ({ item }: { item: ParkingPlace }) => (
-      <View style={styles.item}>
-        <Pressable onPress={() => { setSeeReservation(true) } }>
-          {<Image source={{uri: 'https://plus.unsplash.com/premium_photo-1658526992090-e15722e684c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80', width:370, height: 100}}/>}
-          <Text style={styles.name}>{item.name}</Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
-            <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
-          </View>
-          <Text style={styles.distance}>Distância: {item.distanceFromUser} metros</Text>
-          <Text style={styles.cost}>Custo por hora: R${item.costPerHour.toFixed(2)}</Text>
-          <Text style={item.parkingSpaces < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parkingSpaces}</Text>
-        </Pressable>
-      </View>
+  
+  const renderItem = (userLocation: number[]) => ({ item }: { item: ParkingPlace } ) => (
+    <View style={styles.item}>
+      <Pressable onPress={() => { setSeeReservation(true) } }>
+        {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
+        <Text style={styles.name}>{item.name}</Text>
+        {/*<View style={{flexDirection: 'row'}}>
+          <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
+          <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
+        </View>*/}
+        <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
+        <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
+        <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
+      </Pressable>  
+  </View>
   );
 
   if (seeReservation)
     return <ReservationScreen />
 
+  const userLatitude = -8.063169;
+  const userLongitude = -34.871139;
+    
   return (
-    <View style={{paddingBottom:30}}>
+    <View style={{paddingBottom:130}}>
+      <View style={{paddingVertical:30}}>
+        <Search/>
+      </View>
       <FlatList
-        data={original_data}
-        renderItem={renderItem}
+        data={parkingPlaceData}
+        renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
       />
    </View>
