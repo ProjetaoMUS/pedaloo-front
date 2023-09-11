@@ -1,11 +1,9 @@
 import {
-	Center,
 	VStack,
 	Text,
 	Box,
 	Image,
 	Link,
-	CircleIcon,
 	FormControl,
 	Input,
 	Button,

@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList } from 'native-base';
+import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
 
-export function ReservationScreen() {
-  const [dailyRate, setDailyRate] = useState(''); // Campo para o valor da diária
+export function ReservationScreen({navigation}) {
+  const [dailyRate, setDailyRate] = useState('');
   const [guests, setGuests] = useState('1');
   const [isLoading, setIsLoading] = useState(false);
-  const [currentContentIndex, setCurrentContentIndex] = useState(0); // Índice do conteúdo atual
-
-  const handleDailyRateChange = (text) => {
-    setDailyRate(text);
-  };
+  const [currentContentIndex, setCurrentContentIndex] = useState(0);
 
   const handleGuestsChange = (text) => {
     setGuests(text);
@@ -29,21 +25,26 @@ export function ReservationScreen() {
   // Conteúdo de exemplo para o carrossel
   const carouselContent = [
     {
-      title: 'Título do Conteúdo 1',
+      title: 'Titulo do Conteúdo 1',
       description: 'Descrição completa do Local 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'https://images.unsplash.com/photo-1520370047458-7b6072ea51e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1911&q=80'
+
     },
     {
-      title: 'Título do Conteúdo 2',
+      title: 'Titulo do Conteúdo 2',
       description: 'Descrição completa do Local 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'https://plus.unsplash.com/premium_photo-1658526992090-e15722e684c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80'
+
     },
     {
-      title: 'Título do Conteúdo 3',
+      title: 'Titulo do Conteúdo 3',
       description: 'Descrição completa do Local 3: Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      image: 'https://images.unsplash.com/photo-1597041505347-26a27f87b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1914&q=80'
     },
   ];
 
-  const latitudeDaLocacao = -23.5505;
-  const longitudeDaLocacao = -46.6333;
+  const latitudeDaLocacao = -8.0524;
+  const longitudeDaLocacao = -34.9454;
 
   const handleCarouselItemChange = (index) => {
     setCurrentContentIndex(index);
@@ -63,20 +64,21 @@ export function ReservationScreen() {
                 style={{
                   width: 300,
                   height: 200,
-                  backgroundColor: 'gray',
                   padding: 16,
-              
-                  marginBottom: 24, // Mais espaço entre os itens do carrossel
+                  borderRadius: 8,
+                  marginBottom: 24,
                   marginLeft: 16,
                 }}
               >
-                <Text style={{ fontSize: 24, marginTop: 8, paddingTop:2 }}>{item.title}</Text>
-                <Text style={{ color: 'white', marginTop: 8 }}>{item.description}</Text>
+                 <Image
+                  source={{uri:item.image}}
+                  style={{ width: '100%', height: '100%', borderRadius: 8 }}
+                />
               </View>
             )}
             onMomentumScrollEnd={(e) => {
               const contentOffsetX = e.nativeEvent.contentOffset.x;
-              const currentIndex = Math.floor(contentOffsetX / 300); // 300 é a largura de cada item do carrossel
+              const currentIndex = Math.floor(contentOffsetX / 300);
               setCurrentContentIndex(currentIndex);
             }}
           />
@@ -86,16 +88,16 @@ export function ReservationScreen() {
           style={{
             marginLeft: 16,
             marginRight: 16,
-            marginBottom: 24, // Mais espaço abaixo dos itens
+            marginBottom: 24,
           }}
         >
-          <Text style={{ fontSize: 24, color: 'white', marginBottom: 16, marginTop: 16,paddingTop:2 }}>Nome da Locação</Text>
-          <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>Cidade, Estado</Text>
+          <Text style={{ fontSize: 24, color: 'black', paddingTop:2 }}>Sorveteria Gelada</Text>
+          <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>Pernambuco, Brasil</Text>
 
           {/* Seção "Sobre o Local" */}
           <View>
-            <Text style={{ fontSize: 24, color: 'white', marginBottom: 16, marginTop: 16,paddingTop:2 }}>Sobre o Local</Text>
-            <Text style={{ fontSize: 16, color: 'white', marginBottom: 16 }}>
+            <Text style={{ fontSize: 24, color: 'black', marginBottom: 5, marginTop: 16,paddingTop:2 }}>Sobre o Local</Text>
+            <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>
               Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
             </Text>
           </View>
@@ -118,7 +120,7 @@ export function ReservationScreen() {
             />
           </MapView>
 
-          <Box backgroundColor="gray.700" padding={4} marginBottom={4}>
+          <Box padding={4} marginBottom={4}>
             <View
               style={{
                 flexDirection: 'row',
@@ -127,12 +129,15 @@ export function ReservationScreen() {
               }}
             >
               <Box>
-                <Text style={{ fontSize: 24, color: 'gray', paddingTop:2 }}>RS$ 150,00</Text>
-                <Text style={{ fontSize: 16, color: 'gray' }}>Aberto todos os dias</Text>
+                <Text style={{ fontSize: 24, color: 'black', paddingTop:2 }}>R$ 5,00</Text>
+                <Text style={{ fontSize: 16, color: 'black' }}>Aberto todos os dias</Text>
               </Box>
               <Button
                 colorScheme="dark"
-                color="gray.900"
+                color="gray"
+                borderRadius={16}
+                height={44}
+                width={120}
                 backgroundColor="gray.700"
                 onPress={handleReservationSubmit}
               >
