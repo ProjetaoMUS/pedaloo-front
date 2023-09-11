@@ -3,19 +3,7 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0', // Background color for the entire app
-  },
-  header: {
-    backgroundColor: '#003714',
-    paddingTop: 30,
-    paddingHorizontal: 15,
-    marginBottom: 10,
-  },
-  headerText: {
-    fontSize: 24,
-    color: '#ffffff',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    backgroundColor: '#f0f0f0',
   },
   item: {
     margin: 10,
