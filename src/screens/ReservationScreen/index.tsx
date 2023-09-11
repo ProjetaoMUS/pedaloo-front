@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Spinner, Button, ScrollView, HStack, Box, Center } from 'native-base';
+import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
-import Carousel from 'react-native-snap-carousel';
 
 export function ReservationScreen() {
   const [dailyRate, setDailyRate] = useState(''); // Campo para o valor da diária
@@ -31,15 +30,15 @@ export function ReservationScreen() {
   const carouselContent = [
     {
       title: 'Título do Conteúdo 1',
-      description: 'Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.',
+      description: 'Descrição completa do Local 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     {
       title: 'Título do Conteúdo 2',
-      description: 'Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.',
+      description: 'Descrição completa do Local 2: Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     {
       title: 'Título do Conteúdo 3',
-      description: 'Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.',
+      description: 'Descrição completa do Local 3: Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
   ];
 
@@ -53,47 +52,56 @@ export function ReservationScreen() {
   return (
     <ScrollView style={{ flex: 1 }}>
       <View>
-        <Carousel
-          data={carouselContent}
-          renderItem={({ item }) => (
-            <Box
-              width={300}
-              height={200}
-              backgroundColor="gray.500"
-              padding={4}
-            >
-              <Text fontSize="xl" marginBottom={2}>
-                {item.title}
-              </Text>
-              <Text marginBottom={4}>
-                {item.description}
-              </Text>
-            </Box>
-          )}
-          sliderWidth={300} // Largura do carrossel
-          itemWidth={300} // Largura de cada item do carrossel
-          onSnapToItem={handleCarouselItemChange} // Chamado quando um item é focalizado
-        />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <FlatList
+            data={carouselContent}
+            horizontal
+            pagingEnabled
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View
+                style={{
+                  width: 300,
+                  height: 200,
+                  backgroundColor: 'gray',
+                  padding: 16,
+              
+                  marginBottom: 24, // Mais espaço entre os itens do carrossel
+                  marginLeft: 16,
+                }}
+              >
+                <Text style={{ fontSize: 24, marginTop: 8, paddingTop:2 }}>{item.title}</Text>
+                <Text style={{ color: 'white', marginTop: 8 }}>{item.description}</Text>
+              </View>
+            )}
+            onMomentumScrollEnd={(e) => {
+              const contentOffsetX = e.nativeEvent.contentOffset.x;
+              const currentIndex = Math.floor(contentOffsetX / 300); // 300 é a largura de cada item do carrossel
+              setCurrentContentIndex(currentIndex);
+            }}
+          />
+        </View>
 
-        {/* Seção "Sobre o Local" e Descrição */}
-        <Text fontSize="xl" marginBottom={2} color="white">
-          Sobre o Local
-        </Text>
-        <Text fontSize="md" marginBottom={2} color="white">
-          Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
-        </Text>
+        <View
+          style={{
+            marginLeft: 16,
+            marginRight: 16,
+            marginBottom: 24, // Mais espaço abaixo dos itens
+          }}
+        >
+          <Text style={{ fontSize: 24, color: 'white', marginBottom: 16, marginTop: 16,paddingTop:2 }}>Nome da Locação</Text>
+          <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>Cidade, Estado</Text>
 
-        <View paddingX={4} paddingY={2}>
-          <Text fontSize="xl" marginBottom={2}>
-            Nome da Locação
-          </Text>
-          <Text fontSize="md" color="gray.500" marginBottom={2}>
-            Cidade, Estado
-          </Text>
+          {/* Seção "Sobre o Local" */}
+          <View>
+            <Text style={{ fontSize: 24, color: 'white', marginBottom: 16, marginTop: 16,paddingTop:2 }}>Sobre o Local</Text>
+            <Text style={{ fontSize: 16, color: 'white', marginBottom: 16 }}>
+              Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
+            </Text>
+          </View>
 
-          {/* Mapa da Locação */}
           <MapView
-            style={{ height: 200, marginBottom: 4 }}
+            style={{ height: 200, marginBottom: 24 }} // Mais espaço abaixo do mapa
             initialRegion={{
               latitude: latitudeDaLocacao,
               longitude: longitudeDaLocacao,
@@ -110,26 +118,27 @@ export function ReservationScreen() {
             />
           </MapView>
 
-          {/* Box com Valor da Diária e Botão Reservar */}
-          <Box backgroundColor="gray.500" padding={4} marginBottom={4}>
-            <HStack alignItems="center" justifyContent="space-between">
+          <Box backgroundColor="gray.700" padding={4} marginBottom={4}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Box>
-                <Text fontSize="xl" color="gray.700">
-                  RS$ 150,00
-                </Text>
-                <Text fontSize="md" color="gray.700">
-                  Aberto todos os dias
-                </Text>
+                <Text style={{ fontSize: 24, color: 'gray', paddingTop:2 }}>RS$ 150,00</Text>
+                <Text style={{ fontSize: 16, color: 'gray' }}>Aberto todos os dias</Text>
               </Box>
               <Button
                 colorScheme="dark"
                 color="gray.900"
-                backgroundColor="gray.700" // Cor mais escura para o botão Reservar
+                backgroundColor="gray.700"
                 onPress={handleReservationSubmit}
               >
                 Reservar
               </Button>
-            </HStack>
+            </View>
           </Box>
 
           {isLoading && (

@@ -15,7 +15,7 @@ export function Home() {
         placeholder='test input'
         placeholderTextColor="#6B6B6B"
       />
-			<Loading />
+			<ReservationScreen />
     </View>
   )
 }
