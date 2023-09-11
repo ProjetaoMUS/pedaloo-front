@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Text, View, FlatList, Image} from 'react-native';
 
 import { styles } from './styles';
@@ -86,17 +85,17 @@ export function ParkingPlaces() {
   ];
 
   const renderItem = ({ item }: { item: ParkingPlace }) => (
-    <View style={styles.item}>
-      {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
-      <Text style={styles.name}>{item.name}</Text>
-      <View style={{flexDirection: 'row'}}>
-        <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
-        <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
+      <View style={styles.item}>
+        {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
+        <Text style={styles.name}>{item.name}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
+          <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
+        </View>
+        <Text style={styles.distance}>Distância: {item.distanceFromUser} metros</Text>
+        <Text style={styles.cost}>Custo por hora: R${item.costPerHour.toFixed(2)}</Text>
+        <Text style={item.parkingSpaces < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parkingSpaces}</Text>
       </View>
-      <Text style={styles.distance}>Distância: {item.distanceFromUser} metros</Text>
-      <Text style={styles.cost}>Custo por hora: R${item.costPerHour.toFixed(2)}</Text>
-      <Text style={item.parkingSpaces < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parkingSpaces}</Text>
-    </View>
   );
 
   return (
