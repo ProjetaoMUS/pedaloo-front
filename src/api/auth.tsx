@@ -30,7 +30,11 @@ export const performLogin = async (email: string, password: string): Promise<voi
     );
 
     await saveData('token', response.data.token);
+    return true
+  
   } catch (err) {
     console.log(err);
   }
+
+  return false
 };
