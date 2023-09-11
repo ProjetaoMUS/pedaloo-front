@@ -24,7 +24,7 @@ export function ParkingPlaces() {
     async function fetchParkingPlaces() {
       try {
         const data = await getPartnerLocations();
-        setParkingPlaceData(data['data']);
+        setParkingPlaceData(data);
       } catch (error) {
         console.error('Error fetching parking places:', error);
       }
