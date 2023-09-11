@@ -1,10 +1,15 @@
-import { Home } from './src/screens/Home';
 import { NativeBaseProvider } from 'native-base'
+import { NavigationContainer } from '@react-navigation/native';
+import { Navbar } from './src/screens/Navbar';
 
 export default function App() {
   return(
     <NativeBaseProvider>
-      <Home />
+      <NavigationContainer>
+        <Navbar />
+      </NavigationContainer>
     </NativeBaseProvider>
+
+    
   );
 }
