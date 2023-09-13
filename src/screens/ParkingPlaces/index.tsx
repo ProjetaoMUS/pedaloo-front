@@ -1,8 +1,9 @@
 import { Text, View, FlatList, Image} from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
-import { Pressable } from 'native-base';
+import { Pressable, Box, IconButton } from 'native-base';
 import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { styles } from './styles';
 import { Search } from '../Search'
@@ -79,7 +80,19 @@ export function ParkingPlaces() {
   );
 
   if (seeReservation)
-    return <ReservationScreen />
+    return (
+      <Box flex={1}>
+        <ReservationScreen />
+        <IconButton
+          position="absolute"
+          top="0"
+          left="-3"
+          onPress={() => setSeeReservation(false)}
+          borderRadius="full"
+          icon={<Ionicons name="close-circle-outline" color="gray" size={35} />}
+        />
+      </Box>
+    );
 
   const userLatitude = -8.063169;
   const userLongitude = -34.871139;
