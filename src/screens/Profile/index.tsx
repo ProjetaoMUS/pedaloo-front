@@ -59,7 +59,7 @@ const ProfileHome = ({ navigation }) => {
             <VStack bg="white" w="100%" flex="1" alignItems="center" space={3} pt={7} borderTopRadius={60}>
                     <ProfileScreenButton text="My Account"
                         icon={<Ionicons name="person" color="white" size={21} />}
-                        onPress={() => navigation.navigate('Account')}
+                        onPress={() => navigation.navigate('My Account')}
                     />
 
                     <ProfileScreenButton text="Settings"
@@ -85,10 +85,10 @@ export function Profile({ navigation }) {
     return (
         <NavigationContainer independent={true}>
             <Stack.Navigator
-                initialRouteName="Home"
+                initialRouteName="ProfileHome"
             >
-                <Stack.Screen name="Home" component={ProfileHome} options={{ headerShown: false }}/>
-                <Stack.Screen name="Account" component={Account} />
+                <Stack.Screen name="ProfileHome" component={ProfileHome} options={{ headerShown: false }}/>
+                <Stack.Screen name="My Account" component={Account} options={{ headerShown: false }} />
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Help" component={Help} />
                 <Stack.Screen name="Contact" component={Contact} />
