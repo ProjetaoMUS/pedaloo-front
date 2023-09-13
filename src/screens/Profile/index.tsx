@@ -1,13 +1,22 @@
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import { Center, Box, Text, Pressable, VStack, HStack, Button, Avatar, Image } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const avatarFallback = require('../../../assets/avatar.png');
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Account } from '../Account';
+import { Contact } from '../Contact';
+import { Help } from '../Help';
+import { Settings } from '../Settings';
 
-const ProfileScreenButton = ({ text, icon }) => {
+const avatarFallback = require('../../../assets/avatar.png');
+const Stack = createStackNavigator();
+
+const ProfileScreenButton = ({ text, icon, onPress }) => {
     return (
-        <Pressable w="80%" h="50px" flexDirection="row" alignItems="center">
+        <Pressable w="80%" h="50px" flexDirection="row" alignItems="center" onPress={onPress}>
             <Center p={3} bg="#43F6B1" borderRadius={15}>
                 {icon}
             </Center>
@@ -19,7 +28,7 @@ const ProfileScreenButton = ({ text, icon }) => {
     )
 }
 
-export function Profile({ navigation }) {
+const ProfileHome = ({ navigation }) => {
     return (
         <LinearGradient
             colors={['#32FC65', '#43F6B1']}
@@ -48,19 +57,43 @@ export function Profile({ navigation }) {
             </HStack>
 
             <VStack bg="white" w="100%" flex="1" alignItems="center" space={3} pt={7} borderTopRadius={60}>
-                <ProfileScreenButton text="My Account"
-                    icon={<Ionicons name="person" color="white" size={21} />} />
+                    <ProfileScreenButton text="My Account"
+                        icon={<Ionicons name="person" color="white" size={21} />}
+                        onPress={() => navigation.navigate('Account')}
+                    />
 
-                <ProfileScreenButton text="Configurations"
-                    icon={<Ionicons name="settings" color="white" size={21} />} />
+                    <ProfileScreenButton text="Settings"
+                        icon={<Ionicons name="settings" color="white" size={21} />}
+                        onPress={() => navigation.navigate('Settings')}
+                    />
 
-                <ProfileScreenButton text="Help"
-                    icon={<Ionicons name="help-circle" color="white" size={21} />} />
+                    <ProfileScreenButton text="Help"
+                        icon={<Ionicons name="help-circle" color="white" size={21} />}
+                        onPress={() => navigation.navigate('Help')}
+                    />
 
-                <ProfileScreenButton text="Contact"
-                    icon={<Ionicons name="call" color="white" size={21} />} />
+                    <ProfileScreenButton text="Contact"
+                        icon={<Ionicons name="call" color="white" size={21} />}
+                        onPress={() => navigation.navigate('Contact')}
+                    />
             </VStack>
         </LinearGradient>
+    );
+}
+
+export function Profile({ navigation }) {
+    return (
+        <NavigationContainer independent={true}>
+            <Stack.Navigator
+                initialRouteName="Home"
+            >
+                <Stack.Screen name="Home" component={ProfileHome} options={{ headerShown: false }}/>
+                <Stack.Screen name="Account" component={Account} />
+                <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="Help" component={Help} />
+                <Stack.Screen name="Contact" component={Contact} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
 
