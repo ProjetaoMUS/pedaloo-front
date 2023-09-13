@@ -1,6 +1,21 @@
 import * as React from 'react';
-import { Box, Text, VStack } from 'native-base';
+import { Center, Box, Text, Pressable, VStack } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const ProfileScreenButton = ({ text, icon }) => {
+    return (
+        <Pressable w="80%" h="50px" flexDirection="row" alignItems="center">
+            <Center p={3} bg="#43F6B1" borderRadius={15}>
+                {icon}
+            </Center>
+            <Text flex="1" fontSize={20} pl={5} color="#003714">{text}</Text>
+            <Box w={6} h={6} mr={3}>
+                <Ionicons name="chevron-forward-outline" color="#43F6B1" size={24} />
+            </Box>
+        </Pressable>
+    )
+}
 
 export function Profile({ navigation }) {
     return (
@@ -23,7 +38,17 @@ export function Profile({ navigation }) {
             </Box>
 
             <VStack bg="white" w="100%" flex="1" alignItems="center" space={4} pt={7} borderTopRadius={60}>
-                <Text fontSize={26} bold>More Options</Text>
+                <ProfileScreenButton text="My Account"
+                    icon={<Ionicons name="person" color="white" size={23} />} />
+
+                <ProfileScreenButton text="Configurations"
+                    icon={<Ionicons name="settings" color="white" size={23} />} />
+
+                <ProfileScreenButton text="Help"
+                    icon={<Ionicons name="help-circle" color="white" size={23} />} />
+
+                <ProfileScreenButton text="Contact"
+                    icon={<Ionicons name="call" color="white" size={23} />} />
             </VStack>
         </LinearGradient>
     );
