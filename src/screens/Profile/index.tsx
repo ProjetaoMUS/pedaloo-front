@@ -31,13 +31,13 @@ export function Profile({ navigation }) {
                 justifyContent: "center"
             }}
         >
-            <HStack h="10%" space="35%">
+            <HStack h="12%" alignItems="flex-end" space="35%">
                 <Button variant="link" _text={{ fontSize: 14, color: "#003714" }}>My Profile</Button>
                 <Button variant="link" _text={{ fontSize: 14, color: "#003714" }}>Edit Profile</Button>
             </HStack>
             
-            <HStack h="22%" w="100%" px={7} alignItems="center" space={4}>
-                <Avatar size="lg" p="1" bg="#EEFC79">
+            <HStack h="25%" w="100%" px={7} alignItems="center" space={4}>
+                <Avatar size="xl" p="1" bg="#EEFC79">
                     <Image source={avatarFallback} resizeMode="contain" alt="Avatar Fallback" />
                 </Avatar>
 
@@ -47,7 +47,7 @@ export function Profile({ navigation }) {
                 </VStack>
             </HStack>
 
-            <VStack bg="white" w="100%" flex="1" alignItems="center" space={4} pt={7} borderTopRadius={60}>
+            <VStack bg="white" w="100%" flex="1" alignItems="center" space={3} pt={7} borderTopRadius={60}>
                 <ProfileScreenButton text="My Account"
                     icon={<Ionicons name="person" color="white" size={21} />} />
 
