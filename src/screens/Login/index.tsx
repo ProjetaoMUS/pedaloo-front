@@ -27,10 +27,10 @@ const LoginOptionButton = ({ optionName, icon, callback }) => {
 				bg="#003714" rounded="full"
 				alignItems="center" flexDirection="row"
 			>
-				<Box size={21} alignItems="center" justifyContent="center" rounded="full" bg="white">
+				<Box p={1} alignItems="center" justifyContent="center" rounded="full" bg="white">
 					{icon}
 				</Box>
-				<Text flex={1} color="white" ml={4}>Continuar com {optionName}</Text>
+				<Text flex={1} color="white" ml={6}>Continuar com {optionName}</Text>
 			</Box>
 		</Link>
 	)
