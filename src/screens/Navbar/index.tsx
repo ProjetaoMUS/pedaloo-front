@@ -36,7 +36,7 @@ export function Navbar() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarLabel: () => null,
-
+        headerShown: false
       })}
 
       tabBarOptions={{
