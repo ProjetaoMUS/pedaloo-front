@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Center, Box, Text, Pressable, VStack, HStack, Button } from 'native-base';
+import { Center, Box, Text, Pressable, VStack, HStack, Button, Avatar, Image } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const avatarFallback = require('../../../assets/avatar.png');
 
 const ProfileScreenButton = ({ text, icon }) => {
     return (
@@ -9,7 +11,7 @@ const ProfileScreenButton = ({ text, icon }) => {
             <Center p={3} bg="#43F6B1" borderRadius={15}>
                 {icon}
             </Center>
-            <Text flex="1" fontSize={20} pl={5} color="#003714">{text}</Text>
+            <Text flex="1" fontSize={18} pl={5} color="#003714">{text}</Text>
             <Box w={6} h={6} mr={3}>
                 <Ionicons name="chevron-forward-outline" color="#43F6B1" size={24} />
             </Box>
@@ -34,22 +36,29 @@ export function Profile({ navigation }) {
                 <Button variant="link" _text={{ fontSize: 14, color: "#003714" }}>Edit Profile</Button>
             </HStack>
             
-            <Box h="20%">
-                <Text fontSize={26} bold>Picture and name/email</Text>
-            </Box>
+            <HStack h="22%" w="100%" px={7} alignItems="center" space={4}>
+                <Avatar size="lg" p="1" bg="#EEFC79">
+                    <Image source={avatarFallback} resizeMode="contain" alt="Avatar Fallback" />
+                </Avatar>
+
+                <VStack>
+                    <Text fontSize={18} color="#003714" bold>Clodoaldo Ernanes</Text>
+                    <Text fontSize={14} color="#003714">clodsernandes@gmail.com</Text>
+                </VStack>
+            </HStack>
 
             <VStack bg="white" w="100%" flex="1" alignItems="center" space={4} pt={7} borderTopRadius={60}>
                 <ProfileScreenButton text="My Account"
-                    icon={<Ionicons name="person" color="white" size={23} />} />
+                    icon={<Ionicons name="person" color="white" size={21} />} />
 
                 <ProfileScreenButton text="Configurations"
-                    icon={<Ionicons name="settings" color="white" size={23} />} />
+                    icon={<Ionicons name="settings" color="white" size={21} />} />
 
                 <ProfileScreenButton text="Help"
-                    icon={<Ionicons name="help-circle" color="white" size={23} />} />
+                    icon={<Ionicons name="help-circle" color="white" size={21} />} />
 
                 <ProfileScreenButton text="Contact"
-                    icon={<Ionicons name="call" color="white" size={23} />} />
+                    icon={<Ionicons name="call" color="white" size={21} />} />
             </VStack>
         </LinearGradient>
     );
