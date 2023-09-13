@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Center, Box, Text, Pressable, VStack } from 'native-base';
+import { Center, Box, Text, Pressable, VStack, HStack, Button } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -29,9 +29,10 @@ export function Profile({ navigation }) {
                 justifyContent: "center"
             }}
         >
-            <Box h="10%">
-                <Text fontSize={26}>Profile Buttons</Text>
-            </Box>
+            <HStack h="10%" space="35%">
+                <Button variant="link" _text={{ fontSize: 14, color: "#003714" }}>My Profile</Button>
+                <Button variant="link" _text={{ fontSize: 14, color: "#003714" }}>Edit Profile</Button>
+            </HStack>
             
             <Box h="20%">
                 <Text fontSize={26} bold>Picture and name/email</Text>
