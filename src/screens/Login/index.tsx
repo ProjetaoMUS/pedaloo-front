@@ -27,7 +27,7 @@ const LoginOptionButton = ({ optionName, icon, callback }) => {
 				bg="#003714" rounded="full"
 				alignItems="center" flexDirection="row"
 			>
-				<Box size={21} alignItems="center" justifyContent="center">
+				<Box size={21} alignItems="center" justifyContent="center" rounded="full" bg="white">
 					{icon}
 				</Box>
 				<Text flex={1} color="white" ml={4}>Continuar com {optionName}</Text>
@@ -45,12 +45,12 @@ const LoginForm = ({ onLogin })  => {
 	return (
 		<Box w="100%" px="10" alignItems="center">
 			<FormControl>
-				<FormControl.Label>e-mail</FormControl.Label>
+				<FormControl.Label _text={{ color: "#003714" }}>e-mail</FormControl.Label>
 				<Input type="email" value={email} onChangeText={setEmail} />
 			</FormControl>
 
 			<FormControl mb="12">
-				<FormControl.Label>senha</FormControl.Label>
+				<FormControl.Label _text={{ color: "#003714" }}>senha</FormControl.Label>
 				<Input
 					type={showPassword ? "text" : "password"}
 					value={password}
@@ -70,11 +70,11 @@ const LoginForm = ({ onLogin })  => {
 
 			<Button
 				px="10"
-				bg="#D9D9D9"
-				_text={{ color: "black" }}
+				bg="#003714"
+				_text={{ color: "white" }}
 				_pressed={{
-					bg: "#BEBBBB",
-					_text: { color: "muted.700" }
+					bg: "#004d1c",
+					_text: { color: "muted.200" }
 				}}
 				onPress={() => performLogin(email, password) && onLogin()}
 			>
@@ -95,16 +95,16 @@ export function Login({ onLogin }) {
 
 			<VStack space={3} w="70%">
 				<LoginOptionButton optionName="Apple"
-					icon={<Ionicons name="logo-apple" color="white" size={16} />} />
+					icon={<Ionicons name="logo-apple" color="#003714" size={16} />} />
 
 				<LoginOptionButton optionName="Google"
-					icon={<Ionicons name="logo-facebook" color="white" size={16} />} />
+					icon={<Ionicons name="logo-facebook" color="#003714" size={16} />} />
 
 				<LoginOptionButton optionName="Facebook"
-					icon={<Ionicons name="logo-google" color="white" size={16} />} />
+					icon={<Ionicons name="logo-google" color="#003714" size={16} />} />
 
 				<LoginOptionButton optionName="e-mail"
-					icon={<Ionicons name="mail-outline" color="white" size={16} />}
+					icon={<Ionicons name="mail-outline" color="#003714" size={16} />}
 					callback={() => { setInLoginForm(true) }} />
 			</VStack>
 		</Box>
@@ -119,7 +119,7 @@ export function Login({ onLogin }) {
 					left="2"
 					onPress={() => setInLoginForm(!inLoginForm)}
 					borderRadius="full"
-					icon={<Ionicons name="arrow-back-circle-outline" color="gray" size={35} />}
+					icon={<Ionicons name="arrow-back-circle-outline" color="#003714" size={35} />}
 				/>
 			}
 
