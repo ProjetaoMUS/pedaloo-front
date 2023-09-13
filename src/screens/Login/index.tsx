@@ -104,7 +104,7 @@ export function Login({ onLogin }) {
 					icon={<Ionicons name="logo-google" color="#003714" size={16} />} />
 
 				<LoginOptionButton optionName="e-mail"
-					icon={<Ionicons name="mail-outline" color="#003714" size={16} />}
+					icon={<Ionicons name="mail" color="#003714" size={16} />}
 					callback={() => { setInLoginForm(true) }} />
 			</VStack>
 		</Box>
