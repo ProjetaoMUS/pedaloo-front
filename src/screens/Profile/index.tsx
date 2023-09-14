@@ -11,6 +11,7 @@ import { Contact } from '../Contact';
 import { Help } from '../Help';
 import { Settings } from '../Settings';
 
+import { ProfileProvider, useProfile } from '../../contexts/profile';
 import { getUserData } from '../../api/user-data';
 
 const MOCK_USER_ID = 2
@@ -33,8 +34,10 @@ const ProfileScreenButton = ({ text, icon, onPress }) => {
 }
 
 const ProfileHome = ({ navigation }) => {
-    const [name, setName] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
+    const {
+        name, setName,
+        email, setEmail
+    } = useProfile();
 
     useEffect(() => {
         (async () => {
@@ -100,17 +103,19 @@ const ProfileHome = ({ navigation }) => {
 
 export function Profile({ navigation }) {
     return (
-        <NavigationContainer independent={true}>
-            <Stack.Navigator
-                initialRouteName="ProfileHome"
-            >
-                <Stack.Screen name="ProfileHome" component={ProfileHome} options={{ headerShown: false }}/>
-                <Stack.Screen name="My Account" component={Account} options={{ headerShown: false }} />
-                <Stack.Screen name="Settings" component={Settings} />
-                <Stack.Screen name="Help" component={Help} />
-                <Stack.Screen name="Contact" component={Contact} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <ProfileProvider>
+            <NavigationContainer independent={true}>
+                <Stack.Navigator
+                    initialRouteName="ProfileHome"
+                >
+                    <Stack.Screen name="ProfileHome" component={ProfileHome} options={{ headerShown: false }}/>
+                    <Stack.Screen name="My Account" component={Account} options={{ headerShown: false }} />
+                    <Stack.Screen name="Settings" component={Settings} />
+                    <Stack.Screen name="Help" component={Help} />
+                    <Stack.Screen name="Contact" component={Contact} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </ProfileProvider>
     );
 }
 
