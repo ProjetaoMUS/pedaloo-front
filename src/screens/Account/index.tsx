@@ -24,6 +24,8 @@ export function Account({ navigation }) {
     	setEmail(iEmail);
 
     	// TODO: Update user data in server
+
+    	navigation.navigate('ProfileHome');
     }
 
     useEffect(() => {
