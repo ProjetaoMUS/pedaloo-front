@@ -1,6 +1,6 @@
-import { Text, View, FlatList } from 'react-native';
+import { Text, View,  } from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
-import { Pressable, Box, Image } from 'native-base';
+import { Pressable, Box, Image, FlatList, Divider } from 'native-base';
 import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 
@@ -63,21 +63,26 @@ export function ParkingPlaces() {
   const [seeReservation, setSeeReservation] = useState(false);
   
   const renderItem = (userLocation: number[]) => ({ item }: { item: ParkingPlace } ) => (
-    <View style={styles.item}>
-      <Pressable onPress={() => { setSeeReservation(true) } }>
-        <Box w="100%" h={150} bg="gray.400" overflow="hidden">
+    <Pressable
+      w="90%" mx="auto"
+      borderRadius={20}
+      onPress={() => { setSeeReservation(true) } }
+    >
+        <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
           <Image source={{ uri: item.images }} alt="Imagem do local" w="100%" h="100%" />
         </Box>
-        <Text style={styles.name}>{item.name}</Text>
-        {/*<View style={{flexDirection: 'row'}}>
-          <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
-          <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
-        </View>*/}
-        <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
-        <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
-        <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
-      </Pressable>  
-  </View>
+
+        <Box px={2} pb={2}>
+          <Text style={styles.name}>{item.name}</Text>
+          {/*<View style={{flexDirection: 'row'}}>
+            <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
+            <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
+          </View>*/}
+          <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
+          <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
+          <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
+        </Box>
+  </Pressable>
   );
 
   if (seeReservation)
@@ -95,6 +100,7 @@ export function ParkingPlaces() {
         data={parkingPlaceData}
         renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
+        ItemSeparatorComponent={ <Divider my={4} w="80%" mx="auto"></Divider> }
       />
    </View>
    );
