@@ -1,6 +1,6 @@
-import { Text, View, FlatList, Image} from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
-import { Pressable } from 'native-base';
+import { Pressable, Box, Image } from 'native-base';
 import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 
@@ -65,7 +65,9 @@ export function ParkingPlaces() {
   const renderItem = (userLocation: number[]) => ({ item }: { item: ParkingPlace } ) => (
     <View style={styles.item}>
       <Pressable onPress={() => { setSeeReservation(true) } }>
-        {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
+        <Box w="100%" h={150} bg="gray.400" overflow="hidden">
+          <Image source={{ uri: item.images }} alt="Imagem do local" w="100%" h="100%" />
+        </Box>
         <Text style={styles.name}>{item.name}</Text>
         {/*<View style={{flexDirection: 'row'}}>
           <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
