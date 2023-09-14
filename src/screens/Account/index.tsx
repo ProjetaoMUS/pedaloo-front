@@ -2,7 +2,7 @@ import { Box, Center, Text, IconButton, Image, Avatar, Button, Input, VStack, Fo
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useProfile } from '../../contexts/profile';
 
 const avatarFallback = require('../../../assets/avatar.png');
@@ -17,12 +17,22 @@ export function Account({ navigation }) {
     const [iName, setIName] = useState(name);
     const [iEmail, setIEmail] = useState(email);
 
+    const [enableBtn, setEnableBtn] = useState(false);
+
     const saveChanges = () => {
     	setName(iName);
     	setEmail(iEmail);
 
     	// TODO: Update user data in server
     }
+
+    useEffect(() => {
+    	setEnableBtn(
+    		name  !== iName ||
+    		email !== iEmail
+		);
+
+    }, [iName, iEmail]);
 
 	return (
         <LinearGradient
@@ -107,6 +117,7 @@ export function Account({ navigation }) {
 						_text: { color: "#6863cf" }
 					}}
 					onPress={saveChanges}
+					isDisabled={!enableBtn}
 				>
 					Save
 				</Button>
