@@ -17,6 +17,7 @@ interface ParkingPlace {
   latitude: number;
   longitude: number;
 }
+
 //Error fetching parking places: Axios Error: Network Error
 export function ParkingPlaces() {
   const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
@@ -96,8 +97,8 @@ export function ParkingPlaces() {
   const userLongitude = -34.871139;
     
   return (
-    <Box style={{paddingBottom:130}}>
-      <Box style={{paddingVertical:30}}>
+    <Box flex={1}>
+      <Box>
         <Search/>
       </Box>
       <FlatList
@@ -105,6 +106,9 @@ export function ParkingPlaces() {
         renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
         ItemSeparatorComponent={ <Divider my={4} w="80%" mx="auto"></Divider> }
+        style={{
+          marginBottom: 10
+        }}
       />
    </Box>
    );
