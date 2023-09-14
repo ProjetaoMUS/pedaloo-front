@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { styles } from './styles';
 import { Search } from '../Search'
 
 interface ParkingPlace {
