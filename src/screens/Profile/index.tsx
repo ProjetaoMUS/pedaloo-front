@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { Center, Box, Text, Pressable, VStack, HStack, Button, Avatar, Image } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -10,6 +10,10 @@ import { Account } from '../Account';
 import { Contact } from '../Contact';
 import { Help } from '../Help';
 import { Settings } from '../Settings';
+
+import { getUserData } from '../../api/user-data';
+
+const MOCK_USER_ID = 2
 
 const avatarFallback = require('../../../assets/avatar.png');
 const Stack = createStackNavigator();
@@ -29,6 +33,19 @@ const ProfileScreenButton = ({ text, icon, onPress }) => {
 }
 
 const ProfileHome = ({ navigation }) => {
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+
+    useEffect(() => {
+        (async () => {
+            const userData = await getUserData(MOCK_USER_ID);
+        
+            setName(userData.first_name);
+            setEmail(userData.email);
+        })();
+
+    }, []);
+
     return (
         <LinearGradient
             colors={['#32FC65', '#43F6B1']}
@@ -51,8 +68,8 @@ const ProfileHome = ({ navigation }) => {
                 </Avatar>
 
                 <VStack>
-                    <Text fontSize={18} color="#003714" bold>Clodoaldo Ernanes</Text>
-                    <Text fontSize={14} color="#003714">clodsernandes@gmail.com</Text>
+                    <Text fontSize={18} color="#003714" bold>{name}</Text>
+                    <Text fontSize={14} color="#003714">{email}</Text>
                 </VStack>
             </HStack>
 
