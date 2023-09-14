@@ -2,6 +2,7 @@ import { getPartnerLocations } from '../../api/partnerLocation'
 import { Pressable, Box, Image, FlatList, Divider, Text } from 'native-base';
 import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { styles } from './styles';
 import { Search } from '../Search'
@@ -73,14 +74,23 @@ export function ParkingPlaces() {
     >
         <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
           <Image source={{ uri: item.images }} alt="Imagem do local" w="100%" h="100%" />
+          <Box
+            position="absolute"
+            bg="muted.200:alpha.40"
+            py={1} px={2}
+            borderBottomRightRadius={10}
+            flexDirection="row"
+            alignItems="center"
+            _text={{
+              fontSize: 12}}
+            >
+            {/* TODO: Read rating from server */}
+            <Ionicons name="star" color="black" /> 4,85
+          </Box>
         </Box>
 
         <Box px={2} py={3}>
           <Text fontSize="lg" bold>{item.name}</Text>
-          {/*<View style={{flexDirection: 'row'}}>
-            <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
-            <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
-          </View>*/}
           <Text color="muted.500">{calculateDistance(userLocation, [item.latitude, item.longitude])}m do endereço</Text>
           <Text>R${item.price} por hora</Text>
           <Text color={
