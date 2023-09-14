@@ -98,7 +98,7 @@ export function ParkingPlaces() {
     
   return (
     <Box flex={1}>
-      <Box>
+      <Box px={5} py={2}>
         <Search/>
       </Box>
       <FlatList
