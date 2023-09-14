@@ -65,21 +65,26 @@ export function ParkingPlaces() {
     <Pressable
       w="90%" mx="auto"
       borderRadius={20}
+      borderWidth={1}
+      borderColor="muted.200"
+      shadow={3}
       onPress={() => { setSeeReservation(true) } }
     >
         <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
           <Image source={{ uri: item.images }} alt="Imagem do local" w="100%" h="100%" />
         </Box>
 
-        <Box px={2} pb={2}>
-          <Text style={styles.name}>{item.name}</Text>
+        <Box px={2} py={3}>
+          <Text fontSize="lg" bold>{item.name}</Text>
           {/*<View style={{flexDirection: 'row'}}>
             <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
             <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
           </View>*/}
-          <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
-          <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
-          <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
+          <Text color="muted.500">{calculateDistance(userLocation, [item.latitude, item.longitude])}m do endereço</Text>
+          <Text>R${item.price} por hora</Text>
+          <Text color={
+           item.parking_spaces_count < 5 ? "red.600"  : "black"
+          }>{item.parking_spaces_count} vagas restantes</Text>
         </Box>
   </Pressable>
   );
