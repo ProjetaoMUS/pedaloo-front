@@ -1,6 +1,5 @@
-import { Text, View,  } from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
-import { Pressable, Box, Image, FlatList, Divider } from 'native-base';
+import { Pressable, Box, Image, FlatList, Divider, Text } from 'native-base';
 import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 
@@ -92,16 +91,16 @@ export function ParkingPlaces() {
   const userLongitude = -34.871139;
     
   return (
-    <View style={{paddingBottom:130}}>
-      <View style={{paddingVertical:30}}>
+    <Box style={{paddingBottom:130}}>
+      <Box style={{paddingVertical:30}}>
         <Search/>
-      </View>
+      </Box>
       <FlatList
         data={parkingPlaceData}
         renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
         ItemSeparatorComponent={ <Divider my={4} w="80%" mx="auto"></Divider> }
       />
-   </View>
+   </Box>
    );
 };
