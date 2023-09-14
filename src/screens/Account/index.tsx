@@ -2,10 +2,28 @@ import { Box, Center, Text, IconButton, Image, Avatar, Button, Input, VStack, Fo
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { useState } from 'react';
+import { useProfile } from '../../contexts/profile';
+
 const avatarFallback = require('../../../assets/avatar.png');
 const cameraIcon = require('../../../assets/camera-icon.png');
 
 export function Account({ navigation }) {
+    const {
+        name, setName,
+        email, setEmail
+    } = useProfile();
+
+    const [iName, setIName] = useState(name);
+    const [iEmail, setIEmail] = useState(email);
+
+    const saveChanges = () => {
+    	setName(iName);
+    	setEmail(iEmail);
+
+    	// TODO: Update user data in server
+    }
+
 	return (
         <LinearGradient
             colors={['#32FC65', '#43F6B1']}
@@ -38,7 +56,13 @@ export function Account({ navigation }) {
 					}}>
 						Name
 					</FormControl.Label>
-					<Input type="name" variant="unstyled" value="Donye Collins" px={0} />
+					<Input
+						type="text"
+						variant="unstyled"
+						value={iName}
+						onChangeText={setIName}
+						px={0}
+					/>
 				</FormControl>
 
 				<FormControl bg="white" borderRadius={20} py={2} px={4}>
@@ -48,7 +72,13 @@ export function Account({ navigation }) {
 					}}>
 						Email
 					</FormControl.Label>
-					<Input type="name" variant="unstyled" value="Louis04real@gmail.com" px={0} />
+					<Input
+						type="email"
+						variant="unstyled"
+						value={iEmail}
+						onChangeText={setIEmail}
+						px={0}
+					/>
 				</FormControl>
 
 				<FormControl bg="white" borderRadius={20} py={2} px={4}>
@@ -56,7 +86,7 @@ export function Account({ navigation }) {
 						color: "#8F94A3",
 						fontSize: 12
 					}}>
-						PhoneNumber
+						Phone Number
 					</FormControl.Label>
 					<Input type="name" variant="unstyled" value="+23408146185683" px={0} />
 				</FormControl>
@@ -76,6 +106,7 @@ export function Account({ navigation }) {
 						bg: "#e6e6ff",
 						_text: { color: "#6863cf" }
 					}}
+					onPress={saveChanges}
 				>
 					Save
 				</Button>
