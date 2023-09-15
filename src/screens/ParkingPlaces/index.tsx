@@ -1,11 +1,9 @@
-import { Text, View, FlatList, Image} from 'react-native';
 import { getPartnerLocations } from '../../api/partnerLocation'
-import { Pressable, Box, IconButton } from 'native-base';
+import { Pressable, Box, Image, IconButton, FlatList, Divider, Text } from 'native-base';
 import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { styles } from './styles';
 import { Search } from '../Search'
 
 interface ParkingPlace {
@@ -19,6 +17,7 @@ interface ParkingPlace {
   latitude: number;
   longitude: number;
 }
+
 //Error fetching parking places: Axios Error: Network Error
 export function ParkingPlaces() {
   const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
@@ -64,19 +63,40 @@ export function ParkingPlaces() {
   const [seeReservation, setSeeReservation] = useState(false);
   
   const renderItem = (userLocation: number[]) => ({ item }: { item: ParkingPlace } ) => (
-    <View style={styles.item}>
-      <Pressable onPress={() => { setSeeReservation(true) } }>
-        {<Image source={{uri: 'https://picsum.photos/300/100', width:300, height: 100}}/>}
-        <Text style={styles.name}>{item.name}</Text>
-        {/*<View style={{flexDirection: 'row'}}>
-          <Text style={styles.rating}>Avaliação: {item.rating.toFixed(2)}/5  </Text>
-          <Text style={styles.ratingStars}>{'\u2B50'.repeat(item.rating | 0) + '\u2606'.repeat((6 - item.rating) | 0)}</Text>
-        </View>*/}
-        <Text style={styles.distance}>Distância: {calculateDistance(userLocation, [item.latitude, item.longitude])} metros</Text>
-        <Text style={styles.cost}>Custo por hora: R${item.price}</Text>
-        <Text style={item.parking_spaces_count < 5 ? styles.parkingSpacesCritical : styles.parkingSpaces}>Vagas restantes: {item.parking_spaces_count}</Text>
-      </Pressable>  
-  </View>
+    <Pressable
+      w="90%" mx="auto"
+      borderRadius={20}
+      borderWidth={1}
+      borderColor="muted.200"
+      shadow={3}
+      onPress={() => { setSeeReservation(true) } }
+    >
+        <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
+          <Image source={{ uri: item.images }} alt="Imagem do local" w="100%" h="100%" />
+          <Box
+            position="absolute"
+            bg="muted.200:alpha.40"
+            py={1} px={2}
+            borderBottomRightRadius={10}
+            flexDirection="row"
+            alignItems="center"
+            _text={{
+              fontSize: 12}}
+            >
+            {/* TODO: Read rating from server */}
+            <Ionicons name="star" color="black" /> 4,85
+          </Box>
+        </Box>
+
+        <Box px={2} py={3}>
+          <Text fontSize="lg" bold>{item.name}</Text>
+          <Text color="muted.500">{calculateDistance(userLocation, [item.latitude, item.longitude])}m do endereço</Text>
+          <Text>R${item.price} por hora</Text>
+          <Text color={
+           item.parking_spaces_count < 5 ? "red.600"  : "black"
+          }>{item.parking_spaces_count} vagas restantes</Text>
+        </Box>
+  </Pressable>
   );
 
   if (seeReservation)
@@ -98,15 +118,19 @@ export function ParkingPlaces() {
   const userLongitude = -34.871139;
     
   return (
-    <View style={{paddingBottom:130}}>
-      <View style={{paddingVertical:30}}>
+    <Box flex={1}>
+      <Box px={5} py={2}>
         <Search/>
-      </View>
+      </Box>
       <FlatList
         data={parkingPlaceData}
         renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
+        ItemSeparatorComponent={ <Divider my={4} w="80%" mx="auto"></Divider> }
+        style={{
+          marginBottom: 10
+        }}
       />
-   </View>
+   </Box>
    );
 };
