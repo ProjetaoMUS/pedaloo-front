@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native'
-import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image, Divider, HStack } from 'native-base';
+import {
+  View,
+  Text,
+  Spinner,
+  Button,
+  ScrollView,
+  Box,
+  Center,
+  FlatList,
+  Image,
+  Divider,
+  HStack,
+  Skeleton
+} from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -10,6 +23,7 @@ export function ReservationScreen({navigation}) {
   const [dailyRate, setDailyRate] = useState('');
   const [guests, setGuests] = useState('1');
   const [isLoading, setIsLoading] = useState(false);
+  const [imgIsLoading, setImgIsLoading] = useState(true);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
 
   const handleGuestsChange = (text) => {
@@ -63,7 +77,10 @@ export function ReservationScreen({navigation}) {
           pagingEnabled
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-               <Image source={{uri:item.image}} w={screenWidth} />
+            <>
+              {imgIsLoading && <Skeleton w={screenWidth} h="100%" />}
+              <Image source={{uri:item.image}} w={screenWidth} alt="Imagem do local" onLoad={() => setImgIsLoading(false)} />
+            </>
           )}
           onMomentumScrollEnd={(e) => {
             const contentOffsetX = e.nativeEvent.contentOffset.x;
