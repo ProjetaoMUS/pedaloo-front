@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { performLogin } from '../../api/auth';
+import { useFeedback } from '../../contexts/feedback';
 
 const logo = require('../../../assets/green-logo.png');
 
@@ -32,6 +33,18 @@ export function LoginForm({ navigation, onLogin }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
+	const { sendFeedback } = useFeedback();
+
+	const handleLogin = async () => {
+		const loggedIn = await performLogin(email, password);
+
+		if (loggedIn) {
+			sendFeedback('success', 'Login realizado com sucesso!');
+			onLogin();
+		} else {
+			sendFeedback('error', 'Verifique suas credenciais e tente novamente.')
+		}
+	}
 
 	return (
 		<Box flex={1} bg="white" alignItems="center">
@@ -59,13 +72,13 @@ export function LoginForm({ navigation, onLogin }) {
 
 				<Button
 					px="10"
-				bg="#003714"
-				_text={{ color: "white" }}
-				_pressed={{
-					bg: "#004d1c",
-					_text: { color: "muted.200" }
-				}}
-					onPress={() => performLogin(email, password) && onLogin()}
+					bg="#003714"
+					_text={{ color: "white" }}
+					_pressed={{
+						bg: "#004d1c",
+						_text: { color: "muted.200" }
+					}}
+					onPress={handleLogin}
 				>
 					Entrar
 				</Button>
