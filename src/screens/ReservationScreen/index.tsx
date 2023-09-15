@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { Dimensions } from 'react-native'
 import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image, Divider, HStack } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const screenWidth = Dimensions.get('window').width
 
 export function ReservationScreen({navigation}) {
   const [dailyRate, setDailyRate] = useState('');
@@ -53,27 +56,14 @@ export function ReservationScreen({navigation}) {
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <Center>
+      <Center h={250} mb={2}>
         <FlatList
           data={carouselContent}
           horizontal
           pagingEnabled
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <View
-              style={{
-                width: 300,
-                height: 200,
-                padding: 16,
-                borderRadius: 8,
-                marginLeft: 16,
-              }}
-            >
-               <Image
-                source={{uri:item.image}}
-                style={{ width: '100%', height: '100%', borderRadius: 8 }}
-              />
-            </View>
+               <Image source={{uri:item.image}} w={screenWidth} />
           )}
           onMomentumScrollEnd={(e) => {
             const contentOffsetX = e.nativeEvent.contentOffset.x;
