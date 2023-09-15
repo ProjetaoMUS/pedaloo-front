@@ -17,13 +17,28 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const screenWidth = Dimensions.get('window').width
+const CarouselImage = ({ source }) => {
+  const screenWidth = Dimensions.get('window').width
+  const [imgIsLoading, setImgIsLoading] = useState(true);
+
+  return (
+    <>
+      {imgIsLoading && <Skeleton w={screenWidth} h="100%" />}
+      <Image
+        source={{uri:source}}
+        w={screenWidth}
+        alt="Imagem do local"
+        onLoad={() => setImgIsLoading(false)}
+        fallbackElement={<Skeleton w={screenWidth} h="100%" />}
+      />
+    </>
+  );
+}
 
 export function ReservationScreen({navigation}) {
   const [dailyRate, setDailyRate] = useState('');
   const [guests, setGuests] = useState('1');
   const [isLoading, setIsLoading] = useState(false);
-  const [imgIsLoading, setImgIsLoading] = useState(true);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
 
   const handleGuestsChange = (text) => {
@@ -77,16 +92,7 @@ export function ReservationScreen({navigation}) {
           pagingEnabled
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <>
-              {imgIsLoading && <Skeleton w={screenWidth} h="100%" />}
-              <Image
-                source={{uri:item.image}}
-                w={screenWidth}
-                alt="Imagem do local"
-                onLoad={() => setImgIsLoading(false)}
-                fallbackElement={<Skeleton w={screenWidth} h="100%" />}
-              />
-            </>
+            <CarouselImage source={item.image} />
           )}
           onMomentumScrollEnd={(e) => {
             const contentOffsetX = e.nativeEvent.contentOffset.x;
