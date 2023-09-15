@@ -39,8 +39,8 @@ export function LoginForm({ navigation, onLogin }) {
 				position="absolute"
 				top="5"
 				left="2"
-				onPress={() => console.log("Pressed!")}
 				borderRadius="full"
+				onPress={() => navigation.navigate("Options")}
 				icon={<Ionicons name="arrow-back-circle-outline" color="gray" size={35} />}
 			/>
 

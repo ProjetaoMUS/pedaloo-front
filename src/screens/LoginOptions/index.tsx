@@ -20,7 +20,7 @@ const LoginOptionButton = ({ optionName, icon, callback }) => {
 	)
 };
 
-export function LoginOptions() {
+export function LoginOptions({ navigation }) {
 	return (
 		<Box flex={1} bg="white" alignItems="center">
 			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo" mt={12} />
@@ -40,7 +40,9 @@ export function LoginOptions() {
 						icon={<Ionicons name="logo-google" color="white" size={16} />} />
 
 					<LoginOptionButton optionName="e-mail"
-						icon={<Ionicons name="mail-outline" color="white" size={16} />} />
+						icon={<Ionicons name="mail-outline" color="white" size={16} />}
+						callback={() => navigation.navigate("Form")}
+					/>
 				</VStack>
 			</Box>
 		</Box>
