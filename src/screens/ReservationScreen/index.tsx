@@ -12,7 +12,8 @@ import {
   Image,
   Divider,
   HStack,
-  Skeleton
+  Skeleton,
+  IconButton
 } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -35,7 +36,7 @@ const CarouselImage = ({ source }) => {
   );
 }
 
-export function ReservationScreen({navigation}) {
+export function ReservationScreen({ navigation }) {
   const [dailyRate, setDailyRate] = useState('');
   const [guests, setGuests] = useState('1');
   const [isLoading, setIsLoading] = useState(false);
@@ -188,11 +189,21 @@ export function ReservationScreen({navigation}) {
         </View>
       </Box>
 
-        {isLoading && (
-          <Center>
-            <Spinner />
-          </Center>
-        )}
+      {isLoading && (
+        <Center>
+          <Spinner />
+        </Center>
+      )}
+
+
+      <IconButton
+        position="absolute"
+        top="0"
+        right="0"
+        borderRadius="full"
+        onPress={() => navigation.navigate("Parking Places")}
+        icon={<Ionicons name="close-circle-outline" color="#D9D9D9" size={35} />}
+      />
     </ScrollView>
   );
 }
