@@ -79,7 +79,13 @@ export function ReservationScreen({navigation}) {
           renderItem={({ item }) => (
             <>
               {imgIsLoading && <Skeleton w={screenWidth} h="100%" />}
-              <Image source={{uri:item.image}} w={screenWidth} alt="Imagem do local" onLoad={() => setImgIsLoading(false)} />
+              <Image
+                source={{uri:item.image}}
+                w={screenWidth}
+                alt="Imagem do local"
+                onLoad={() => setImgIsLoading(false)}
+                fallbackElement={<Skeleton w={screenWidth} h="100%" />}
+              />
             </>
           )}
           onMomentumScrollEnd={(e) => {
