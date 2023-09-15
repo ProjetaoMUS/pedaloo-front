@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image } from 'native-base';
+import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image, Divider } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
 
 export function ReservationScreen({navigation}) {
@@ -52,107 +52,108 @@ export function ReservationScreen({navigation}) {
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <FlatList
-            data={carouselContent}
-            horizontal
-            pagingEnabled
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  width: 300,
-                  height: 200,
-                  padding: 16,
-                  borderRadius: 8,
-                  marginBottom: 24,
-                  marginLeft: 16,
-                }}
-              >
-                 <Image
-                  source={{uri:item.image}}
-                  style={{ width: '100%', height: '100%', borderRadius: 8 }}
-                />
-              </View>
-            )}
-            onMomentumScrollEnd={(e) => {
-              const contentOffsetX = e.nativeEvent.contentOffset.x;
-              const currentIndex = Math.floor(contentOffsetX / 300);
-              setCurrentContentIndex(currentIndex);
-            }}
-          />
-        </View>
-
-        <View
-          style={{
-            marginLeft: 16,
-            marginRight: 16,
-            marginBottom: 24,
-          }}
-        >
-          <Text style={{ fontSize: 24, color: 'black', paddingTop:2 }}>Sorveteria Gelada</Text>
-          <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>Pernambuco, Brasil</Text>
-
-          {/* Seção "Sobre o Local" */}
-          <View>
-            <Text style={{ fontSize: 24, color: 'black', marginBottom: 5, marginTop: 16,paddingTop:2 }}>Sobre o Local</Text>
-            <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>
-              Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
-            </Text>
-          </View>
-
-          <MapView
-            style={{ height: 200, marginBottom: 24 }} // Mais espaço abaixo do mapa
-            initialRegion={{
-              latitude: latitudeDaLocacao,
-              longitude: longitudeDaLocacao,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          >
-            <Marker
-              coordinate={{
-                latitude: latitudeDaLocacao,
-                longitude: longitudeDaLocacao,
-              }}
-              title="Localização da Locação"
-            />
-          </MapView>
-
-          <Box padding={4} marginBottom={4}>
+      <Center>
+        <FlatList
+          data={carouselContent}
+          horizontal
+          pagingEnabled
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                width: 300,
+                height: 200,
+                padding: 16,
+                borderRadius: 8,
+                marginLeft: 16,
               }}
             >
-              <Box>
-                <Text style={{ fontSize: 24, color: 'black', paddingTop:2 }}>R$ 5,00</Text>
-                <Text style={{ fontSize: 16, color: 'black' }}>Aberto todos os dias</Text>
-              </Box>
-              <Button
-                colorScheme="dark"
-                color="gray"
-                borderRadius={16}
-                height={44}
-                width={120}
-                backgroundColor="gray.700"
-                onPress={handleReservationSubmit}
-              >
-                Reservar
-              </Button>
+               <Image
+                source={{uri:item.image}}
+                style={{ width: '100%', height: '100%', borderRadius: 8 }}
+              />
             </View>
-          </Box>
-
-          {isLoading && (
-            <Center>
-              <Spinner />
-            </Center>
           )}
+          onMomentumScrollEnd={(e) => {
+            const contentOffsetX = e.nativeEvent.contentOffset.x;
+            const currentIndex = Math.floor(contentOffsetX / 300);
+            setCurrentContentIndex(currentIndex);
+          }}
+        />
+      </Center>
+
+      <Box px={6} py={2}>
+        <Text fontSize="lg">Sorveteria Gelada</Text>
+        <Text fontSize="sm" color="muted.400">Pernambuco, Brasil</Text>
+      </Box>
+
+      <Divider w="91%" mx="auto" />
+
+      <Box px={8} py={3} mb={6}>
+        <Text fontSize="xl" pt={1} mb={2}>Sobre o Local</Text>
+        <Text fontSize="sm" color="muted.400">
+          Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
+        </Text>
+      </Box>
+
+      <Divider w="91%" mx="auto" />
+
+      <Box px={8} mb={20}>
+        <Text fontSize="xl" py={5}>Localização</Text>
+        <MapView
+          style={{ height: 200, borderRadius: 17 }}
+          initialRegion={{
+            latitude: latitudeDaLocacao,
+            longitude: longitudeDaLocacao,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: latitudeDaLocacao,
+              longitude: longitudeDaLocacao,
+            }}
+            title="Localização da Locação"
+          />
+        </MapView>
+      </Box>
+
+      <Box py={4} px={7} bg="muted.300">
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box>
+            <Text fontSize="2xl" mb={-2}>
+              R$ 5,00 <Text sub>por bicicleta</Text>
+            </Text>
+            <Text fontSize="md">Aberto todos os dias</Text>
+          </Box>
+          <Button
+            borderRadius={16}
+            height="90%"
+            width="40%"
+            onPress={handleReservationSubmit}
+            bg="black"
+            _pressed={{
+              bg: "gray.800",
+              _text: { color: "muted.100" }
+            }}
+          >
+            Reservar
+          </Button>
         </View>
-      </View>
+      </Box>
+
+        {isLoading && (
+          <Center>
+            <Spinner />
+          </Center>
+        )}
     </ScrollView>
   );
 }
