@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { Search } from '../Search'
 
 interface ParkingPlace {
@@ -18,8 +21,9 @@ interface ParkingPlace {
   longitude: number;
 }
 
-//Error fetching parking places: Axios Error: Network Error
-export function ParkingPlaces() {
+const Stack = createNativeStackNavigator();
+
+const ParkingPlacesList = ({ navigation }) => {
   const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
   
   useEffect(() => {
@@ -60,8 +64,6 @@ export function ParkingPlaces() {
     return distance | 0;
   }
 
-  const [seeReservation, setSeeReservation] = useState(false);
-  
   const renderItem = (userLocation: number[]) => ({ item }: { item: ParkingPlace } ) => (
     <Pressable
       w="90%" mx="auto"
@@ -69,50 +71,35 @@ export function ParkingPlaces() {
       borderWidth={1}
       borderColor="muted.200"
       shadow={3}
-      onPress={() => { setSeeReservation(true) } }
+      onPress={() => { navigation.navigate("Reservation") } }
     >
-        <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
-          <Image source={{ uri: item.images }} alt="Imagem do local" w="100%" h="100%" />
-          <Box
-            position="absolute"
-            bg="muted.200:alpha.40"
-            py={1} px={2}
-            borderBottomRightRadius={10}
-            flexDirection="row"
-            alignItems="center"
-            _text={{
-              fontSize: 12}}
-            >
-            {/* TODO: Read rating from server */}
-            <Ionicons name="star" color="black" /> 4,85
-          </Box>
-        </Box>
-
-        <Box px={2} py={3}>
-          <Text fontSize="lg" bold>{item.name}</Text>
-          <Text color="muted.500">{calculateDistance(userLocation, [item.latitude, item.longitude])}m do endereço</Text>
-          <Text>R${item.price} por hora</Text>
-          <Text color={
-           item.parking_spaces_count < 5 ? "red.600"  : "black"
-          }>{item.parking_spaces_count} vagas restantes</Text>
-        </Box>
-  </Pressable>
-  );
-
-  if (seeReservation)
-    return (
-      <Box flex={1}>
-        <ReservationScreen />
-        <IconButton
+      <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
+        <Image source={{ uri: item.images }} alt="Imagem do local" w="100%" h="100%" />
+        <Box
           position="absolute"
-          top="0"
-          left="-3"
-          onPress={() => setSeeReservation(false)}
-          borderRadius="full"
-          icon={<Ionicons name="close-circle-outline" color="gray" size={35} />}
-        />
+          bg="muted.200:alpha.40"
+          py={1} px={2}
+          borderBottomRightRadius={10}
+          flexDirection="row"
+          alignItems="center"
+          _text={{
+            fontSize: 12}}
+          >
+          {/* TODO: Read rating from server */}
+          <Ionicons name="star" color="black" /> 4,85
+        </Box>
       </Box>
-    );
+
+      <Box px={2} py={3}>
+        <Text fontSize="lg" bold>{item.name}</Text>
+        <Text color="muted.500">{calculateDistance(userLocation, [item.latitude, item.longitude])}m do endereço</Text>
+        <Text>R${item.price} por hora</Text>
+        <Text color={
+          item.parking_spaces_count < 5 ? "red.600"  : "black"
+        }>{item.parking_spaces_count} vagas restantes</Text>
+      </Box>
+    </Pressable>
+  );
 
   const userLatitude = -8.063169;
   const userLongitude = -34.871139;
@@ -133,4 +120,22 @@ export function ParkingPlaces() {
       />
    </Box>
    );
+}
+
+export function ParkingPlaces() {
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Parking Places">
+        {(props) => (<ParkingPlacesList {...props} />)}
+        </Stack.Screen>
+
+        <Stack.Screen name="Reservation">
+          {(props) => (
+            <ReservationScreen {...props} />
+          )}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 };
