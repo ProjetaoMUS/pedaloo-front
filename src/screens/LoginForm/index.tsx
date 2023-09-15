@@ -18,8 +18,8 @@ const PasswordInput = ({ value, onChangeText }) => {
 				<Pressable onPress={() => setShowPassword(!showPassword)}>
 					<Box mr="2">
 						{showPassword
-							? <Ionicons name="eye-off-outline" color="gray" size={19} />
-							: <Ionicons name="eye-outline" color="gray" size={19} />
+							? <Ionicons name="eye-off-outline" color="#003714" size={19} />
+							: <Ionicons name="eye-outline" color="#003714" size={19} />
 						}
 					</Box>
 				</Pressable>
@@ -41,7 +41,7 @@ export function LoginForm({ navigation, onLogin }) {
 				left="2"
 				borderRadius="full"
 				onPress={() => navigation.navigate("Options")}
-				icon={<Ionicons name="arrow-back-circle-outline" color="gray" size={35} />}
+				icon={<Ionicons name="arrow-back-circle-outline" color="#003714" size={35} />}
 			/>
 
 			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo" mt={12} />
