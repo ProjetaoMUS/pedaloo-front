@@ -4,9 +4,6 @@ import { useState, useEffect } from 'react';
 import { ReservationScreen } from '../ReservationScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { Search } from '../Search'
 
 interface ParkingPlace {
@@ -20,8 +17,6 @@ interface ParkingPlace {
   latitude: number;
   longitude: number;
 }
-
-const Stack = createNativeStackNavigator();
 
 export function ParkingPlacesList({ navigation }) {
   const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
