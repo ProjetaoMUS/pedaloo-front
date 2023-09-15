@@ -28,7 +28,7 @@ const PasswordInput = ({ value, onChangeText }) => {
 	);
 }
 
-const LoginForm = ({ onLogin })  => {
+export function LoginForm({ navigation, onLogin }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
