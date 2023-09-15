@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image, Divider } from 'native-base';
+import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image, Divider, HStack } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export function ReservationScreen({navigation}) {
   const [dailyRate, setDailyRate] = useState('');
@@ -82,24 +83,38 @@ export function ReservationScreen({navigation}) {
         />
       </Center>
 
-      <Box px={6} py={2}>
-        <Text fontSize="lg">Sorveteria Gelada</Text>
-        <Text fontSize="sm" color="muted.400">Pernambuco, Brasil</Text>
-      </Box>
+      <HStack px={6} py={2}>
+        <Box w="50%">
+          <Text fontSize="lg" bold>Sorveteria Gelada</Text>
+          <Text fontSize="sm" color="muted.500">Pernambuco, Brasil</Text>
+          <Text fontSize="sm" underline>2 comentários</Text>
+        </Box>
+        <Box
+          w="50%"
+          py={1}
+          flexDirection="row" 
+          alignItems="flex-start"
+          justifyContent="flex-end"
+        >
+          <Ionicons name="star" color="black" size={15} />
+          <Text fontSize="xs" ml={1} bold>4,85</Text>
+        </Box>
+      </HStack>
 
       <Divider w="91%" mx="auto" />
 
       <Box px={8} py={3} mb={6}>
-        <Text fontSize="xl" pt={1} mb={2}>Sobre o Local</Text>
-        <Text fontSize="sm" color="muted.400">
+        <Text fontSize="xl" pt={1} mb={2} bold>Sobre o Local</Text>
+        <Text fontSize="sm" color="muted.500">
           Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
         </Text>
       </Box>
 
       <Divider w="91%" mx="auto" />
 
-      <Box px={8} mb={20}>
-        <Text fontSize="xl" py={5}>Localização</Text>
+      <Box px={8} mb={50}>
+        <Text fontSize="xl" py={5} bold>Localização</Text>
+        <Box px={1}>
         <MapView
           style={{ height: 200, borderRadius: 17 }}
           initialRegion={{
@@ -117,6 +132,11 @@ export function ReservationScreen({navigation}) {
             title="Localização da Locação"
           />
         </MapView>
+
+        <Text mt={5}>Av. Fulano, 145, Recife, Pernambuco, Brasil </Text>
+        <Text color="muted.500" my={2}>Lorem ipsum dolor sit amet consectetur. Vel semper elit tellus quisque. Mauris in quis molestie adipiscing ullamcorper suspendisse scelerisque. Nisl faucibus in maecenas purus vitae ut proin pharetra. Ut lectus cursus non eget libero eu. </Text>
+        <Text underline>Saiba mais</Text>
+        </Box>
       </Box>
 
       <Box py={4} px={7} bg="muted.300">
