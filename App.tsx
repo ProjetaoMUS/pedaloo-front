@@ -7,14 +7,19 @@ import { useState } from 'react';
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  if (loggedIn) {
+    return (
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <Navbar />
+      </NavigationContainer>
+    </NativeBaseProvider>
+    )
+  }
+
   return(
     <NativeBaseProvider>
-      { loggedIn
-        ? <NavigationContainer>
-            <Navbar />
-          </NavigationContainer>
-        : <Login onLogin={() => setLoggedIn(true)} />
-      }
+      <Login onLogin={() => setLoggedIn(true)} />
     </NativeBaseProvider>
 
     
