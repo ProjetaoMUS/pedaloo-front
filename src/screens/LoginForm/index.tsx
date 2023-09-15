@@ -54,7 +54,7 @@ export function LoginForm({ navigation, onLogin }) {
 
 				<FormControl mb="12">
 					<FormControl.Label _text={{ color: "#003714" }}>senha</FormControl.Label>
-					<PasswordInput />
+					<PasswordInput value={password} onChangeText={setPassword} />
 				</FormControl>
 
 				<Button
