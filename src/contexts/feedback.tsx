@@ -11,7 +11,7 @@ export function FeedbackProvider({ children }) {
 		setFeedbackMsg(msg);
 		setfeedbackType(type)
 		setShowFeedback(true);
-		setTimeout(() => setShowFeedback(false), 1300);
+		setTimeout(() => setShowFeedback(false), 2000);
 	}
 
 	return (
