@@ -48,23 +48,23 @@ export function LoginForm({ navigation, onLogin }) {
 
 			<Box w="100%" px="10" alignItems="center">
 				<FormControl>
-					<FormControl.Label>e-mail</FormControl.Label>
+					<FormControl.Label _text={{ color: "#003714" }}>e-mail</FormControl.Label>
 					<Input type="email" value={email} onChangeText={setEmail} />
 				</FormControl>
 
 				<FormControl mb="12">
-					<FormControl.Label>senha</FormControl.Label>
+					<FormControl.Label _text={{ color: "#003714" }}>senha</FormControl.Label>
 					<PasswordInput />
 				</FormControl>
 
 				<Button
 					px="10"
-					bg="#D9D9D9"
-					_text={{ color: "black" }}
-					_pressed={{
-						bg: "#BEBBBB",
-						_text: { color: "muted.700" }
-					}}
+				bg="#003714"
+				_text={{ color: "white" }}
+				_pressed={{
+					bg: "#004d1c",
+					_text: { color: "muted.200" }
+				}}
 					onPress={() => performLogin(email, password) && onLogin()}
 				>
 					Entrar

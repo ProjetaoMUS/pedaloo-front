@@ -11,10 +11,10 @@ const LoginOptionButton = ({ optionName, icon, callback }) => {
 				bg="#003714" rounded="full"
 				alignItems="center" flexDirection="row"
 			>
-				<Box size={21} alignItems="center" justifyContent="center">
+				<Box p={1} alignItems="center" justifyContent="center" rounded="full" bg="white">
 					{icon}
 				</Box>
-				<Text flex={1} color="white" ml={4}>Continuar com {optionName}</Text>
+				<Text flex={1} color="white" ml={6}>Continuar com {optionName}</Text>
 			</Box>
 		</Link>
 	)
@@ -31,16 +31,16 @@ export function LoginOptions({ navigation }) {
 
 				<VStack space={3} w="70%">
 					<LoginOptionButton optionName="Apple"
-						icon={<Ionicons name="logo-apple" color="white" size={16} />} />
+						icon={<Ionicons name="logo-apple" color="#003714" size={16} />} />
 
 					<LoginOptionButton optionName="Google"
-						icon={<Ionicons name="logo-facebook" color="white" size={16} />} />
+						icon={<Ionicons name="logo-facebook" color="#003714" size={16} />} />
 
 					<LoginOptionButton optionName="Facebook"
-						icon={<Ionicons name="logo-google" color="white" size={16} />} />
+						icon={<Ionicons name="logo-google" color="#003714" size={16} />} />
 
 					<LoginOptionButton optionName="e-mail"
-						icon={<Ionicons name="mail-outline" color="white" size={16} />}
+						icon={<Ionicons name="mail" color="#003714" size={16} />}
 						callback={() => navigation.navigate("Form")}
 					/>
 				</VStack>
