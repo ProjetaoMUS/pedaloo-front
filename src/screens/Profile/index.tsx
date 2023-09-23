@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
-import { Center, Box, Text, Pressable, VStack, HStack, Button, Avatar, Image } from 'native-base';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Center, Box, Text, Pressable, VStack, HStack, Button, Avatar, Image, IconButton } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { getHeaderTitle } from '@react-navigation/elements';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,6 +18,30 @@ const MOCK_USER_ID = 1
 
 const avatarFallback = require('../../../assets/avatar.png');
 const Stack = createStackNavigator();
+
+const ProfilePageHeader = ({ navigation, route, options, back }) => {
+    const title = getHeaderTitle(options, route.name);
+
+    return (
+        <Center flexDiretion="row" w="100%" py={10} bg="white">
+                {back &&
+                    <IconButton
+                        position="absolute"
+                        left="5"
+                        onPress={navigation.goBack}
+                        borderRadius="full"
+                        bg="#FAFBFF"
+                        _pressed={{
+                            bg: "muted.200"
+                        }}
+                        icon={<Ionicons name="chevron-back-outline" color="#121826" size={20} />}
+                    />
+                }
+
+                <Text color="#003714" bold>{title}</Text>
+        </Center>
+    );
+}
 
 const ProfileScreenButton = ({ text, icon, onPress }) => {
     return (
@@ -88,9 +112,12 @@ export function Profile({ navigation }) {
             <NavigationContainer independent={true}>
                 <Stack.Navigator
                     initialRouteName="ProfileHome"
+                    screenOptions={{
+                        header: ProfilePageHeader
+                    }}
                 >
                     <Stack.Screen name="ProfileHome" component={ProfileHome} options={{ headerShown: false }}/>
-                    <Stack.Screen name="My Account" component={Account} options={{ headerShown: false }} />
+                    <Stack.Screen name="My Account" component={Account} />
                     <Stack.Screen name="Settings" component={Settings} />
                     <Stack.Screen name="Help" component={Help} />
                 </Stack.Navigator>
