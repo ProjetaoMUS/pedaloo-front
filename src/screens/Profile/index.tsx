@@ -14,7 +14,7 @@ import { Settings } from '../Settings';
 import { ProfileProvider, useProfile } from '../../contexts/profile';
 import { getUserData } from '../../api/user-data';
 
-const MOCK_USER_ID = 2
+const MOCK_USER_ID = 1
 
 const avatarFallback = require('../../../assets/avatar.png');
 const Stack = createStackNavigator();
@@ -22,12 +22,12 @@ const Stack = createStackNavigator();
 const ProfileScreenButton = ({ text, icon, onPress }) => {
     return (
         <Pressable w="80%" h="50px" flexDirection="row" alignItems="center" onPress={onPress}>
-            <Center p={3} bg="#43F6B1" borderRadius={15}>
+            <Center p={3} bg="#32C100" borderRadius={15}>
                 {icon}
             </Center>
             <Text flex="1" fontSize={18} pl={5} color="#003714">{text}</Text>
             <Box w={6} h={6} mr={3}>
-                <Ionicons name="chevron-forward-outline" color="#43F6B1" size={24} />
+                <Ionicons name="chevron-forward-outline" color="#32C100" size={24} />
             </Box>
         </Pressable>
     )
@@ -50,22 +50,8 @@ const ProfileHome = ({ navigation }) => {
     }, []);
 
     return (
-        <LinearGradient
-            colors={['#32FC65', '#43F6B1']}
-            start={[0.2, 0]}
-            end={[1, 0.25]}
-            style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center"
-            }}
-        >
-            <HStack h="12%" alignItems="flex-end" space="35%">
-                <Button variant="link" _text={{ fontSize: 14, color: "#003714" }}>My Profile</Button>
-                <Button variant="link" _text={{ fontSize: 14, color: "#003714" }}>Edit Profile</Button>
-            </HStack>
-            
-            <HStack h="25%" w="100%" px={7} alignItems="center" space={4}>
+        <Center flex={1} bg="#32C100">
+            <HStack h="35%" w="100%" px={12} alignItems="center" space={4}>
                 <Avatar size="xl" p="1" bg="#EEFC79">
                     <Image source={avatarFallback} resizeMode="contain" alt="Avatar Fallback" />
                 </Avatar>
@@ -91,13 +77,8 @@ const ProfileHome = ({ navigation }) => {
                         icon={<Ionicons name="help-circle" color="white" size={21} />}
                         onPress={() => navigation.navigate('Help')}
                     />
-
-                    <ProfileScreenButton text="Contact"
-                        icon={<Ionicons name="call" color="white" size={21} />}
-                        onPress={() => navigation.navigate('Contact')}
-                    />
             </VStack>
-        </LinearGradient>
+        </Center>
     );
 }
 
@@ -112,7 +93,6 @@ export function Profile({ navigation }) {
                     <Stack.Screen name="My Account" component={Account} options={{ headerShown: false }} />
                     <Stack.Screen name="Settings" component={Settings} />
                     <Stack.Screen name="Help" component={Help} />
-                    <Stack.Screen name="Contact" component={Contact} />
                 </Stack.Navigator>
             </NavigationContainer>
         </ProfileProvider>
