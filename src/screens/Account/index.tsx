@@ -37,31 +37,20 @@ export function Account({ navigation }) {
     }, [iName, iEmail]);
 
 	return (
-        <LinearGradient
-            colors={['#32FC65', '#43F6B1']}
-            start={[0.2, 0]}
-            end={[1, 0.25]}
-            style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center"
-            }}
-        >
-			<Box h="11%" alignItems="center" justifyContent="flex-end">
-				<Text fontSize={16} color='#121826'>My Account</Text>
-			</Box>
-
+        <Center flex={1} bg="white">
 			<Center h="28%">
-                <Avatar size="xl" p="1" bg="#FFD9AF">
+                <Avatar size="xl" p="1" bg="#EEFC79">
                     <Image source={avatarFallback} resizeMode="contain" alt="Avatar Fallback" />
+                    {/*
                     <Avatar.Badge bg="#928FFF" alignItems="center" justifyContent="center" size={35}>
                     	<Image source={cameraIcon} resizeMode="contain" alt="Edit profile picture" size={21} />
                     </Avatar.Badge>
+                    */}
                 </Avatar>
 			</Center>
 
-			<VStack h="45%" w="85%" space={4}>
-				<FormControl bg="white" borderRadius={20} py={2} px={4}>
+			<VStack h="57%" w="100%" px={12} space={3}>
+				<FormControl>
 					<FormControl.Label mb={-1} _text={{
 						color: "#8F94A3",
 						fontSize: 12
@@ -74,10 +63,12 @@ export function Account({ navigation }) {
 						value={iName}
 						onChangeText={setIName}
 						px={0}
+						color="#003714"
+						fontSize="md"
 					/>
 				</FormControl>
 
-				<FormControl bg="white" borderRadius={20} py={2} px={4}>
+				<FormControl>
 					<FormControl.Label mb={-1} _text={{
 						color: "#8F94A3",
 						fontSize: 12
@@ -90,17 +81,43 @@ export function Account({ navigation }) {
 						value={iEmail}
 						onChangeText={setIEmail}
 						px={0}
+						color="#003714"
+						fontSize="md"
 					/>
 				</FormControl>
 
-				<FormControl bg="white" borderRadius={20} py={2} px={4}>
+				<FormControl>
 					<FormControl.Label mb={-1} _text={{
 						color: "#8F94A3",
 						fontSize: 12
 					}}>
 						Phone Number
 					</FormControl.Label>
-					<Input type="name" variant="unstyled" value="+23408146185683" px={0} />
+					<Input
+						type="name"
+						variant="unstyled"
+						value="+23408146185683"
+						px={0}
+						color="#003714"
+						fontSize="md"
+					/>
+				</FormControl>
+
+				<FormControl>
+					<FormControl.Label mb={-1} _text={{
+						color: "#8F94A3",
+						fontSize: 12
+					}}>
+						CPF
+					</FormControl.Label>
+					<Input
+						type="name"
+						variant="unstyled"
+						value="000.000.000-00"
+						px={0}
+						color="#003714"
+						fontSize="md"
+					/>
 				</FormControl>
 			</VStack>
 
@@ -108,35 +125,22 @@ export function Account({ navigation }) {
 				<Button
 					w="83%" py={4}
 					rounded="full"
-					bg="#E9E9FF"
+					bg="#32C000"
 					_text={{
-						color: "#4A44C6",
+						color: "white",
 						fontSize: 14,
 						fontWeight: "bold"
 					}}
 					_pressed={{
-						bg: "#e6e6ff",
-						_text: { color: "#6863cf" }
+						bg: "#299900",
+						_text: { color: "#muted.200" }
 					}}
 					onPress={saveChanges}
-					isDisabled={!enableBtn}
+					/*isDisabled={!enableBtn}*/
 				>
 					Save
 				</Button>
 			</Center>
-
-			<IconButton
-				position="absolute"
-				top="10"
-				left="7"
-				onPress={() => navigation.navigate("ProfileHome")}
-				borderRadius="full"
-				bg="white"
-				_pressed={{
-					bg: "muted.200"
-				}}
-				icon={<Ionicons name="chevron-back-outline" color="#1218" size={20} />}
-			/>
-		</LinearGradient>
+		</Center>
 	);
 }
