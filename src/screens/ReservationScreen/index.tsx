@@ -1,8 +1,42 @@
 import React, { useState } from 'react';
-import { View, Text, Spinner, Button, ScrollView, Box, Center, FlatList, Image } from 'native-base';
+import { Dimensions } from 'react-native'
+import {
+  View,
+  Text,
+  Spinner,
+  Button,
+  ScrollView,
+  Box,
+  Center,
+  FlatList,
+  Image,
+  Divider,
+  HStack,
+  Skeleton,
+  IconButton
+} from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export function ReservationScreen({navigation}) {
+const CarouselImage = ({ source }) => {
+  const screenWidth = Dimensions.get('window').width
+  const [imgIsLoading, setImgIsLoading] = useState(true);
+
+  return (
+    <>
+      {imgIsLoading && <Skeleton w={screenWidth} h="100%" />}
+      <Image
+        source={{uri:source}}
+        w={screenWidth}
+        alt="Imagem do local"
+        onLoad={() => setImgIsLoading(false)}
+        fallbackElement={<Skeleton w={screenWidth} h="100%" />}
+      />
+    </>
+  );
+}
+
+export function ReservationScreen({ navigation }) {
   const [dailyRate, setDailyRate] = useState('');
   const [guests, setGuests] = useState('1');
   const [isLoading, setIsLoading] = useState(false);
@@ -52,107 +86,124 @@ export function ReservationScreen({navigation}) {
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <FlatList
-            data={carouselContent}
-            horizontal
-            pagingEnabled
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  width: 300,
-                  height: 200,
-                  padding: 16,
-                  borderRadius: 8,
-                  marginBottom: 24,
-                  marginLeft: 16,
-                }}
-              >
-                 <Image
-                  source={{uri:item.image}}
-                  style={{ width: '100%', height: '100%', borderRadius: 8 }}
-                />
-              </View>
-            )}
-            onMomentumScrollEnd={(e) => {
-              const contentOffsetX = e.nativeEvent.contentOffset.x;
-              const currentIndex = Math.floor(contentOffsetX / 300);
-              setCurrentContentIndex(currentIndex);
-            }}
-          />
-        </View>
+      <Center h={250} mb={2}>
+        <FlatList
+          data={carouselContent}
+          horizontal
+          pagingEnabled
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <CarouselImage source={item.image} />
+          )}
+          onMomentumScrollEnd={(e) => {
+            const contentOffsetX = e.nativeEvent.contentOffset.x;
+            const currentIndex = Math.floor(contentOffsetX / 300);
+            setCurrentContentIndex(currentIndex);
+          }}
+        />
+      </Center>
 
-        <View
-          style={{
-            marginLeft: 16,
-            marginRight: 16,
-            marginBottom: 24,
+      <HStack px={6} py={2}>
+        <Box w="50%">
+          <Text fontSize="lg" bold>Sorveteria Gelada</Text>
+          <Text fontSize="sm" color="muted.500">Pernambuco, Brasil</Text>
+          <Text fontSize="sm" underline>2 comentários</Text>
+        </Box>
+        <Box
+          w="50%"
+          py={1}
+          flexDirection="row" 
+          alignItems="flex-start"
+          justifyContent="flex-end"
+        >
+          <Ionicons name="star" color="black" size={15} />
+          <Text fontSize="xs" ml={1} bold>4,85</Text>
+        </Box>
+      </HStack>
+
+      <Divider w="91%" mx="auto" />
+
+      <Box px={8} py={3} mb={6}>
+        <Text fontSize="xl" pt={1} mb={2} bold>Sobre o Local</Text>
+        <Text fontSize="sm" color="muted.500">
+          Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
+        </Text>
+      </Box>
+
+      <Divider w="91%" mx="auto" />
+
+      <Box px={8} mb={50}>
+        <Text fontSize="xl" py={5} bold>Localização</Text>
+        <Box px={1}>
+        <MapView
+          style={{ height: 200, borderRadius: 17 }}
+          initialRegion={{
+            latitude: latitudeDaLocacao,
+            longitude: longitudeDaLocacao,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
           }}
         >
-          <Text style={{ fontSize: 24, color: 'black', paddingTop:2 }}>Sorveteria Gelada</Text>
-          <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>Pernambuco, Brasil</Text>
-
-          {/* Seção "Sobre o Local" */}
-          <View>
-            <Text style={{ fontSize: 24, color: 'black', marginBottom: 5, marginTop: 16,paddingTop:2 }}>Sobre o Local</Text>
-            <Text style={{ fontSize: 16, color: 'gray', marginBottom: 16 }}>
-              Descrição completa do Local: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo, nunc eu lobortis laoreet, lectus elit consequat velit, at facilisis nunc ex in justo.
-            </Text>
-          </View>
-
-          <MapView
-            style={{ height: 200, marginBottom: 24 }} // Mais espaço abaixo do mapa
-            initialRegion={{
+          <Marker
+            coordinate={{
               latitude: latitudeDaLocacao,
               longitude: longitudeDaLocacao,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+            }}
+            title="Localização da Locação"
+          />
+        </MapView>
+
+        <Text mt={5}>Av. Fulano, 145, Recife, Pernambuco, Brasil </Text>
+        <Text color="muted.500" my={2}>Lorem ipsum dolor sit amet consectetur. Vel semper elit tellus quisque. Mauris in quis molestie adipiscing ullamcorper suspendisse scelerisque. Nisl faucibus in maecenas purus vitae ut proin pharetra. Ut lectus cursus non eget libero eu. </Text>
+        <Text underline>Saiba mais</Text>
+        </Box>
+      </Box>
+
+      <Box py={4} px={7} bg="muted.300">
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box>
+            <Text fontSize="2xl" mb={-2}>
+              R$ 5,00 <Text sub>por bicicleta</Text>
+            </Text>
+            <Text fontSize="md">Aberto todos os dias</Text>
+          </Box>
+          <Button
+            borderRadius={16}
+            height="90%"
+            width="40%"
+            onPress={handleReservationSubmit}
+            bg="black"
+            _pressed={{
+              bg: "gray.800",
+              _text: { color: "muted.100" }
             }}
           >
-            <Marker
-              coordinate={{
-                latitude: latitudeDaLocacao,
-                longitude: longitudeDaLocacao,
-              }}
-              title="Localização da Locação"
-            />
-          </MapView>
-
-          <Box padding={4} marginBottom={4}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Box>
-                <Text style={{ fontSize: 24, color: 'black', paddingTop:2 }}>R$ 5,00</Text>
-                <Text style={{ fontSize: 16, color: 'black' }}>Aberto todos os dias</Text>
-              </Box>
-              <Button
-                colorScheme="dark"
-                color="gray"
-                borderRadius={16}
-                height={44}
-                width={120}
-                backgroundColor="gray.700"
-                onPress={handleReservationSubmit}
-              >
-                Reservar
-              </Button>
-            </View>
-          </Box>
-
-          {isLoading && (
-            <Center>
-              <Spinner />
-            </Center>
-          )}
+            Reservar
+          </Button>
         </View>
-      </View>
+      </Box>
+
+      {isLoading && (
+        <Center>
+          <Spinner />
+        </Center>
+      )}
+
+
+      <IconButton
+        position="absolute"
+        top="0"
+        right="0"
+        borderRadius="full"
+        onPress={() => navigation.navigate("Parking Places")}
+        icon={<Ionicons name="close-circle-outline" color="#D9D9D9" size={35} />}
+      />
     </ScrollView>
   );
 }
