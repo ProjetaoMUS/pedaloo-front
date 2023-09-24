@@ -10,12 +10,17 @@ const cameraIcon = require('../../../assets/camera-icon.png');
 export function Account({ navigation }) {
     const {
         name, setName,
-        email, setEmail
+        email, setEmail,
+        phone, setPhone,
+        taxId
     } = useProfile();
+
+	const formattedTaxId = taxId.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 
     const [inEditMode, setInEditMode] = useState(false);
     const [iName, setIName] = useState(name);
     const [iEmail, setIEmail] = useState(email);
+    const [iPhone, setIPhone] = useState(phone);
 
     const saveChanges = () => {
     	if (iName != name)
@@ -23,6 +28,9 @@ export function Account({ navigation }) {
 
 		if (iEmail != email)
 			setEmail(iEmail);
+
+		if (iPhone != phone)
+			setPhone(iPhone);
 
     	// TODO: Update user data in server
 
@@ -93,9 +101,10 @@ export function Account({ navigation }) {
 						Phone Number
 					</FormControl.Label>
 					<Input
-						type="name"
+						type="text"
 						variant="unstyled"
-						value="+23408146185683"
+						value={iPhone}
+						onChangeText={setIPhone}
 						px={0}
 						color={inEditMode ? "#32C100" : "#003714"}
 						fontSize="md"
@@ -113,7 +122,7 @@ export function Account({ navigation }) {
 					<Input
 						type="name"
 						variant="unstyled"
-						value="000.000.000-00"
+						value={formattedTaxId}
 						px={0}
 						fontSize="md"
 						isReadOnly={true}

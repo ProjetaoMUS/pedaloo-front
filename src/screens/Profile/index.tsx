@@ -60,15 +60,17 @@ const ProfileScreenButton = ({ text, icon, onPress }) => {
 const ProfileHome = ({ navigation }) => {
     const {
         name, setName,
-        email, setEmail
+        email, setEmail,
+        setPhone, setTaxId
     } = useProfile();
 
     useEffect(() => {
         (async () => {
             const userData = await getUserData(MOCK_USER_ID);
-        
             setName(userData.first_name);
             setEmail(userData.email);
+            setPhone(userData.phone_number);
+            setTaxId(userData.tax_id);
         })();
 
     }, []);
