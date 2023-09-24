@@ -22,6 +22,10 @@ export function Account({ navigation }) {
     const [iEmail, setIEmail] = useState(email);
     const [iPhone, setIPhone] = useState(phone);
 
+    const toggleMode = () => {
+		setInEditMode(!inEditMode);
+    }
+
     const saveChanges = () => {
     	if (iName != name)
 			setName(iName);
@@ -34,11 +38,7 @@ export function Account({ navigation }) {
 
     	// TODO: Update user data in server
 
-    	navigation.navigate('ProfileHome');
-    }
-
-    const toggleMode = () => {
-		setInEditMode(!inEditMode);
+		toggleMode();
     }
 
 	return (
