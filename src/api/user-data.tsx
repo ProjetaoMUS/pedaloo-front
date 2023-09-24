@@ -9,7 +9,7 @@ export const getUserData = async (id: number) => {
 		return res.data;
 		
 	} catch(err) {
-		console.log(res);
+		console.log(err);
 	}
 
 	return null;
