@@ -15,12 +15,15 @@ const PasswordInput = ({ value, onChangeText }) => {
 			type={showPassword ? "text" : "password"}
 			value={value}
 			onChangeText={onChangeText}
+			variant="underlined"
+			color="#003714"
+			focusOutlineColor="#32C100"
 			InputRightElement={
 				<Pressable onPress={() => setShowPassword(!showPassword)}>
 					<Box mr="2">
 						{showPassword
-							? <Ionicons name="eye-off-outline" color="#003714" size={19} />
-							: <Ionicons name="eye-outline" color="#003714" size={19} />
+							? <Ionicons name="eye-off-outline" color="#32C100" size={19} />
+							: <Ionicons name="eye-outline" color="#32C100" size={19} />
 						}
 					</Box>
 				</Pressable>
@@ -50,39 +53,55 @@ export function LoginForm({ navigation, onLogin }) {
 		<Box flex={1} bg="white" alignItems="center">
 			<IconButton
 				position="absolute"
+				left="5"
 				top="5"
-				left="2"
+				onPress={navigation.goBack}
 				borderRadius="full"
+				bg="#FAFBFF"
+				_pressed={{
+					bg: "muted.200"
+				}}
 				onPress={() => navigation.navigate("Options")}
-				icon={<Ionicons name="arrow-back-circle-outline" color="#003714" size={35} />}
+				icon={<Ionicons name="chevron-back-outline" color="#121826" size={20} />}
 			/>
 
 			<Image source={logo} resizeMode="contain" size={200} alt="Pedaloo" mt={12} />
 
 			<Box w="100%" px="10" alignItems="center">
-				<FormControl>
-					<FormControl.Label _text={{ color: "#003714" }}>e-mail</FormControl.Label>
-					<Input type="email" value={email} onChangeText={setEmail} />
+				<FormControl mb={4}>
+					<FormControl.Label _text={{ color: "#003714" }} mb={-1}>Email</FormControl.Label>
+					<Input
+						type="email"
+						value={email}
+						onChangeText={setEmail}
+						variant="underlined"
+						color="#003714"
+						focusOutlineColor="#32C100"
+					/>
 				</FormControl>
 
 				<FormControl mb="12">
-					<FormControl.Label _text={{ color: "#003714" }}>senha</FormControl.Label>
+					<FormControl.Label _text={{ color: "#003714" }} mb={-1}>Senha</FormControl.Label>
 					<PasswordInput value={password} onChangeText={setPassword} />
 				</FormControl>
-
-				<Button
-					px="10"
-					bg="#003714"
-					_text={{ color: "white" }}
-					_pressed={{
-						bg: "#004d1c",
-						_text: { color: "muted.200" }
-					}}
-					onPress={handleLogin}
-				>
-					Entrar
-				</Button>
 			</Box>
+
+			<Button
+				position="absolute"
+				bottom={10}
+				w="90%"
+				py={4}
+				bg="#32C100"
+				_text={{ color: "white" }}
+				_pressed={{
+					bg: "#299900",
+					_text: { color: "muted.200" }
+				}}
+				onPress={handleLogin}
+				borderRadius="full"
+			>
+				Entrar
+			</Button>
 		</Box>
 	);
 }
