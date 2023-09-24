@@ -77,7 +77,7 @@ const ProfileHome = ({ navigation }) => {
 
     return (
         <Center flex={1} bg="#32C100">
-            <HStack h="35%" w="100%" px={9} alignItems="center" space={4}>
+            <HStack h="35%" w="100%" px={9} pt={3} alignItems="center" space={4}>
                 <Avatar size="xl" p="1" bg="#EEFC79">
                     <Image source={avatarFallback} resizeMode="contain" alt="Avatar Fallback" />
                 </Avatar>
