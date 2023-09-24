@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react';
 import { updateUserData } from '../api/user-data';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MOCK_USER_ID = 1
 const ProfileContext = createContext();
