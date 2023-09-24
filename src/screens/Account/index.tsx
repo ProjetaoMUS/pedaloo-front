@@ -1,5 +1,4 @@
 import { Box, Center, Text, IconButton, Image, Avatar, Button, Input, VStack, FormControl } from 'native-base';
-import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { useState, useEffect } from 'react';
@@ -14,6 +13,7 @@ export function Account({ navigation }) {
         email, setEmail
     } = useProfile();
 
+    const [inEditMode, setInEditMode] = useState(false);
     const [iName, setIName] = useState(name);
     const [iEmail, setIEmail] = useState(email);
 
@@ -26,6 +26,10 @@ export function Account({ navigation }) {
     	// TODO: Update user data in server
 
     	navigation.navigate('ProfileHome');
+    }
+
+    const toggleMode = () => {
+		setInEditMode(!inEditMode);
     }
 
     useEffect(() => {
@@ -41,11 +45,11 @@ export function Account({ navigation }) {
 			<Center h="28%">
                 <Avatar size="xl" p="1" bg="#EEFC79">
                     <Image source={avatarFallback} resizeMode="contain" alt="Avatar Fallback" />
-                    {/*
-                    <Avatar.Badge bg="#928FFF" alignItems="center" justifyContent="center" size={35}>
-                    	<Image source={cameraIcon} resizeMode="contain" alt="Edit profile picture" size={21} />
-                    </Avatar.Badge>
-                    */}
+                    {inEditMode &&
+	                    <Avatar.Badge bg="#32C100" alignItems="center" justifyContent="center" borderWidth={3} size={35}>
+							<Image source={cameraIcon} resizeMode="contain" alt="Edit profile picture" size={21} />
+	                    </Avatar.Badge>
+                    }
                 </Avatar>
 			</Center>
 
@@ -63,8 +67,9 @@ export function Account({ navigation }) {
 						value={iName}
 						onChangeText={setIName}
 						px={0}
-						color="#003714"
+						color={inEditMode ? "#32C100" : "#003714"}
 						fontSize="md"
+						isReadOnly={!inEditMode}
 					/>
 				</FormControl>
 
@@ -81,8 +86,9 @@ export function Account({ navigation }) {
 						value={iEmail}
 						onChangeText={setIEmail}
 						px={0}
-						color="#003714"
+						color={inEditMode ? "#32C100" : "#003714"}
 						fontSize="md"
+						isReadOnly={!inEditMode}
 					/>
 				</FormControl>
 
@@ -98,8 +104,9 @@ export function Account({ navigation }) {
 						variant="unstyled"
 						value="+23408146185683"
 						px={0}
-						color="#003714"
+						color={inEditMode ? "#32C100" : "#003714"}
 						fontSize="md"
+						isReadOnly={!inEditMode}
 					/>
 				</FormControl>
 
@@ -108,15 +115,16 @@ export function Account({ navigation }) {
 						color: "#8F94A3",
 						fontSize: 12
 					}}>
-						CPF
+						CPF {inEditMode && <Ionicons name="lock-closed" color="#8F94A3" size={14} />}
 					</FormControl.Label>
 					<Input
 						type="name"
 						variant="unstyled"
 						value="000.000.000-00"
 						px={0}
-						color="#003714"
 						fontSize="md"
+						isReadOnly={true}
+						color={inEditMode ? "#8F94A3" : "#003714"}
 					/>
 				</FormControl>
 			</VStack>
@@ -135,10 +143,9 @@ export function Account({ navigation }) {
 						bg: "#299900",
 						_text: { color: "#muted.200" }
 					}}
-					onPress={saveChanges}
-					/*isDisabled={!enableBtn}*/
+					onPress={toggleMode}
 				>
-					Save
+					{inEditMode ? "Save" : "Edit"}
 				</Button>
 			</Center>
 		</Center>
