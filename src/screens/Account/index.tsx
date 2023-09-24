@@ -133,7 +133,7 @@ export function Account({ navigation }) {
 
 			<Center flex="1" w="100%">
 				<Button
-					w="83%" py={4}
+					w="90%" py={5}
 					rounded="full"
 					bg="#32C000"
 					_text={{
@@ -143,7 +143,7 @@ export function Account({ navigation }) {
 					}}
 					_pressed={{
 						bg: "#299900",
-						_text: { color: "#muted.200" }
+						_text: { color: "muted.200" }
 					}}
 					onPress={inEditMode ? saveChanges : toggleMode}
 				>

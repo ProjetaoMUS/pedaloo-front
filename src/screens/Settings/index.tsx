@@ -9,7 +9,7 @@ export function Settings() {
 
 			<VStack flex={1} w="100%" space={3} alignItems="center">
 				<Button
-					w="80%" py={5}
+					w="90%" py={5}
 					rounded="full"
 					bg="white"
 					_text={{
@@ -27,7 +27,7 @@ export function Settings() {
 				</Button>
 
 				<Button
-					w="80%" py={5}
+					w="90%" py={5}
 					rounded="full"
 					bg="#FF5050"
 					_text={{
