@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getHeaderTitle } from '@react-navigation/elements';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Account } from '../Account';
 import { Contact } from '../Contact';
 import { Help } from '../Help';
@@ -17,7 +17,7 @@ import { getUserData } from '../../api/user-data';
 const MOCK_USER_ID = 1
 
 const avatarFallback = require('../../../assets/avatar.png');
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const ProfilePageHeader = ({ navigation, route, options, back }) => {
     const title = getHeaderTitle(options, route.name);

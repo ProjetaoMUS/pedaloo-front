@@ -36,15 +36,18 @@ export function Navbar() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarLabel: () => null,
-        headerShown: false
+        headerShown: false,
+        tabBarActiveTintColor: "black",
+        tabBarInactiveTintColor: "grey",
+        tabBarLabelStyle: {
+          paddingBottom: 10,
+          fontSize: 10
+        },
+        tabBarStyle: [{
+          display: "flex"
+        }]
       })}
-
-      tabBarOptions={{
-        activeTintColor: 'black',
-        inactiveTintColor: 'grey',
-        labelStyle: { paddingBottom: 10, fontSize: 10 },
-        style: { padding: 10, height: 70}
-      }}>
+      >
 
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={bookingName} component={ParkingPlaces} />
