@@ -20,10 +20,7 @@ const cameraIcon = require('../../../assets/camera-icon.png');
 
 export function Account({ navigation }) {
     const {
-        name, setName,
-        email, setEmail,
-        phone, setPhone,
-        taxId
+        name, email, phone, taxId, updateProfile
     } = useProfile();
 
 	const formattedTaxId = taxId.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -38,16 +35,8 @@ export function Account({ navigation }) {
     }
 
     const saveChanges = () => {
-    	if (iName != name)
-			setName(iName);
-
-		if (iEmail != email)
-			setEmail(iEmail);
-
-		if (iPhone != phone)
-			setPhone(iPhone);
-
-    	// TODO: Update user data in server
+		if (!( iName == name && iEmail == email && iPhone == phone ))
+			updateProfile(iName, iEmail, iPhone);
 
 		toggleMode();
     }

@@ -1,5 +1,8 @@
 import { createContext, useContext, useState } from 'react';
+import { updateUserData } from '../api/user-data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const MOCK_USER_ID = 1
 const ProfileContext = createContext();
 
 export function ProfileProvider({ children }) {
@@ -8,10 +11,25 @@ export function ProfileProvider({ children }) {
 	const [phone, setPhone] = useState('');
 	const [taxId, setTaxId] = useState('');
 
+	const updateProfile = (newName, newEmail, newPhone) => {
+		let updateSuccessful = updateUserData(MOCK_USER_ID, {
+			first_name: newName,
+			email: newEmail,
+			phone_number: newPhone
+		});
+
+		if (updateSuccessful) {
+			setName(newName);
+			setEmail(newEmail);
+			setPhone(newPhone);
+		}
+	};
+
 	return (
 	    <ProfileContext.Provider value={{
 			name, email, phone, taxId,
-			setName, setEmail, setPhone, setTaxId
+			setName, setEmail, setPhone, setTaxId,
+			updateProfile
 	    }}>
 	        {children}
 	    </ProfileContext.Provider>
