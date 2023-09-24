@@ -60,7 +60,7 @@ export function Account({ navigation }) {
 						color: "#8F94A3",
 						fontSize: 12
 					}}>
-						Name
+						Nome
 					</FormControl.Label>
 					<Input
 						type="text"
@@ -98,7 +98,7 @@ export function Account({ navigation }) {
 						color: "#8F94A3",
 						fontSize: 12
 					}}>
-						Phone Number
+						Celular
 					</FormControl.Label>
 					<Input
 						type="text"
@@ -147,7 +147,7 @@ export function Account({ navigation }) {
 					}}
 					onPress={inEditMode ? saveChanges : toggleMode}
 				>
-					{inEditMode ? "Save" : "Edit"}
+					{inEditMode ? "Salvar" : "Editar"}
 				</Button>
 			</Center>
 		</Center>

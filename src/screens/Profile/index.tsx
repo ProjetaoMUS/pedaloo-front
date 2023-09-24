@@ -89,19 +89,19 @@ const ProfileHome = ({ navigation }) => {
             </HStack>
 
             <VStack bg="white" w="100%" flex="1" alignItems="center" space={3} pt={7} borderTopRadius={40}>
-                    <ProfileScreenButton text="My Account"
+                    <ProfileScreenButton text="Minha Conta"
                         icon={<Ionicons name="person" color="white" size={21} />}
-                        onPress={() => navigation.navigate('My Account')}
+                        onPress={() => navigation.navigate('Minha Conta')}
                     />
 
-                    <ProfileScreenButton text="Settings"
+                    <ProfileScreenButton text="Configurações"
                         icon={<Ionicons name="settings" color="white" size={21} />}
-                        onPress={() => navigation.navigate('Settings')}
+                        onPress={() => navigation.navigate('Configurações')}
                     />
 
-                    <ProfileScreenButton text="Help"
+                    <ProfileScreenButton text="Suporte"
                         icon={<Ionicons name="help-circle" color="white" size={21} />}
-                        onPress={() => navigation.navigate('Help')}
+                        onPress={() => navigation.navigate('Suporte')}
                     />
             </VStack>
         </Center>
@@ -119,9 +119,9 @@ export function Profile({ navigation }) {
                     }}
                 >
                     <Stack.Screen name="ProfileHome" component={ProfileHome} options={{ headerShown: false }}/>
-                    <Stack.Screen name="My Account" component={Account} />
-                    <Stack.Screen name="Settings" component={Settings} />
-                    <Stack.Screen name="Help" component={Help} />
+                    <Stack.Screen name="Minha Conta" component={Account} />
+                    <Stack.Screen name="Configurações" component={Settings} />
+                    <Stack.Screen name="Suporte" component={Help} />
                 </Stack.Navigator>
             </NavigationContainer>
         </ProfileProvider>

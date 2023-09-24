@@ -4,7 +4,7 @@ export function Settings() {
 	return (
 		<Center flex={1} bg="white">
 			<Center w="100%" h="72%">
-				<Text fontSize={14} color='black'>[edit password]</Text>
+				<Text fontSize={14} color='black'>[editar senha]</Text>
 			</Center>
 
 			<VStack flex={1} w="100%" space={3} alignItems="center">
@@ -23,7 +23,7 @@ export function Settings() {
 					}}
 					onPress={() => {}}
 				>
-					Delete Account
+					Apagar Conta
 				</Button>
 
 				<Button
@@ -41,7 +41,7 @@ export function Settings() {
 					}}
 					onPress={() => {}}
 				>
-					Disconnect
+					Desconectar
 				</Button>
 			</VStack>
 		</Center>
