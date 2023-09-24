@@ -70,7 +70,7 @@ export function Account({ navigation }) {
                 </Avatar>
 			</Center>
 
-			<VStack h="57%" w="100%" px={12} space={3}>
+			<VStack flex={1} w="100%" px={12} space={3}>
 				<FormControl>
 					<FormControl.Label mb={-1} _text={{
 						color: "#8F94A3",
@@ -147,25 +147,25 @@ export function Account({ navigation }) {
 				</FormControl>
 			</VStack>
 
-			<Center flex="1" w="100%">
-				<Button
-					w="90%" py={5}
-					rounded="full"
-					bg="#32C000"
-					_text={{
-						color: "white",
-						fontSize: 14,
-						fontWeight: "bold"
-					}}
-					_pressed={{
-						bg: "#299900",
-						_text: { color: "muted.200" }
-					}}
-					onPress={inEditMode ? saveChanges : toggleMode}
-				>
-					{inEditMode ? "Salvar" : "Editar"}
-				</Button>
-			</Center>
+			<Button
+				w="90%" py={5}
+				position="absolute"
+				bottom={4}
+				rounded="full"
+				bg="#32C000"
+				_text={{
+					color: "white",
+					fontSize: 14,
+					fontWeight: "bold"
+				}}
+				_pressed={{
+					bg: "#299900",
+					_text: { color: "muted.200" }
+				}}
+				onPress={inEditMode ? saveChanges : toggleMode}
+			>
+				{inEditMode ? "Salvar" : "Editar"}
+			</Button>
 		</Center>
     </KeyboardAvoidingView>
 	);

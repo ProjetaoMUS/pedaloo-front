@@ -1,13 +1,19 @@
-import { Center, Text, Button, VStack } from 'native-base';
+import { Center, Box, Text, Button, VStack } from 'native-base';
 
 export function Settings() {
 	return (
 		<Center flex={1} bg="white">
-			<Center w="100%" h="72%">
+			<Box flex={1} w="100%" alignItems="center" pt="30%">
 				<Text fontSize={14} color='black'>[editar senha]</Text>
-			</Center>
+			</Box>
 
-			<VStack flex={1} w="100%" space={3} alignItems="center">
+			<VStack
+				position="absolute"
+				bottom={4}
+				w="100%"
+				space={3}
+				alignItems="center"
+			>
 				<Button
 					w="90%" py={5}
 					rounded="full"
