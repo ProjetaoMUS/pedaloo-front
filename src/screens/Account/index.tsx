@@ -1,5 +1,4 @@
 import {
-	Box,
 	Center,
 	Text,
 	IconButton,
@@ -13,7 +12,7 @@ import {
 } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useProfile } from '../../contexts/profile';
 
 const avatarFallback = require('../../../assets/avatar.png');
