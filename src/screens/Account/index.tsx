@@ -1,4 +1,16 @@
-import { Box, Center, Text, IconButton, Image, Avatar, Button, Input, VStack, FormControl } from 'native-base';
+import {
+	Box,
+	Center,
+	Text,
+	IconButton,
+	Image,
+	Avatar,
+	Button,
+	Input,
+	VStack,
+	FormControl,
+	KeyboardAvoidingView
+} from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { useState, useEffect } from 'react';
@@ -42,6 +54,11 @@ export function Account({ navigation }) {
     }
 
 	return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
         <Center flex={1} bg="white">
 			<Center h="28%">
                 <Avatar size="xl" p="1" bg="#EEFC79">
@@ -151,5 +168,6 @@ export function Account({ navigation }) {
 				</Button>
 			</Center>
 		</Center>
+    </KeyboardAvoidingView>
 	);
 }
