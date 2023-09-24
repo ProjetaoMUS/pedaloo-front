@@ -17,11 +17,12 @@ export function Account({ navigation }) {
     const [iName, setIName] = useState(name);
     const [iEmail, setIEmail] = useState(email);
 
-    const [enableBtn, setEnableBtn] = useState(false);
-
     const saveChanges = () => {
-    	setName(iName);
-    	setEmail(iEmail);
+    	if (iName != name)
+			setName(iName);
+
+		if (iEmail != email)
+			setEmail(iEmail);
 
     	// TODO: Update user data in server
 
@@ -31,14 +32,6 @@ export function Account({ navigation }) {
     const toggleMode = () => {
 		setInEditMode(!inEditMode);
     }
-
-    useEffect(() => {
-    	setEnableBtn(
-    		name  !== iName ||
-    		email !== iEmail
-		);
-
-    }, [iName, iEmail]);
 
 	return (
         <Center flex={1} bg="white">
@@ -143,7 +136,7 @@ export function Account({ navigation }) {
 						bg: "#299900",
 						_text: { color: "#muted.200" }
 					}}
-					onPress={toggleMode}
+					onPress={inEditMode ? saveChanges : toggleMode}
 				>
 					{inEditMode ? "Save" : "Edit"}
 				</Button>
