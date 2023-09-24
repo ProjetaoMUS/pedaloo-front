@@ -88,7 +88,7 @@ const ProfileHome = ({ navigation }) => {
                 </VStack>
             </HStack>
 
-            <VStack bg="white" w="100%" flex="1" alignItems="center" space={3} pt={7} borderTopRadius={60}>
+            <VStack bg="white" w="100%" flex="1" alignItems="center" space={3} pt={7} borderTopRadius={40}>
                     <ProfileScreenButton text="My Account"
                         icon={<Ionicons name="person" color="white" size={21} />}
                         onPress={() => navigation.navigate('My Account')}
