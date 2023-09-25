@@ -9,6 +9,13 @@ export function ProfileProvider({ children }) {
 	const [phone, setPhone] = useState('');
 	const [taxId, setTaxId] = useState('');
 
+	const initProfile = (newName, newEmail, newPhone, newTaxId) => {
+		setName(newName);
+		setEmail(newEmail);
+		setPhone(newPhone);
+		setTaxId(newTaxId);
+	};
+
 	const updateProfile = (newName, newEmail, newPhone) => {
 		setName(newName);
 		setEmail(newEmail);
@@ -18,8 +25,7 @@ export function ProfileProvider({ children }) {
 	return (
     <ProfileContext.Provider value={{
 			name, email, phone, taxId,
-			setName, setEmail, setPhone, setTaxId,
-			updateProfile
+			initProfile, updateProfile
     }}>
         {children}
     </ProfileContext.Provider>

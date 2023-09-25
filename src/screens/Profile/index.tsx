@@ -58,19 +58,17 @@ const ProfileScreenButton = ({ text, icon, onPress }) => {
 }
 
 const ProfileHome = ({ navigation }) => {
-    const {
-        name, setName,
-        email, setEmail,
-        setPhone, setTaxId
-    } = useProfile();
+    const { name, email, setPhone, initProfile } = useProfile();
 
     useEffect(() => {
         (async () => {
             const userData = await getUserData(MOCK_USER_ID);
-            setName(userData.first_name);
-            setEmail(userData.email);
-            setPhone(userData.phone_number);
-            setTaxId(userData.tax_id);
+            initProfile(
+                userData.first_name,
+                userData.email,
+                userData.phone_number,
+                userData.tax_id
+            );
         })();
 
     }, []);
