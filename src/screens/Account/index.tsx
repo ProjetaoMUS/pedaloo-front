@@ -13,15 +13,18 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { useState } from 'react';
+import { useFeedback } from '../../contexts/feedback';
 import { useProfile } from '../../contexts/profile';
+import { updateUserData } from '../../api/user-data';
+
+const MOCK_USER_ID = 1
 
 const avatarFallback = require('../../../assets/avatar.png');
 const cameraIcon = require('../../../assets/camera-icon.png');
 
 export function Account({ navigation }) {
-    const {
-        name, email, phone, taxId, updateProfile
-    } = useProfile();
+    const { sendFeedback } = useFeedback();
+    const { name, email, phone, taxId, updateProfile } = useProfile();
 
 	const formattedTaxId = taxId.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 
@@ -34,10 +37,27 @@ export function Account({ navigation }) {
 		setInEditMode(!inEditMode);
     }
 
-    const saveChanges = () => {
-		if (!( iName == name && iEmail == email && iPhone == phone ))
-			updateProfile(iName, iEmail, iPhone);
+    const saveChanges = async () => {
+		if (iName == name && iEmail == email && iPhone == phone) {
+			toggleMode();
+			return;
+		}
 
+		newData = {
+			first_name: iName,
+			email: iEmail,
+			phone_number: iPhone
+		};
+
+    	let updateSuccessful = await updateUserData(MOCK_USER_ID, newData);
+		if (!updateSuccessful) {
+			sendFeedback("error", "Não conseguimos atualizas suas informações.");
+			toggleMode();
+			return;
+		}
+
+		updateProfile(iName, iEmail, iPhone);
+		sendFeedback("success", "Suas informações foram atualizadas.");
 		toggleMode();
     }
 
