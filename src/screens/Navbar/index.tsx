@@ -4,8 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens
 import { Home } from '../Home';
-import { Profile } from '../Profile';
 import { ParkingPlaces } from '../ParkingPlaces';
+import { Profile } from '../Profile';
 
 //Screen names
 const homeName = "Home";
@@ -36,6 +36,7 @@ export function Navbar() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarLabel: () => null,
+        headerShown: false,
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "grey",
         tabBarLabelStyle: {
