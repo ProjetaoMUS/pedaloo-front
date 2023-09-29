@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = "YOUR_SERVER_ADDRESS_HERE";
+const API_BASE_URL = "http://192.168.87.23:8000/api/";
 
 export const getUserData = async (id: number) => {
 	try {

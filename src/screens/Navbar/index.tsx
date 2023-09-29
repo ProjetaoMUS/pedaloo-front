@@ -1,16 +1,18 @@
-import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as React from "react";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 // Screens
-import { Home } from '../Home';
-import { ParkingPlaces } from '../ParkingPlaces';
-import { Profile } from '../Profile';
+import { Home } from "../Home";
+import { ParkingPlaces } from "../ParkingPlaces";
+import { Profile } from "../Profile";
+import { ReservationScreen } from "../ReservationScreen";
 
 //Screen names
 const homeName = "Home";
 const bookingName = "Booking";
 const profileName = "Profile";
+const reservationName = "Reservation";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,13 +26,11 @@ export function Navbar() {
           let rn = route.name;
 
           if (rn === homeName) {
-            iconName = focused ? 'home' : 'home-outline';
-
+            iconName = focused ? "home" : "home-outline";
           } else if (rn === bookingName) {
-            iconName = focused ? 'calendar' : 'calendar-outline';
-
+            iconName = focused ? "calendar" : "calendar-outline";
           } else if (rn === profileName) {
-            iconName = focused ? 'person-circle' : 'person-circle-outline';
+            iconName = focused ? "person-circle" : "person-circle-outline";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -41,18 +41,25 @@ export function Navbar() {
         tabBarInactiveTintColor: "grey",
         tabBarLabelStyle: {
           paddingBottom: 10,
-          fontSize: 10
+          fontSize: 10,
         },
-        tabBarStyle: [{
-          display: "flex"
-        }]
+        tabBarStyle: [
+          {
+            display: "flex",
+          },
+        ],
       })}
-      >
-
+    >
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={bookingName} component={ParkingPlaces} />
       <Tab.Screen name={profileName} component={Profile} />
-
+      <Tab.Screen
+        name={reservationName}
+        component={ReservationScreen}
+        options={{
+          tabBarItemStyle: { display: "none" },
+        }}
+      />
     </Tab.Navigator>
   );
 }
