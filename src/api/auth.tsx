@@ -22,10 +22,9 @@ export const performLogin = async (
   }
 
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}auth/login/`,
-      {},
-      {
+    const url = `${API_BASE_URL}auth/login/`;
+
+    const response = await axios.post(url, {}, {
         auth: {
           username: email,
           password: password,
@@ -35,9 +34,8 @@ export const performLogin = async (
 
     await saveData("token", response.data.token);
     return true;
+
   } catch (err) {
     console.log(err);
   }
-
-  return false;
 };

@@ -5,9 +5,11 @@ const API_BASE_URL = API_URL;
 
 export const getUserData = async (id: number) => {
   try {
-    const idStr = id.toString();
-    const res = await axios.get(API_BASE_URL + "users/" + idStr);
-    return res.data;
+    const url = `${API_BASE_URL}users/${id}/`;
+
+    const response = await axios.get(url);
+    return response.data;
+
   } catch (err) {
     console.log(err);
   }
