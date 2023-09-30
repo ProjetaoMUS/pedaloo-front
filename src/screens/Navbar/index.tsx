@@ -34,22 +34,8 @@ const ParkingPlacesStack = () => (
 export function Navbar() {
   return (
     <Tab.Navigator
-      initialRouteName={"Home Stack"}
+      initialRouteName={homeName}
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          let rn = route.name;
-
-          if (rn === "Home Stack") {
-            iconName = focused ? "home" : "home-outline";
-          } else if (rn === "Booking Stack") {
-            iconName = focused ? "calendar" : "calendar-outline";
-          } else if (rn === profileName) {
-            iconName = focused ? "person-circle" : "person-circle-outline";
-          }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
         tabBarLabel: () => null,
         headerShown: false,
         tabBarActiveTintColor: "black",
@@ -65,9 +51,24 @@ export function Navbar() {
         ],
       })}
     >
-      <Tab.Screen name={"Home Stack"} component={HomeStack} />
-      <Tab.Screen name={"Booking Stack"} component={ParkingPlacesStack} />
-      <Tab.Screen name={profileName} component={Profile} />
+      <Tab.Screen
+        name={homeName} component={HomeStack}
+        options={{ tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+        )}}
+      />
+      <Tab.Screen
+        name={bookingName} component={ParkingPlacesStack}
+        options={{ tabBarIcon: ({ color, size }) => (
+          <Ionicons name="cart-outline" size={size} color={color} />
+        )}}
+      />
+      <Tab.Screen
+        name={profileName} component={Profile}
+        options={{ tabBarIcon: ({ color, size }) => (
+          <Ionicons name="person-outline" size={size} color={color} />
+        )}}
+      />
     </Tab.Navigator>
   );
 }
