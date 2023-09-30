@@ -49,8 +49,9 @@ export function Account({ navigation }) {
 			phone_number: iPhone
 		};
 
-    	let updateSuccessful = await updateUserData(MOCK_USER_ID, newData);
-		if (!updateSuccessful) {
+		let responseData = await updateUserData(MOCK_USER_ID, newData);
+
+		if (responseData == null) {
 			sendFeedback("error", "Não conseguimos atualizas suas informações.");
 			toggleMode();
 			return;
