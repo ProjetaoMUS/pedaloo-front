@@ -1,8 +1,9 @@
-import axios from 'axios';
-import { encode } from 'base-64';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from "@env";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { encode } from "base-64";
 
-const API_BASE_URL = "YOUR_SERVER_ADDRESS_HERE";
+const API_BASE_URL = API_URL;
 
 const saveData = async (key: string, value: string): Promise<void> => {
   try {
@@ -12,15 +13,18 @@ const saveData = async (key: string, value: string): Promise<void> => {
   }
 };
 
-export const performLogin = async (email: string, password: string): Promise<void> => {
+export const performLogin = async (
+  email: string,
+  password: string
+): Promise<void> => {
   if (!global.btoa) {
     global.btoa = encode;
   }
 
   try {
     const response = await axios.post(
-      `${API_BASE_URL}auth/login/`, 
-      {}, 
+      `${API_BASE_URL}auth/login/`,
+      {},
       {
         auth: {
           username: email,
@@ -29,12 +33,11 @@ export const performLogin = async (email: string, password: string): Promise<voi
       }
     );
 
-    await saveData('token', response.data.token);
-    return true
-  
+    await saveData("token", response.data.token);
+    return true;
   } catch (err) {
     console.log(err);
   }
 
-  return false
+  return false;
 };

@@ -1,14 +1,11 @@
-import axios from 'axios';
-import { encode } from 'base-64';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from "@env";
+import axios from "axios";
 
-const API_BASE_URL = "http://192.168.5.113:8000/";
+const API_BASE_URL = API_URL;
 
 export const getPartnerLocations = async () => {
   try {
-    const response = await axios.get(
-      `${API_BASE_URL}api/partner_location/`,
-    );
+    const response = await axios.get(`${API_BASE_URL}partner_location/`);
 
     // Async Storage
 
