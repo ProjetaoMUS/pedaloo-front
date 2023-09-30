@@ -40,15 +40,14 @@ export function Navbar() {
         headerShown: false,
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "grey",
-        tabBarLabelStyle: {
-          paddingBottom: 10,
-          fontSize: 10,
+        tabBarStyle: {
+          backgroundColor: "white",
+          //opacity: "0.8",
+          //position: "absolute",
+          height: "10%",
+          paddingBottom: "5%",
+          paddingTop: "1%",
         },
-        tabBarStyle: [
-          {
-            display: "flex",
-          },
-        ],
       })}
     >
       <Tab.Screen
