@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { performLogin } from '../../api/auth';
-import { api } from '../../api/config';
+import { api, setToken } from '../../api/config';
 import { useFeedback } from '../../contexts/feedback';
 
 const logo = require('../../../assets/green-logo.png');
@@ -47,7 +47,7 @@ export function LoginForm({ navigation, onLogin }) {
 
 		} else {
 			sendFeedback('success', 'Login realizado com sucesso!');
-			api.defaults.headers.common['Authorization'] = `Bearer ${tokenData.token}`;
+			setToken(tokenData.token);
 			onLogin();
 		}
 	}
