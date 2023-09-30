@@ -4,11 +4,7 @@ import { DEVELOPMENT_TOKEN } from "@env";
 
 export const getUserData = async (id: number) => {
   try {
-    const tokenHeader = `Bearer ${DEVELOPMENT_TOKEN}`;
-
-    const response = await api.get(`users/${id}/`, {
-      headers: { Authorization: tokenHeader }
-    });
+    const response = await api.get(`users/${id}/`);
     return response.data;
 
   } catch (err) {

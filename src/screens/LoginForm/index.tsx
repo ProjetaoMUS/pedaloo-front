@@ -47,6 +47,7 @@ export function LoginForm({ navigation, onLogin }) {
 
 		} else {
 			sendFeedback('success', 'Login realizado com sucesso!');
+			api.defaults.headers.common['Authorization'] = `Bearer ${tokenData.token}`;
 			onLogin();
 		}
 	}
