@@ -1,52 +1,14 @@
 import { useEffect } from 'react';
-import { Center, Box, Text, Pressable, VStack, HStack, Button, Avatar, Image, IconButton } from 'native-base';
+import { Center, Text, VStack, HStack, Avatar, Image } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { getHeaderTitle } from '@react-navigation/elements';
 
+import { ProfileMenuButton } from './menu-button';
 import { useProfile } from '../../contexts/profile';
 import { getUserData } from '../../api/user-data';
 
 const MOCK_USER_ID = 1
 
 const avatarFallback = require('../../../assets/avatar.png');
-
-export const ProfilePageHeader = ({ navigation, route, options, back }) => {
-    const title = getHeaderTitle(options, route.name);
-
-    return (
-        <Center flexDiretion="row" w="100%" py={10} bg="white">
-                {back &&
-                    <IconButton
-                        position="absolute"
-                        left="5"
-                        onPress={navigation.goBack}
-                        borderRadius="full"
-                        bg="#FAFBFF"
-                        _pressed={{
-                            bg: "muted.200"
-                        }}
-                        icon={<Ionicons name="chevron-back-outline" color="#121826" size={20} />}
-                    />
-                }
-
-                <Text color="#003714" bold>{title}</Text>
-        </Center>
-    );
-}
-
-const ProfileScreenButton = ({ text, icon, onPress }) => {
-    return (
-        <Pressable w="80%" h="50px" flexDirection="row" alignItems="center" onPress={onPress}>
-            <Center p={3} bg="#32C100" borderRadius={15}>
-                {icon}
-            </Center>
-            <Text flex="1" fontSize={18} pl={5} color="#003714">{text}</Text>
-            <Box w={6} h={6} mr={3}>
-                <Ionicons name="chevron-forward-outline" color="#32C100" size={24} />
-            </Box>
-        </Pressable>
-    )
-}
 
 export const Profile = ({ navigation }) => {
     const { name, email, setPhone, initProfile } = useProfile();
@@ -78,17 +40,17 @@ export const Profile = ({ navigation }) => {
             </HStack>
 
             <VStack bg="white" w="100%" flex="1" alignItems="center" space={3} pt={7} borderTopRadius={40}>
-                    <ProfileScreenButton text="Minha Conta"
+                    <ProfileMenuButton text="Minha Conta"
                         icon={<Ionicons name="person" color="white" size={21} />}
                         onPress={() => navigation.navigate('Minha Conta')}
                     />
 
-                    <ProfileScreenButton text="Configurações"
+                    <ProfileMenuButton text="Configurações"
                         icon={<Ionicons name="settings" color="white" size={21} />}
                         onPress={() => navigation.navigate('Configurações')}
                     />
 
-                    <ProfileScreenButton text="Suporte"
+                    <ProfileMenuButton text="Suporte"
                         icon={<Ionicons name="help-circle" color="white" size={21} />}
                         onPress={() => navigation.navigate('Suporte')}
                     />

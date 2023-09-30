@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ProfileProvider } from '../../contexts/profile';
 
+import { ProfileStackHeader } from './profile-header';
+
 // Screens
 import { Home } from "../Home";
 import { ParkingPlaces } from "../ParkingPlaces";
@@ -80,7 +82,7 @@ export function Navbar() {
     <ProfileProvider>
       <Stack.Navigator
           initialRouteName="ProfileHome"
-          screenOptions={{ header: ProfilePageHeader }}
+          screenOptions={{ header: ProfileStackHeader }}
       >
         <Stack.Screen name="ProfileHome" component={NavbarApp}
           options={{ headerShown: false }} />
