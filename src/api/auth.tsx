@@ -1,9 +1,6 @@
-import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 import { encode } from "base-64";
-
-const API_BASE_URL = API_URL;
+import { api } from "./config";
 
 const saveData = async (key: string, value: string): Promise<void> => {
   try {
@@ -22,9 +19,7 @@ export const performLogin = async (
   }
 
   try {
-    const url = `${API_BASE_URL}auth/login/`;
-
-    const response = await axios.post(url, {}, {
+    const response = await api.post("auth/login/", {}, {
         auth: {
           username: email,
           password: password,

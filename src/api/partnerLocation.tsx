@@ -1,13 +1,8 @@
-import { API_URL } from "@env";
-import axios from "axios";
-
-const API_BASE_URL = API_URL;
+import { api } from "./config";
 
 export const getPartnerLocations = async () => {
   try {
-    const url = `${API_BASE_URL}partner_location/`;
-
-    const response = await axios.get(url);
+    const response = await api.get("partner_location/");
 
     // Async Storage
 
