@@ -13,7 +13,7 @@ import {
   Text,
   View,
 } from "native-base";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -225,7 +225,7 @@ export function ReservationScreen({ navigation, route }) {
         top="0"
         right="0"
         borderRadius="full"
-        onPress={() => navigation.navigate("Parking Places")}
+        onPress={navigation.goBack}
         icon={
           <Ionicons name="close-circle-outline" color="#D9D9D9" size={35} />
         }
