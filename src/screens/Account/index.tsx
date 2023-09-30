@@ -17,14 +17,12 @@ import { useFeedback } from '../../contexts/feedback';
 import { useProfile } from '../../contexts/profile';
 import { updateUserData } from '../../api/user-data';
 
-const MOCK_USER_ID = 1
-
 const avatarFallback = require('../../../assets/avatar.png');
 const cameraIcon = require('../../../assets/camera-icon.png');
 
 export function Account({ navigation }) {
     const { sendFeedback } = useFeedback();
-    const { name, email, phone, taxId, updateProfile } = useProfile();
+    const { userId, name, email, phone, taxId, updateProfile } = useProfile();
 
 	const formattedTaxId = taxId.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 
@@ -49,7 +47,7 @@ export function Account({ navigation }) {
 			phone_number: iPhone
 		};
 
-		let responseData = await updateUserData(MOCK_USER_ID, newData);
+		let responseData = await updateUserData(userId, newData);
 
 		if (responseData == null) {
 			sendFeedback("error", "Não conseguimos atualizas suas informações.");

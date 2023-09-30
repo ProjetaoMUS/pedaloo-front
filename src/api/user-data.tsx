@@ -2,10 +2,10 @@ import { api } from "./config";
 import { DEVELOPMENT_TOKEN } from "@env";
 
 
-export const getUserData = async (id: number) => {
+export const getUserData = async () => {
   try {
-    const response = await api.get(`users/${id}/`);
-    return response.data;
+    const response = await api.get(`users/`);
+    return response.data[0];
 
   } catch (err) {
     console.log(err);
