@@ -25,8 +25,8 @@ export function ProfileProvider({ children }) {
 
 	return (
     <ProfileContext.Provider value={{
-			userId, name, email, phone, taxId,
-			initProfile, updateProfile
+		userId, name, email, phone, taxId,
+		initProfile, updateProfile
     }}>
         {children}
     </ProfileContext.Provider>
