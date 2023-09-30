@@ -61,22 +61,21 @@ export function Maps({ navigation }) {
             />
           )}
 
-          {parkingPlaceData.map((parkingPlace) => (
-            <Marker
-              key={parkingPlace.id}
-              image={require("../../../assets/location3.png")}
-              onPress={() => {
-                navigation.navigate("Reservation", {
-                  parkingPlace: parkingPlace,
-                });
-              }}
-              coordinate={{
-                latitude: parkingPlace.latitude,
-                longitude: parkingPlace.longitude,
-              }}
-              title={parkingPlace.name}
-            />
-          ))}
+          {Array.isArray(parkingPlaceData) && parkingPlaceData.map((parkingPlace) => ( <Marker
+                    key={parkingPlace.id}
+                    image={require("../../../assets/location3.png")}
+                    onPress={() => {
+                      navigation.navigate("Reservation", {
+                        parkingPlace: parkingPlace,
+                      });
+                    }}
+                    coordinate={{
+                      latitude: parkingPlace.latitude,
+                      longitude: parkingPlace.longitude,
+                    }}
+                    title={parkingPlace.name}
+                  />
+                ))}
         </MapView>
       )}
     </View>
