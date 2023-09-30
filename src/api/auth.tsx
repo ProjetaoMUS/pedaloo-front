@@ -1,14 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { encode } from "base-64";
 import { api } from "./config";
-
-const saveData = async (key: string, value: string): Promise<void> => {
-  try {
-    await AsyncStorage.setItem(key, value);
-  } catch (err) {
-    console.log(err);
-  }
-};
+import { saveData } from "./local-storage";
 
 export const performLogin = async (
   email: string,
