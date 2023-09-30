@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import * as React from "react";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 // Screens
@@ -15,19 +15,34 @@ const profileName = "Profile";
 const reservationName = "Reservation";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const HomeStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name={homeName} component={Home} />
+    <Stack.Screen name={reservationName} component={ReservationScreen} />
+  </Stack.Navigator>
+)
+
+const ParkingPlacesStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name={bookingName} component={ParkingPlaces} />
+    <Stack.Screen name={reservationName} component={ReservationScreen} />
+  </Stack.Navigator>
+)
 
 export function Navbar() {
   return (
     <Tab.Navigator
-      initialRouteName={homeName}
+      initialRouteName={"Home Stack"}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           let rn = route.name;
 
-          if (rn === homeName) {
+          if (rn === "Home Stack") {
             iconName = focused ? "home" : "home-outline";
-          } else if (rn === bookingName) {
+          } else if (rn === "Booking Stack") {
             iconName = focused ? "calendar" : "calendar-outline";
           } else if (rn === profileName) {
             iconName = focused ? "person-circle" : "person-circle-outline";
@@ -50,16 +65,9 @@ export function Navbar() {
         ],
       })}
     >
-      <Tab.Screen name={homeName} component={Home} />
-      <Tab.Screen name={bookingName} component={ParkingPlaces} />
+      <Tab.Screen name={"Home Stack"} component={HomeStack} />
+      <Tab.Screen name={"Booking Stack"} component={ParkingPlacesStack} />
       <Tab.Screen name={profileName} component={Profile} />
-      <Tab.Screen
-        name={reservationName}
-        component={ReservationScreen}
-        options={{
-          tabBarItemStyle: { display: "none" },
-        }}
-      />
     </Tab.Navigator>
   );
 }
