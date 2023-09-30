@@ -1,4 +1,4 @@
-import { API_URL } from "@env";
+import { API_URL, DEVELOPMENT_TOKEN } from "@env";
 import axios from "axios";
 
 const API_BASE_URL = API_URL;
@@ -6,8 +6,11 @@ const API_BASE_URL = API_URL;
 export const getUserData = async (id: number) => {
   try {
     const url = `${API_BASE_URL}users/${id}/`;
+    const tokenHeader = `Bearer ${DEVELOPMENT_TOKEN}`;
 
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: { Authorization: tokenHeader }
+    });
     return response.data;
 
   } catch (err) {
