@@ -1,25 +1,16 @@
-import 'react-native-gesture-handler';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Center, Box, Text, Pressable, VStack, HStack, Button, Avatar, Image, IconButton } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getHeaderTitle } from '@react-navigation/elements';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Account } from '../Account';
-import { Contact } from '../Contact';
-import { Help } from '../Help';
-import { Settings } from '../Settings';
-
-import { ProfileProvider, useProfile } from '../../contexts/profile';
+import { useProfile } from '../../contexts/profile';
 import { getUserData } from '../../api/user-data';
 
 const MOCK_USER_ID = 1
 
 const avatarFallback = require('../../../assets/avatar.png');
-const Stack = createNativeStackNavigator();
 
-const ProfilePageHeader = ({ navigation, route, options, back }) => {
+export const ProfilePageHeader = ({ navigation, route, options, back }) => {
     const title = getHeaderTitle(options, route.name);
 
     return (
@@ -57,7 +48,7 @@ const ProfileScreenButton = ({ text, icon, onPress }) => {
     )
 }
 
-const ProfileHome = ({ navigation }) => {
+export const Profile = ({ navigation }) => {
     const { name, email, setPhone, initProfile } = useProfile();
 
     useEffect(() => {
@@ -106,6 +97,7 @@ const ProfileHome = ({ navigation }) => {
     );
 }
 
+/*
 export function Profile({ navigation }) {
     return (
         <ProfileProvider>
@@ -126,3 +118,4 @@ export function Profile({ navigation }) {
     );
 }
 
+*/
