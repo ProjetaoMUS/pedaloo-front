@@ -28,7 +28,7 @@ export const performLogin = async (
     );
 
     await saveData("token", response.data.token);
-    return true;
+    return response.data;
 
   } catch (err) {
     console.log(err);
