@@ -126,6 +126,24 @@ export function ReservationScreen({ navigation, route }) {
 
   return (
     <ScrollView style={{ flex: 1 }}>
+      <Center py={6}>
+        <Text fontSize="2xl" bold>{parkingPlace.name}</Text>
+        <Text fontSize="sm" color="muted.500">{parkingPlace.address}</Text>
+
+        <IconButton
+          position="absolute"
+          top="50%"
+          left={0}
+          borderRadius="full"
+          onPress={navigation.goBack}
+          icon={
+            <Ionicons name="chevron-back" color="black" size={27} />
+          }
+        />
+      </Center>
+
+      <Divider w="100%" />
+
       <Center h={300} mb={2}>
         <FlatList
           data={carouselContent}
@@ -142,20 +160,6 @@ export function ReservationScreen({ navigation, route }) {
           }}
         />
       </Center>
-
-      {/*
-      <Box w="50%" px={6} py={2}>
-        <Text fontSize="lg" bold>
-          {parkingPlace.name}
-        </Text>
-        <Text fontSize="sm" color="muted.500">
-          Recife, Brasil
-        </Text>
-        <Text fontSize="sm" underline>
-          2 comentários
-        </Text>
-      </Box>
-      */}
 
       <Divider w="100%" />
 
@@ -197,17 +201,6 @@ export function ReservationScreen({ navigation, route }) {
           <Spinner />
         </Center>
       )}
-
-      <IconButton
-        position="absolute"
-        top="0"
-        right="0"
-        borderRadius="full"
-        onPress={() => navigation.navigate("Parking Places")}
-        icon={
-          <Ionicons name="close-circle-outline" color="#D9D9D9" size={35} />
-        }
-      />
     </ScrollView>
   );
 }
