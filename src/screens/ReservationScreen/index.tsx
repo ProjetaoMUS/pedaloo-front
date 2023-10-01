@@ -23,16 +23,18 @@ const CarouselImage = ({ source }) => {
   const [imgIsLoading, setImgIsLoading] = useState(true);
 
   return (
-    <>
-      {imgIsLoading && <Skeleton w={screenWidth} h="100%" />}
+    <Box flex={1} w={screenWidth} p={5}>
+      {imgIsLoading && <Skeleton w="100%" h="100%" borderRadius={12} />}
       <Image
         source={{ uri: source }}
-        w={screenWidth}
+        borderRadius={12}
+        w="100%"
+        h="100%"
         alt="Imagem do local"
         onLoad={() => setImgIsLoading(false)}
-        fallbackElement={<Skeleton w={screenWidth} h="100%" />}
+        fallbackElement={<Skeleton w="100%" h="100%" borderRadius={12} />}
       />
-    </>
+    </Box>
   );
 };
 
@@ -115,7 +117,7 @@ export function ReservationScreen({ navigation, route }) {
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <Center h={250} mb={2}>
+      <Center h={300} mb={2}>
         <FlatList
           data={carouselContent}
           horizontal
@@ -130,7 +132,7 @@ export function ReservationScreen({ navigation, route }) {
         />
         <Box
           position="absolute"
-          p={3}
+          p={7}
           bottom={0}
           left={0}
           flexDirection="row"
