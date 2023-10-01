@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ParkingPlacesList } from '../ParkingPlacesList';
-import { ReservationScreen } from '../ReservationScreen';
+import { ParkingPlaceInfo } from '../ParkingPlaceInfo';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +14,7 @@ export function ParkingPlaces() {
         </Stack.Screen>
 
         <Stack.Screen name="Reservation">
-          {(props) => (<ReservationScreen {...props} />)}
+          {(props) => (<ParkingPlaceInfo {...props} />)}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
