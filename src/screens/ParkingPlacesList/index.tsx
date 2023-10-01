@@ -96,7 +96,6 @@ export function ParkingPlacesList({ navigation }) {
                 fontSize: 12,
               }}
             >
-              {/* TODO: Read rating from server */}
               <Ionicons name="star" color="black" /> {item.rating}
             </Box>
           </Box>

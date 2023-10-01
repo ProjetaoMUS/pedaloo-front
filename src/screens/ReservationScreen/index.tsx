@@ -42,18 +42,17 @@ export function ReservationScreen({ navigation, route }) {
           <HStack p={1} alignItems="center">
             <Ionicons name="calendar-outline" color="black" size={29} />
 
+            {/* TODO: Replace typescript constants with variables */}
             <Box flex={1} p={2}>
               <HStack>
-                <Text bold>21 de setembro</Text>
-                <Text bold> • </Text>
-                <Text color="muted.500" bold>13:00</Text>
-                <Text color="muted.500" bold> - </Text>
-                <Text color="muted.500" bold>19:00</Text>
+                <Text bold>{"21 de setembro"} • </Text>
+                <Text color="muted.500" bold>{"13:00"} - {"19:00"}</Text>
               </HStack>
 
               <Text fontSize="xs">Monthly budget</Text>
             </Box>
 
+            {/* TODO: Something with this button */}
             <Button
               variant="link"
               _text={{
@@ -78,11 +77,13 @@ export function ReservationScreen({ navigation, route }) {
             {/* O Ionicons não tinha um ícone para PIX, então usei esse como placeholder */}
             <Ionicons name="wallet-outline" color="black" size={29} />
 
+            {/* TODO: Replace typescript constant with variables */}
             <Box flex={1} p={2}>
-              <Text bold>PIX</Text>
+              <Text bold>{"PIX"}</Text>
               <Text fontSize="xs">Monthly budget</Text>
             </Box>
 
+            {/* TODO: Something with this button */}
             <Button
               variant="link"
               _text={{

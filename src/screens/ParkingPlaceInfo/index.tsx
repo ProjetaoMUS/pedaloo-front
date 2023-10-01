@@ -27,6 +27,10 @@ const Stars = ({ rating }) => {
   for (; i < 5; i++)
     starList.push("star-outline");
 
+  /*
+   * Não estamos exibindo estrelas preenchidas pela metade porque o ícone do Ionicons é bem feio
+   */
+
   return (
     <>
       { starList.map((type, index) => (
@@ -91,7 +95,10 @@ export function ParkingPlaceInfo({ navigation, route }) {
     }, 2000);
   };
 
-  // Conteúdo de exemplo para o carrossel
+  /*
+   * Seria ideal que o atributo `images` de `parkingPlace` fosse uma lista de uris de imagens.
+   * Assim, o conteúdo do carrosel seria `parkingPlace.images
+   */
   const carouselContent = [
     {
       title: "Titulo do Conteúdo 1",
@@ -167,15 +174,16 @@ export function ParkingPlaceInfo({ navigation, route }) {
           <HStack justifyContent="space-between">
             <Box>
               <HStack>
-                <Text fontSize="lg" bold underline>Horas</Text>
-                <Text fontSize="lg" bold>: </Text>
-                <Text fontSize="lg" color="success.500" bold>Aberto</Text>
-                <Text fontSize="lg" bold>⋅ Fecha à </Text>
-                <Text fontSize="lg" bold>00:00</Text>
+                <Text fontSize="lg" bold>
+                  {/* TODO: Replace typescript constants with variables */}
+                  <Text underline>Horas</Text>: <Text color="success.500">{"Aberto"}</Text>
+                  <Text bold>⋅ Fecha à {"00:00"}</Text>
+                </Text>
               </HStack>
               <Text fontSize="lg" color="muted.400">4 vagas disponiveis</Text>
             </Box>
 
+            {/* TODO: Define what in the name of Richard Stallman this button is supposed to do */}
             <IconButton
               borderRadius="full"
               onPress={() => console.log("Press")}
@@ -188,6 +196,7 @@ export function ParkingPlaceInfo({ navigation, route }) {
 
         <Divider w="100%" />
 
+        {/* TODO: Find out just what the hell the designers wanted to put here in the first place */}
         <Box px={6} py={2} mb="100px">
           <Text fontSize="2xl" pt={1} mb={2} bold>
             Sobre o Local
