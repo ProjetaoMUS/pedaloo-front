@@ -183,79 +183,13 @@ export function ReservationScreen({ navigation, route }) {
 
       <Divider w="100%" />
 
-      <Box px={8} py={3} mb={6}>
-        <Text fontSize="xl" pt={1} mb={2} bold>
+      <Box px={6} py={2} mb={6}>
+        <Text fontSize="2xl" pt={1} mb={2} bold>
           Sobre o Local
         </Text>
         <Text fontSize="sm" color="muted.500">
           {parkingPlace.description}
         </Text>
-      </Box>
-
-      <Divider w="91%" mx="auto" />
-
-      <Box px={8} mb={50}>
-        <Text fontSize="xl" py={5} bold>
-          Localização
-        </Text>
-        <Box px={1}>
-          <MapView
-            style={{ height: 200, borderRadius: 17 }}
-            initialRegion={{
-              latitude: parkingPlace.latitude,
-              longitude: parkingPlace.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          >
-            <Marker
-              coordinate={{
-                latitude: parkingPlace.latitude,
-                longitude: parkingPlace.longitude,
-              }}
-              title="Localização da Locação"
-            />
-          </MapView>
-
-          <Text mt={5}> {parkingPlace.address} </Text>
-          <Text color="muted.500" my={2}>
-            Lorem ipsum dolor sit amet consectetur. Vel semper elit tellus
-            quisque. Mauris in quis molestie adipiscing ullamcorper suspendisse
-            scelerisque. Nisl faucibus in maecenas purus vitae ut proin
-            pharetra. Ut lectus cursus non eget libero eu.{" "}
-          </Text>
-          <Text underline>Saiba mais</Text>
-        </Box>
-      </Box>
-
-      <Box py={4} px={7} bg="muted.300">
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Box>
-            <Text fontSize="2xl" mb={-2}>
-              R$ {parkingPlace.price} <Text sub>por bicicleta</Text>
-            </Text>
-            <Text fontSize="md">Aberto todos os dias</Text>
-          </Box>
-          <Button
-            borderRadius={16}
-            height="90%"
-            width="40%"
-            onPress={handleReservationSubmit}
-            bg="black"
-            _pressed={{
-              bg: "gray.800",
-              _text: { color: "muted.100" },
-            }}
-          >
-            Reservar
-          </Button>
-        </View>
       </Box>
 
       {isLoading && (
