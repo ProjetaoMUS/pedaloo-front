@@ -224,7 +224,7 @@ export function ParkingPlaceInfo({ navigation, route }) {
             bg: "#299900",
             _text: { color: "muted.200" }
           }}
-          onPress={() => console.log("Press button")}
+          onPress={() => navigation.navigate("Reservation", { parkingPlace: parkingPlace })}
         >
           Reservar
         </Button>

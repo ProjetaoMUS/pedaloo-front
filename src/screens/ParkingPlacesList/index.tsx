@@ -74,7 +74,7 @@ export function ParkingPlacesList({ navigation }) {
           borderColor="muted.200"
           shadow={3}
           onPress={() => {
-            navigation.navigate("Reservation", { parkingPlace: item });
+            navigation.navigate("Info", { parkingPlace: item });
           }}
         >
           <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
