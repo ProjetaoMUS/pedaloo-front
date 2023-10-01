@@ -125,83 +125,111 @@ export function ReservationScreen({ navigation, route }) {
   };
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <Center py={6}>
-        <Text fontSize="2xl" bold>{parkingPlace.name}</Text>
-        <Text fontSize="sm" color="muted.500">{parkingPlace.address}</Text>
-
-        <IconButton
-          position="absolute"
-          top="50%"
-          left={0}
-          borderRadius="full"
-          onPress={navigation.goBack}
-          icon={
-            <Ionicons name="chevron-back" color="black" size={27} />
-          }
-        />
-      </Center>
-
-      <Divider w="100%" />
-
-      <Center h={300} mb={2}>
-        <FlatList
-          data={carouselContent}
-          horizontal
-          pagingEnabled
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <CarouselImage source={item.image} rating={parkingPlace.rating} />
-          )}
-          onMomentumScrollEnd={(e) => {
-            const contentOffsetX = e.nativeEvent.contentOffset.x;
-            const currentIndex = Math.floor(contentOffsetX / 300);
-            setCurrentContentIndex(currentIndex);
-          }}
-        />
-      </Center>
-
-      <Divider w="100%" />
-
-      <Box flex={1} px={6} py={3}>
-        <HStack justifyContent="space-between">
-          <Box>
-            <HStack>
-              <Text fontSize="lg" bold underline>Horas</Text>
-              <Text fontSize="lg" bold>: </Text>
-              <Text fontSize="lg" color="success.500" bold>Aberto</Text>
-              <Text fontSize="lg" bold>⋅ Fecha à </Text>
-              <Text fontSize="lg" bold>00:00</Text>
-            </HStack>
-            <Text fontSize="lg" color="muted.400">4 vagas disponiveis</Text>
-          </Box>
+    <>
+      <ScrollView style={{ flex: 1 }}>
+        <Center py={6}>
+          <Text fontSize="2xl" bold>{parkingPlace.name}</Text>
+          <Text fontSize="sm" color="muted.500">{parkingPlace.address}</Text>
 
           <IconButton
+            position="absolute"
+            top="50%"
+            left={0}
             borderRadius="full"
-            onPress={() => console.log("Press")}
+            onPress={navigation.goBack}
             icon={
-              <Ionicons name="arrow-forward" color="black" size={25} />
+              <Ionicons name="chevron-back" color="black" size={27} />
             }
           />
-        </HStack>
-      </Box>
-
-      <Divider w="100%" />
-
-      <Box px={6} py={2} mb={6}>
-        <Text fontSize="2xl" pt={1} mb={2} bold>
-          Sobre o Local
-        </Text>
-        <Text fontSize="sm" color="muted.500">
-          {parkingPlace.description}
-        </Text>
-      </Box>
-
-      {isLoading && (
-        <Center>
-          <Spinner />
         </Center>
-      )}
-    </ScrollView>
+
+        <Divider w="100%" />
+
+        <Center h={300} mb={2}>
+          <FlatList
+            data={carouselContent}
+            horizontal
+            pagingEnabled
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <CarouselImage source={item.image} rating={parkingPlace.rating} />
+            )}
+            onMomentumScrollEnd={(e) => {
+              const contentOffsetX = e.nativeEvent.contentOffset.x;
+              const currentIndex = Math.floor(contentOffsetX / 300);
+              setCurrentContentIndex(currentIndex);
+            }}
+          />
+        </Center>
+
+        <Divider w="100%" />
+
+        <Box flex={1} px={6} py={3}>
+          <HStack justifyContent="space-between">
+            <Box>
+              <HStack>
+                <Text fontSize="lg" bold underline>Horas</Text>
+                <Text fontSize="lg" bold>: </Text>
+                <Text fontSize="lg" color="success.500" bold>Aberto</Text>
+                <Text fontSize="lg" bold>⋅ Fecha à </Text>
+                <Text fontSize="lg" bold>00:00</Text>
+              </HStack>
+              <Text fontSize="lg" color="muted.400">4 vagas disponiveis</Text>
+            </Box>
+
+            <IconButton
+              borderRadius="full"
+              onPress={() => console.log("Press")}
+              icon={
+                <Ionicons name="arrow-forward" color="black" size={25} />
+              }
+            />
+          </HStack>
+        </Box>
+
+        <Divider w="100%" />
+
+        <Box px={6} py={2} mb="100px">
+          <Text fontSize="2xl" pt={1} mb={2} bold>
+            Sobre o Local
+          </Text>
+          <Text fontSize="sm" color="muted.500">
+            {parkingPlace.description}
+          </Text>
+        </Box>
+
+        {isLoading && (
+          <Center>
+            <Spinner />
+          </Center>
+        )}
+      </ScrollView>
+
+      <Box
+        position="absolute"
+        alignItems="center"
+        bottom={4}
+        left={0}
+        right={0}
+      >
+        <Button
+          w="90%" py={5}
+          rounded="full"
+          bg="#32C000"
+          _text={{
+            color: "white",
+            fontSize: 14,
+            fontWeight: "bold"
+          }}
+          _pressed={{
+            bg: "#299900",
+            _text: { color: "muted.200" }
+          }}
+          onPress={() => console.log("Press button")}
+        >
+          Reservar
+        </Button>
+      </Box>
+    </>
   );
 }
