@@ -18,7 +18,26 @@ import { Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const CarouselImage = ({ source }) => {
+const Stars = ({ rating }) => {
+  let starList = [];
+  let i = 0;
+
+  for (; i < rating; i++)
+    starList.push("star");
+
+  for (; i < 5; i++)
+    starList.push("star-outline");
+
+  return (
+    <>
+      { starList.map((type, index) => (
+          <Ionicons name={type} color="white" size={21} key={index} />
+      ))}
+    </>
+  );
+}
+
+const CarouselImage = ({ source, rating }) => {
   const screenWidth = Dimensions.get("window").width;
   const [imgIsLoading, setImgIsLoading] = useState(true);
 
@@ -34,6 +53,15 @@ const CarouselImage = ({ source }) => {
         onLoad={() => setImgIsLoading(false)}
         fallbackElement={<Skeleton w="100%" h="100%" borderRadius={12} />}
       />
+
+      <Box
+        position="absolute"
+        left={9}
+        bottom={8}
+        flexDirection="row"
+      >
+        <Stars rating={rating} />
+      </Box>
     </Box>
   );
 };
@@ -96,25 +124,6 @@ export function ReservationScreen({ navigation, route }) {
     setCurrentContentIndex(index);
   };
 
-  const Stars = ({ rating }) => {
-    let starList = [];
-    let i = 0;
-
-    for (; i < rating; i++)
-      starList.push("star");
-
-    for (; i < 5; i++)
-      starList.push("star-outline");
-
-    return (
-      <>
-        { starList.map((type, index) => (
-            <Ionicons name={type} color="white" size={17} key={index} />
-        ))}
-      </>
-    );
-  }
-
   return (
     <ScrollView style={{ flex: 1 }}>
       <Center h={300} mb={2}>
@@ -123,22 +132,15 @@ export function ReservationScreen({ navigation, route }) {
           horizontal
           pagingEnabled
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <CarouselImage source={item.image} />}
+          renderItem={({ item }) => (
+            <CarouselImage source={item.image} rating={parkingPlace.rating} />
+          )}
           onMomentumScrollEnd={(e) => {
             const contentOffsetX = e.nativeEvent.contentOffset.x;
             const currentIndex = Math.floor(contentOffsetX / 300);
             setCurrentContentIndex(currentIndex);
           }}
         />
-        <Box
-          position="absolute"
-          p={7}
-          bottom={0}
-          left={0}
-          flexDirection="row"
-        >
-          <Stars rating={parkingPlace.rating} />
-        </Box>
       </Center>
 
       <Box w="50%" px={6} py={2}>
