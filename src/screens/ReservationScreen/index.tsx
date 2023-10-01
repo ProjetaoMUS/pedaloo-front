@@ -94,6 +94,25 @@ export function ReservationScreen({ navigation, route }) {
     setCurrentContentIndex(index);
   };
 
+  const Stars = ({ rating }) => {
+    let starList = [];
+    let i = 0;
+
+    for (; i < rating; i++)
+      starList.push("star");
+
+    for (; i < 5; i++)
+      starList.push("star-outline");
+
+    return (
+      <>
+        { starList.map((type, index) => (
+            <Ionicons name={type} color="white" size={17} key={index} />
+        ))}
+      </>
+    );
+  }
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <Center h={250} mb={2}>
@@ -109,33 +128,28 @@ export function ReservationScreen({ navigation, route }) {
             setCurrentContentIndex(currentIndex);
           }}
         />
+        <Box
+          position="absolute"
+          p={3}
+          bottom={0}
+          left={0}
+          flexDirection="row"
+        >
+          <Stars rating={parkingPlace.rating} />
+        </Box>
       </Center>
 
-      <HStack px={6} py={2}>
-        <Box w="50%">
-          <Text fontSize="lg" bold>
-            {parkingPlace.name}
-          </Text>
-          <Text fontSize="sm" color="muted.500">
-            Recife, Brasil
-          </Text>
-          <Text fontSize="sm" underline>
-            2 comentários
-          </Text>
-        </Box>
-        <Box
-          w="50%"
-          py={1}
-          flexDirection="row"
-          alignItems="flex-start"
-          justifyContent="flex-end"
-        >
-          <Ionicons name="star" color="black" size={15} />
-          <Text fontSize="xs" ml={1} bold>
-            {parkingPlace.rating}
-          </Text>
-        </Box>
-      </HStack>
+      <Box w="50%" px={6} py={2}>
+        <Text fontSize="lg" bold>
+          {parkingPlace.name}
+        </Text>
+        <Text fontSize="sm" color="muted.500">
+          Recife, Brasil
+        </Text>
+        <Text fontSize="sm" underline>
+          2 comentários
+        </Text>
+      </Box>
 
       <Divider w="91%" mx="auto" />
 
