@@ -125,7 +125,7 @@ export function ParkingPlaceInfo({ navigation, route }) {
 
   return (
     <>
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
         <Center py={6}>
           <Text fontSize="xl" bold>{parkingPlace.name}</Text>
           <Text fontSize="sm" color="muted.500">{parkingPlace.address}</Text>
