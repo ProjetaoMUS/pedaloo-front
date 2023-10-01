@@ -143,6 +143,7 @@ export function ReservationScreen({ navigation, route }) {
         />
       </Center>
 
+      {/*
       <Box w="50%" px={6} py={2}>
         <Text fontSize="lg" bold>
           {parkingPlace.name}
@@ -154,8 +155,33 @@ export function ReservationScreen({ navigation, route }) {
           2 comentários
         </Text>
       </Box>
+      */}
 
-      <Divider w="91%" mx="auto" />
+      <Divider w="100%" />
+
+      <Box flex={1} px={6} py={3}>
+        <HStack justifyContent="space-between">
+          <Box>
+            <HStack>
+              <Text fontSize="lg" bold>Horas: </Text>
+              <Text fontSize="lg" color="success.500" bold>Aberto</Text>
+              <Text fontSize="lg" bold>⋅ Fecha à </Text>
+              <Text fontSize="lg" bold>00:00</Text>
+            </HStack>
+            <Text fontSize="lg" color="muted.400">4 vagas disponiveis</Text>
+          </Box>
+
+          <IconButton
+            borderRadius="full"
+            onPress={() => console.log("Press")}
+            icon={
+              <Ionicons name="arrow-forward" color="black" size={25} />
+            }
+          />
+        </HStack>
+      </Box>
+
+      <Divider w="100%" />
 
       <Box px={8} py={3} mb={6}>
         <Text fontSize="xl" pt={1} mb={2} bold>
