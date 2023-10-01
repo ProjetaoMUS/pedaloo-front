@@ -167,7 +167,8 @@ export function ReservationScreen({ navigation, route }) {
         <HStack justifyContent="space-between">
           <Box>
             <HStack>
-              <Text fontSize="lg" bold>Horas: </Text>
+              <Text fontSize="lg" bold underline>Horas</Text>
+              <Text fontSize="lg" bold>: </Text>
               <Text fontSize="lg" color="success.500" bold>Aberto</Text>
               <Text fontSize="lg" bold>⋅ Fecha à </Text>
               <Text fontSize="lg" bold>00:00</Text>
