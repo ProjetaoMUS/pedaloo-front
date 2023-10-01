@@ -131,16 +131,13 @@ export function ReservationScreen({ navigation, route }) {
         </Button>
 
         <Button
-          w="90%" py={5}
-          rounded="full"
-          bg="white"
+          variant="link"
           _text={{
             color: "#696969",
             fontSize: 14,
             fontWeight: "bold"
           }}
           _pressed={{
-            bg: "white",
             _text: { color: "muted.400" }
           }}
           onPress={() => console.log("Press cancel")}
