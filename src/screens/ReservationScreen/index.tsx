@@ -14,9 +14,26 @@ import {
   Text,
 } from "native-base";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { makeReservation } from "../../api/reservation";
+import { useProfile } from '../../contexts/profile';
 
 export function ReservationScreen({ navigation, route }) {
   const { parkingPlace } = route.params;
+    const { userId } = useProfile();
+
+  const reservation = {
+    user: userId,
+    location: parkingPlace.id,
+    total_price: parkingPlace.price,
+    bike_count: 1,
+    is_active: true,
+    payment_method: "PIX",
+  };
+
+  const sendReservation = () => {
+    console.log(reservation);
+    makeReservation(reservation);
+  }
 
   return (
     <>
@@ -125,7 +142,7 @@ export function ReservationScreen({ navigation, route }) {
             bg: "#299900",
             _text: { color: "muted.200" }
           }}
-          onPress={() => console.log("Press confirm")}
+          onPress={() => sendReservation()}
         >
           Confirmar compra
         </Button>
