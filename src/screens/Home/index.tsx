@@ -8,15 +8,13 @@ import { styles } from "./styles";
 export function Home({ navigation }) {
   const [searchText, setSearchText] = useState("");
 
-  const handleSearchTextChange = (text) => {
-    setSearchText(text);
-  };
   return (
     <View style={styles.container}>
       <Search
         placeholder="Search"
-        onChangeText={handleSearchTextChange}
+        onChangeText={setSearchText}
         value={searchText}
+        onPress={() => navigation.navigate("Parking Places")}
       />
       <Maps navigation={navigation} />
     </View>

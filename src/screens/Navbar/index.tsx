@@ -31,14 +31,7 @@ const HomeStack = () => (
     <Stack.Screen name={"Map"} component={Home} />
     <Stack.Screen name={infoName} component={ParkingPlaceInfo} />
     <Stack.Screen name={reservationName} component={ReservationScreen} />
-  </Stack.Navigator>
-)
-
-const ParkingPlacesStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name={"Booking Home"} component={ParkingPlacesList} />
-    <Stack.Screen name={infoName} component={ParkingPlaceInfo} />
-    <Stack.Screen name={reservationName} component={ReservationScreen} />
+    <Stack.Screen name={"Parking Places"} component={ParkingPlacesList} />
   </Stack.Navigator>
 )
 
