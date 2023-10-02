@@ -1,12 +1,14 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
+import { BookingDetails } from "../BookingDetails";
 // Screens
 import { Home } from "../Home";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { MyReservations } from "../MyReservations";
 import { ParkingPlaces } from "../ParkingPlaces";
 import { Profile } from "../Profile";
 import { ReservationScreen } from "../ReservationScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //Screen names
 const homeName = "Home";
@@ -50,7 +52,7 @@ export function Navbar() {
         ],
       })}
     >
-      <Tab.Screen name={homeName} component={Home} />
+      <Tab.Screen name={homeName} component={BookingDetails} />
       <Tab.Screen name={bookingName} component={ParkingPlaces} />
       <Tab.Screen name={profileName} component={Profile} />
       <Tab.Screen

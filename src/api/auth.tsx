@@ -1,9 +1,9 @@
-import { API_URL } from "@env";
+// import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { encode } from "base-64";
 
-const API_BASE_URL = API_URL;
+const API_BASE_URL = "http://192.168.25.5:8000/api/";
 
 const saveData = async (key: string, value: string): Promise<void> => {
   try {
