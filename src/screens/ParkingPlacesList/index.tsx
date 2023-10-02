@@ -113,7 +113,7 @@ export function ParkingPlacesList({ navigation }) {
               px={3}
               py={2}
             >
-              <Text fontSize={10}>
+              <Text fontSize={10} color="white">
                 {calculateDistance(userLocation, [item.latitude, item.longitude])}m
               </Text>
             </Box>
