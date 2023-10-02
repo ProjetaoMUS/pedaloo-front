@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Heading, Image, Text, FlatList } from "native-base";
+import { Box, Button, Container, Flex, Heading, Image, Text, FlatList, IconButton } from "native-base";
 import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import { getPartnerLocations } from "../../api/partnerLocation";
@@ -54,7 +54,7 @@ const renderItem = ({ item }) => {
     );
   };
 
-export function MyReservations() {
+export function MyReservations({ navigation }) {
     const screenWidth = Dimensions.get("window").width;
     const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
 
@@ -123,7 +123,11 @@ export function MyReservations() {
                                     </Text>
                                     <Text color="muted.500">R${item.price | 2} por hora</Text>
                                 </Box>
-                                <Ionicons name="arrow-forward" size={32} color="black" />
+                                <IconButton
+                                    rounded="full"
+                                    onPress={() => navigation.navigate("Details")}
+                                    icon={<Ionicons name="arrow-forward" size={32} color="black" />}
+                                />
                             </Flex>
                         </Box>
                     </Box>

@@ -66,7 +66,7 @@ export function Maps({ navigation }) {
               key={parkingPlace.id}
               image={require("../../../assets/location3.png")}
               onPress={() => {
-                navigation.navigate("Reservation", {
+                navigation.navigate("Info", {
                   parkingPlace: parkingPlace,
                 });
               }}

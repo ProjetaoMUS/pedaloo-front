@@ -35,17 +35,13 @@ export default function App() {
     <NativeBaseProvider>
       <FeedbackProvider>
         <ProfileProvider>
-        <Feedback />
-          { loggedIn
-            ? (
-              <NativeBaseProvider>
-                <NavigationContainer>
-                  <Navbar />
-                </NavigationContainer>
-              </NativeBaseProvider>
-            )
-            : <Login onLogin={() => setLoggedIn(true)} />
-          }
+          <Feedback />
+          <NavigationContainer>
+            { loggedIn
+              ? <Navbar />
+              : <Login onLogin={() => setLoggedIn(true)} />
+            }
+          </NavigationContainer>
         </ProfileProvider>
       </FeedbackProvider>
     </NativeBaseProvider>

@@ -17,57 +17,7 @@ import { Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Stars = ({ rating }) => {
-  let starList = [];
-  let i = 0;
-
-  for (; i < rating; i++)
-    starList.push("star");
-
-  for (; i < 5; i++)
-    starList.push("star-outline");
-
-  /*
-   * Não estamos exibindo estrelas preenchidas pela metade porque o ícone do Ionicons é bem feio
-   */
-
-  return (
-    <>
-      { starList.map((type, index) => (
-          <Ionicons name={type} color="white" size={21} key={index} />
-      ))}
-    </>
-  );
-}
-
-const CarouselImage = ({ source, rating }) => {
-  const screenWidth = Dimensions.get("window").width;
-  const [imgIsLoading, setImgIsLoading] = useState(true);
-
-  return (
-    <Box flex={1} w={screenWidth} p={5}>
-      {imgIsLoading && <Skeleton w="100%" h="100%" borderRadius={12} />}
-      <Image
-        source={{ uri: source }}
-        borderRadius={12}
-        w="100%"
-        h="100%"
-        alt="Imagem do local"
-        onLoad={() => setImgIsLoading(false)}
-        fallbackElement={<Skeleton w="100%" h="100%" borderRadius={12} />}
-      />
-
-      <Box
-        position="absolute"
-        left={9}
-        bottom={8}
-        flexDirection="row"
-      >
-        <Stars rating={rating} />
-      </Box>
-    </Box>
-  );
-};
+import { CarouselImage } from "./carousel-image";
 
 export function ParkingPlaceInfo({ navigation, route }) {
   const { parkingPlace } = route.params;

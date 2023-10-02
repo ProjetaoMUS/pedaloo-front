@@ -7,9 +7,7 @@ import {
   HStack,
   VStack,
   IconButton,
-  Image,
   ScrollView,
-  Skeleton,
   Spinner,
   Text,
 } from "native-base";
@@ -67,8 +65,8 @@ export function ReservationScreen({ navigation, route }) {
           />
         </Center>
 
-        <Box w="100%" px={5} py={3}>
-          <Text fontSize="sm" bold>Data e hora de agendamento</Text>
+        <Box w="100%" px={6} py={3}>
+          <Text fontSize="lg" bold>Data e hora de agendamento</Text>
           <HStack p={1} alignItems="center">
             <Ionicons name="calendar-outline" color="black" size={29} />
 
@@ -79,8 +77,6 @@ export function ReservationScreen({ navigation, route }) {
                 <Text bold>{"21 de setembro"} • </Text>
                 <Text color="muted.500" bold>{"13:00"} - {"19:00"}</Text>
               </HStack>
-
-              <Text fontSize="xs">Monthly budget</Text>
             </Box>
 
             {/* TODO: Something with this button */}
@@ -103,15 +99,11 @@ export function ReservationScreen({ navigation, route }) {
         <Divider w="100%" />
 
         <Box w="100%" px={6} py={3}>
-          <Text fontSize="sm" bold>Forma de pagamento</Text>
+          <Text fontSize="lg" bold>Forma de pagamento</Text>
           <HStack p={1} alignItems="center">
             {/* O Ionicons não tinha um ícone para PIX, então usei esse como placeholder */}
             <Ionicons name="wallet-outline" color="black" size={29} />
-
-            <Box flex={1} p={2}>
-              <Text bold>{paymentMethod}</Text>
-              <Text fontSize="xs">Monthly budget</Text>
-            </Box>
+            <Text pl={2} flex={1} bold>Cartão de crédito</Text>
 
             {/* TODO: Something with this button */}
             <Button

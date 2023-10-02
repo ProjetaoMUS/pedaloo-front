@@ -4,7 +4,6 @@ export const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#FFF',
-      padding: 24
     },
     nameApp: {
       color: '#FDFCFE',

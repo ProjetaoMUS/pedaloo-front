@@ -28,13 +28,11 @@ const Stack = createNativeStackNavigator();
 
 export function Login({ onLogin }) {
 	return (
-		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
-				<Stack.Screen name="Options" component={LoginOptions} />
-				<Stack.Screen name="Form">
-					{ (props) => (<LoginForm {...props} onLogin={onLogin} />) }
-				</Stack.Screen>
-			</Stack.Navigator>
-		</NavigationContainer>
+		<Stack.Navigator screenOptions={{ headerShown: false }}>
+			<Stack.Screen name="Options" component={LoginOptions} />
+			<Stack.Screen name="Form">
+				{ (props) => (<LoginForm {...props} onLogin={onLogin} />) }
+			</Stack.Screen>
+		</Stack.Navigator>
 	)
 }

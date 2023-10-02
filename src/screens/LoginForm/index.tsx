@@ -2,39 +2,15 @@ import { Box, Image, FormControl, Input, Button, Pressable, IconButton } from 'n
 import { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { useProfile } from '../../contexts/profile';
+import { PasswordInput } from './password-input';
 
 import { getUserData } from '../../api/user-data';
 import { performLogin } from '../../api/auth';
 import { api, setToken } from '../../api/config';
 import { useFeedback } from '../../contexts/feedback';
+import { useProfile } from '../../contexts/profile';
 
 const logo = require('../../../assets/green-logo.png');
-
-const PasswordInput = ({ value, onChangeText }) => {
-	const [showPassword, setShowPassword] = useState(false);
-
-	return (
-		<Input
-			type={showPassword ? "text" : "password"}
-			value={value}
-			onChangeText={onChangeText}
-			variant="underlined"
-			color="#003714"
-			focusOutlineColor="#32C100"
-			InputRightElement={
-				<Pressable onPress={() => setShowPassword(!showPassword)}>
-					<Box mr="2">
-						{showPassword
-							? <Ionicons name="eye-off-outline" color="#32C100" size={19} />
-							: <Ionicons name="eye-outline" color="#32C100" size={19} />
-						}
-					</Box>
-				</Pressable>
-			}
-		/>
-	);
-}
 
 export function LoginForm({ navigation, onLogin }) {
   const { initProfile } = useProfile();

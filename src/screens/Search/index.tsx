@@ -5,7 +5,7 @@ import { styles } from './styles';
 
 
 
-export function Search({ placeholder, onChangeText, value }) {
+export function Search({ placeholder, onChangeText, value, onPress }) {
   return (
     <View style={styles.container}>
       <TextInput
@@ -13,6 +13,7 @@ export function Search({ placeholder, onChangeText, value }) {
         placeholder={placeholder}
         onChangeText={onChangeText}
         value={value}
+        onPressIn={onPress}
       />
       <Ionicons name="search" size={24} color="gray" style={styles.icon} />
     </View>
