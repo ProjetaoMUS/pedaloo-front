@@ -107,21 +107,19 @@ const ProfileHome = ({ navigation }) => {
 
 export function Profile({ navigation }) {
     return (
-        <ProfileProvider>
-            <NavigationContainer independent={true}>
-                <Stack.Navigator
-                    initialRouteName="ProfileHome"
-                    screenOptions={{
-                        header: ProfilePageHeader
-                    }}
-                >
-                    <Stack.Screen name="ProfileHome" component={ProfileHome} options={{ headerShown: false }}/>
-                    <Stack.Screen name="Minha Conta" component={Account} />
-                    <Stack.Screen name="Configurações" component={Settings} />
-                    <Stack.Screen name="Suporte" component={Help} />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </ProfileProvider>
+        <NavigationContainer independent={true}>
+            <Stack.Navigator
+                initialRouteName="ProfileHome"
+                screenOptions={{
+                    header: ProfilePageHeader
+                }}
+            >
+                <Stack.Screen name="ProfileHome" component={ProfileHome} options={{ headerShown: false }}/>
+                <Stack.Screen name="Minha Conta" component={Account} />
+                <Stack.Screen name="Configurações" component={Settings} />
+                <Stack.Screen name="Suporte" component={Help} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
 
