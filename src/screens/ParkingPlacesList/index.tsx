@@ -109,9 +109,9 @@ export function ParkingPlacesList({ navigation }) {
 
             <Box
               bg="#404040"
-              borderRadius={4}
-              px={10}
-              py={5}
+              borderRadius={10}
+              px={3}
+              py={2}
             >
               <Text fontSize={10}>
                 {calculateDistance(userLocation, [item.latitude, item.longitude])}m
