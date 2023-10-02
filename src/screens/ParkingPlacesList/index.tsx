@@ -117,7 +117,7 @@ export function ParkingPlacesList({ navigation }) {
               <Text fontSize={9} color="white">
                 {calculateDistance(userLocation, [item.latitude, item.longitude])}m
               </Text>
-              <Ionicons name="arrow-forward" size={32} color="black" />
+              <Ionicons name="arrow-forward" size={14} color="black" />
             </Box>
           </Flex>
         </Pressable>
