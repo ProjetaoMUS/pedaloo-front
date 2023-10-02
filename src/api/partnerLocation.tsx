@@ -2,15 +2,12 @@ import { api } from "./config";
 
 export const getPartnerLocations = async () => {
   try {
-    const url = `${API_BASE_URL}partner_location/`;
-    const response = await axios.get(url);
-
-    // Async Storage
+    const response = await api.get(`partner_location/`);
 
     return response.data;
 
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw err;
   }
 };
