@@ -87,7 +87,7 @@ export function MyReservations() {
         <React.Fragment>
             <Flex>
                 <Container>
-                    <Heading mt="20" ml="7" size="2xl">
+                    <Heading mt="20%" ml="7" size="xl">
                         Minhas Reservas
                     </Heading>
                     <Flex mt="10" ml="10" direction="row">
