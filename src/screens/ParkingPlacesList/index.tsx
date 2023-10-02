@@ -1,4 +1,4 @@
-import { Box, Divider, FlatList, Image, Pressable, Text } from "native-base";
+import { Box, Divider, FlatList, Image, Pressable, Text, Flex } from "native-base";
 import { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getPartnerLocations } from "../../api/partnerLocation";
@@ -77,43 +77,38 @@ export function ParkingPlacesList({ navigation }) {
             navigation.navigate("Reservation", { parkingPlace: item });
           }}
         >
-          <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
-            <Image
-              source={{ uri: item.images }}
-              alt="Imagem do local"
-              w="100%"
-              h="100%"
-            />
+          <Flex flexDirection="row">
             <Box
-              position="absolute"
-              bg="muted.200:alpha.40"
-              py={1}
-              px={2}
-              borderBottomRightRadius={10}
-              flexDirection="row"
+              h={200}
+              w={200}
+              bg="gray.400"
+              overflow="hidden"
+              borderRadius={20}
               alignItems="center"
-              _text={{
-                fontSize: 12,
-              }}
-            >
-              {/* TODO: Read rating from server */}
-              <Ionicons name="star" color="black" /> {item.rating}
+              justifyContent="center">
+              <Image
+                source={{ uri: item.images }}
+                alt="Imagem do local"
+                w="100%"
+                h="100%"
+                borderRadius={20}
+              />
             </Box>
-          </Box>
 
-          <Box px={2} py={3}>
-            <Text fontSize="lg" bold>
-              {item.name}
-            </Text>
-            <Text color="muted.500">
-              {calculateDistance(userLocation, [item.latitude, item.longitude])}
-              m do endereço
-            </Text>
-            <Text>R${item.price} por hora</Text>
-            <Text color={item.parking_spaces_count < 5 ? "red.600" : "black"}>
-              {item.parking_spaces_count} vagas restantes
-            </Text>
-          </Box>
+            <Box flex={1} px={2} py={3}>
+              <Text fontSize="lg" bold>
+                {item.name}
+              </Text>
+              <Text color="muted.500">
+                {calculateDistance(userLocation, [item.latitude, item.longitude])}m do endereço
+              </Text>
+              <Text>R${item.price} por hora</Text>
+              <Text color={item.parking_spaces_count < 5 ? "red.600" : "black"}>
+                {item.parking_spaces_count} vagas restantes
+              </Text>
+
+            </Box>
+          </Flex>
         </Pressable>
       );
 
