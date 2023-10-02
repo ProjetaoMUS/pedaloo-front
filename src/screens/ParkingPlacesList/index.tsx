@@ -1,4 +1,4 @@
-import { Box, Divider, FlatList, Image, Pressable, Text, Flex } from "native-base";
+import { Box, Divider, FlatList, Image, Pressable, Text, Flex , Dimensions} from "native-base";
 import { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getPartnerLocations } from "../../api/partnerLocation";
@@ -79,8 +79,8 @@ export function ParkingPlacesList({ navigation }) {
         >
           <Flex flexDirection="row">
             <Box
-              h={200}
-              w={200}
+              h={Dimensions.get('window').width * 0.2 | 0}
+              w={Dimensions.get('window').width * 0.2 | 0}
               bg="gray.400"
               overflow="hidden"
               borderRadius={20}
