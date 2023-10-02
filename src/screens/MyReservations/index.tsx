@@ -51,7 +51,7 @@ const renderItem = ({ item }) => {
   };
 
 export function MyReservations() {
-    const [parkingPlaceData, setParkingPlaceData] = useState([]);
+    const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
 
     useEffect(() => {
         // Fetch parking place data when the component mounts
@@ -94,7 +94,7 @@ export function MyReservations() {
             </Flex>
             <FlatList
                 data={parkingPlaceData}
-                renderItem={(item) => (
+                renderItem={(item:ParkingPlace) => (
                     <Box bg="white" mt="10" style={{borderRadius: 20}} ml='5' mr="5">
                         <Carousel
                             data={carouselData}
