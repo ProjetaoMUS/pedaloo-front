@@ -85,7 +85,7 @@ export function MyReservations() {
 
     return (
         <React.Fragment>
-            <Flex>
+            <Flex pb={2}>
                 <Container>
                     <Heading mt="20%" ml="7" size="xl">
                         Minhas Reservas
@@ -114,7 +114,7 @@ export function MyReservations() {
                         />
                         <Box px={2} py={3} >
                             <Flex alignItems="center" flexDirection="row" justifyContent="space-between">
-                                <Box ml="3">
+                                <Box ml="3" w="80%">
                                     <Text fontSize="lg" bold>
                                         {item.name}
                                     </Text>
