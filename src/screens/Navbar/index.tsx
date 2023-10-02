@@ -1,11 +1,9 @@
-import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as React from "react";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { BookingDetails } from "../BookingDetails";
 // Screens
 import { Home } from "../Home";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { MyReservations } from "../MyReservations";
 import { ParkingPlaces } from "../ParkingPlaces";
 import { Profile } from "../Profile";
 import { ParkingPlaceInfo } from "../ParkingPlaceInfo";
