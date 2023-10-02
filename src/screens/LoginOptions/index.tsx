@@ -1,6 +1,6 @@
-import { VStack, Text, Box,	Image, Link } from 'native-base';
+import { Box, Image, Link, Text, VStack } from 'native-base';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { performLogin } from '../../api/auth';
 
 const logo = require('../../../assets/green-logo.png');
 
