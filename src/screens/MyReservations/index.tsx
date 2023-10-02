@@ -99,7 +99,12 @@ export function MyReservations() {
             <FlatList
                 data={parkingPlaceData}
                 renderItem={(item:ParkingPlace) => (
-                    <Box bg="white" mt="10" style={{borderRadius: 20}} w={screenWidth * CARD_WIDTH_MOD}>
+                    <Box
+                        bg="white" mt="10"
+                        style={{borderRadius: 20}}
+                        w={screenWidth * CARD_WIDTH_MOD}
+                        overflow="hidden"
+                    >
                         <Carousel
                             data={carouselData}
                             renderItem={renderItem}
