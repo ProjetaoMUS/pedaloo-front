@@ -1,6 +1,4 @@
 import { api } from "./config";
-import { DEVELOPMENT_TOKEN } from "@env";
-
 
 export const getUserData = async () => {
   try {
