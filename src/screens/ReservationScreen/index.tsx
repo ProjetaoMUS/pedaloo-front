@@ -152,7 +152,7 @@ export function ReservationScreen({ navigation, route }) {
           _pressed={{
             _text: { color: "muted.400" }
           }}
-          onPress={() => console.log("Press cancel")}
+          onPress={navigation.goBack}
         >
           Cancelar
         </Button>
