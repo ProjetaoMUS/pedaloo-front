@@ -11,8 +11,7 @@ import { Contact } from '../Contact';
 import { Help } from '../Help';
 import { Settings } from '../Settings';
 
-import { ProfileProvider, useProfile } from '../../contexts/profile';
-import { getUserData } from '../../api/user-data';
+import { useProfile } from '../../contexts/profile';
 
 const avatarFallback = require('../../../assets/avatar.png');
 const Stack = createNativeStackNavigator();
@@ -56,21 +55,7 @@ const ProfileScreenButton = ({ text, icon, onPress }) => {
 }
 
 const ProfileHome = ({ navigation }) => {
-    const { name, email, setPhone, initProfile } = useProfile();
-
-    useEffect(() => {
-        (async () => {
-            const userData = await getUserData();
-            initProfile(
-                userData.id,
-                userData.first_name,
-                userData.email,
-                userData.phone_number,
-                userData.tax_id
-            );
-        })();
-
-    }, []);
+    const { name, email } = useProfile();
 
     return (
         <Center flex={1} bg="#32C100">

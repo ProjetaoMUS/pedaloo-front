@@ -2,6 +2,9 @@ import { Box, Image, FormControl, Input, Button, Pressable, IconButton } from 'n
 import { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { useProfile } from '../../contexts/profile';
+
+import { getUserData } from '../../api/user-data';
 import { performLogin } from '../../api/auth';
 import { api, setToken } from '../../api/config';
 import { useFeedback } from '../../contexts/feedback';
@@ -34,10 +37,22 @@ const PasswordInput = ({ value, onChangeText }) => {
 }
 
 export function LoginForm({ navigation, onLogin }) {
+  const { initProfile } = useProfile();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	const { sendFeedback } = useFeedback();
+
+	const initiateProfile = async () => {
+		const userData = await getUserData();
+	  initProfile(
+	    userData.id,
+	    userData.first_name,
+	    userData.email,
+	    userData.phone_number,
+	    userData.tax_id
+	  );
+	};
 
 	const handleLogin = async () => {
 		const tokenData = await performLogin(email, password);
@@ -48,6 +63,7 @@ export function LoginForm({ navigation, onLogin }) {
 		} else {
 			sendFeedback('success', 'Login realizado com sucesso!');
 			setToken(tokenData.token);
+			initiateProfile();
 			onLogin();
 		}
 	}
