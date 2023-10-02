@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { performLogin } from '../../api/auth';
+import { api, setToken } from '../../api/config';
 import { useFeedback } from '../../contexts/feedback';
 
 const logo = require('../../../assets/green-logo.png');
@@ -39,13 +40,15 @@ export function LoginForm({ navigation, onLogin }) {
 	const { sendFeedback } = useFeedback();
 
 	const handleLogin = async () => {
-		const loggedIn = await performLogin(email, password);
+		const tokenData = await performLogin(email, password);
 
-		if (loggedIn) {
-			sendFeedback('success', 'Login realizado com sucesso!');
-			onLogin();
-		} else {
+		if (tokenData == undefined) {
 			sendFeedback('error', 'Verifique suas credenciais e tente novamente.')
+
+		} else {
+			sendFeedback('success', 'Login realizado com sucesso!');
+			setToken(tokenData.token);
+			onLogin();
 		}
 	}
 

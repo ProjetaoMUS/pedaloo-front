@@ -75,7 +75,7 @@ export function ParkingPlacesList({ navigation }) {
           borderColor="muted.200"
           shadow={3}
           onPress={() => {
-            navigation.navigate("Reservation", { parkingPlace: item });
+            navigation.navigate("Info", { parkingPlace: item });
           }}
         >
           <Flex flexDirection="row" alignItems="center">
