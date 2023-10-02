@@ -11,7 +11,11 @@ export const performLogin = async (
   }
 
   try {
-    const response = await api.post("auth/login/", {}, {
+    const url = `${API_BASE_URL}auth/login/`;
+    const response = await axios.post(
+      url,
+      {},
+      {
         auth: {
           username: email,
           password: password,
