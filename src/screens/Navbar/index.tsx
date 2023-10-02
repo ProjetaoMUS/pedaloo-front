@@ -7,8 +7,9 @@ import { ProfileStackHeader } from './profile-header';
 
 // Screens
 import { Home } from "../Home";
-import { ParkingPlaces } from "../ParkingPlaces";
-import { Profile, ProfilePageHeader } from "../Profile";
+import { ParkingPlacesList } from "../ParkingPlacesList";
+import { ParkingPlaceInfo } from "../ParkingPlaceInfo";
+import { Profile } from "../Profile";
 import { ReservationScreen } from "../ReservationScreen";
 import { Account } from '../Account';
 import { Contact } from '../Contact';
@@ -16,9 +17,7 @@ import { Help } from '../Help';
 import { Settings } from '../Settings';
 
 //Screen names
-const homeName = "Home";
-const bookingName = "Booking";
-const profileName = "Profile";
+const infoName = "Info";
 const reservationName = "Reservation";
 
 const Tab = createBottomTabNavigator();
@@ -26,21 +25,22 @@ const Stack = createNativeStackNavigator();
 
 const HomeStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name={homeName} component={Home} />
+    <Stack.Screen name={"Map"} component={Home} />
+    <Stack.Screen name={infoName} component={ParkingPlaceInfo} />
     <Stack.Screen name={reservationName} component={ReservationScreen} />
   </Stack.Navigator>
 )
 
 const ParkingPlacesStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name={bookingName} component={ParkingPlaces} />
+    <Stack.Screen name={"Booking Home"} component={ParkingPlacesList} />
+    <Stack.Screen name={infoName} component={ParkingPlaceInfo} />
     <Stack.Screen name={reservationName} component={ReservationScreen} />
   </Stack.Navigator>
 )
 
 const NavbarApp = () => (
   <Tab.Navigator
-    initialRouteName={homeName}
     screenOptions={({ route }) => ({
       tabBarLabel: () => null,
       headerShown: false,
@@ -57,19 +57,19 @@ const NavbarApp = () => (
     })}
   >
     <Tab.Screen
-      name={homeName} component={HomeStack}
+      name={"App Home"} component={HomeStack}
       options={{ tabBarIcon: ({ color, size }) => (
           <Ionicons name="home-outline" size={size} color={color} />
       )}}
     />
     <Tab.Screen
-      name={bookingName} component={ParkingPlacesStack}
+      name={"Booking"} component={ParkingPlacesStack}
       options={{ tabBarIcon: ({ color, size }) => (
         <Ionicons name="cart-outline" size={size} color={color} />
       )}}
     />
     <Tab.Screen
-      name={profileName} component={Profile}
+      name={"Profile"} component={Profile}
       options={{ tabBarIcon: ({ color, size }) => (
           <Ionicons name="person-outline" size={size} color={color} />
       )}}
@@ -80,11 +80,8 @@ const NavbarApp = () => (
 export function Navbar() {
   return (
     <ProfileProvider>
-      <Stack.Navigator
-          initialRouteName="ProfileHome"
-          screenOptions={{ header: ProfileStackHeader }}
-      >
-        <Stack.Screen name="ProfileHome" component={NavbarApp}
+      <Stack.Navigator screenOptions={{ header: ProfileStackHeader }}>
+        <Stack.Screen name="Profile Home" component={NavbarApp}
           options={{ headerShown: false }} />
         <Stack.Screen name="Minha Conta" component={Account} />
         <Stack.Screen name="Configurações" component={Settings} />

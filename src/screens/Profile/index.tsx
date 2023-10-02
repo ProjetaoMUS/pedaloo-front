@@ -6,8 +6,6 @@ import { ProfileMenuButton } from './menu-button';
 import { useProfile } from '../../contexts/profile';
 import { getUserData } from '../../api/user-data';
 
-const MOCK_USER_ID = 1
-
 const avatarFallback = require('../../../assets/avatar.png');
 
 export const Profile = ({ navigation }) => {
@@ -15,8 +13,9 @@ export const Profile = ({ navigation }) => {
 
     useEffect(() => {
         (async () => {
-            const userData = await getUserData(MOCK_USER_ID);
+            const userData = await getUserData();
             initProfile(
+                userData.id,
                 userData.first_name,
                 userData.email,
                 userData.phone_number,
