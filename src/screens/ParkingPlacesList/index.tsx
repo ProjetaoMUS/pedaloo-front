@@ -101,13 +101,23 @@ export function ParkingPlacesList({ navigation }) {
                 {item.name}
               </Text>
               <Text color="muted.500">
-                {calculateDistance(userLocation, [item.latitude, item.longitude])}m do endereço
+                {item.address}
               </Text>
               <Text>R${item.price} por hora</Text>
               <Text color={item.parking_spaces_count < 5 ? "red.600" : "black"}>
                 {item.parking_spaces_count} vagas restantes
               </Text>
+            </Box>
 
+            <Box
+            bg="gray"
+            borderRadius={10}
+            px={10}
+            py={5}
+            >
+              <Text fontSize={16}>
+                {calculateDistance(userLocation, [item.latitude, item.longitude])}m
+              </Text>
             </Box>
           </Flex>
         </Pressable>
