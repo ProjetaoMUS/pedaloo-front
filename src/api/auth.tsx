@@ -1,17 +1,6 @@
-import { API_URL } from "@env";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 import { encode } from "base-64";
-
-const API_BASE_URL = API_URL;
-
-const saveData = async (key: string, value: string): Promise<void> => {
-  try {
-    await AsyncStorage.setItem(key, value);
-  } catch (err) {
-    console.log(err);
-  }
-};
+import { api } from "./config";
+import { saveData } from "./local-storage";
 
 export const performLogin = async (
   email: string,
@@ -22,10 +11,7 @@ export const performLogin = async (
   }
 
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}auth/login/`,
-      {},
-      {
+    const response = await api.post("auth/login/", {}, {
         auth: {
           username: email,
           password: password,
@@ -34,10 +20,9 @@ export const performLogin = async (
     );
 
     await saveData("token", response.data.token);
-    return true;
+    return response.data;
+
   } catch (err) {
     console.log(err);
   }
-
-  return false;
 };

@@ -1,15 +1,16 @@
 import { createContext, useContext, useState } from 'react';
 
-const MOCK_USER_ID = 1
 const ProfileContext = createContext();
 
 export function ProfileProvider({ children }) {
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [phone, setPhone] = useState('');
-	const [taxId, setTaxId] = useState('');
+	const [userId, setUserId] = useState(0);
+	const [name, setName]     = useState('');
+	const [email, setEmail]   = useState('');
+	const [phone, setPhone]   = useState('');
+	const [taxId, setTaxId]   = useState('');
 
-	const initProfile = (newName, newEmail, newPhone, newTaxId) => {
+	const initProfile = (userId, newName, newEmail, newPhone, newTaxId) => {
+		setUserId(userId)
 		setName(newName);
 		setEmail(newEmail);
 		setPhone(newPhone);
@@ -24,8 +25,8 @@ export function ProfileProvider({ children }) {
 
 	return (
     <ProfileContext.Provider value={{
-			name, email, phone, taxId,
-			initProfile, updateProfile
+		userId, name, email, phone, taxId,
+		initProfile, updateProfile
     }}>
         {children}
     </ProfileContext.Provider>
