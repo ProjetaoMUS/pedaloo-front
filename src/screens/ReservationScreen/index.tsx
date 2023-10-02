@@ -13,22 +13,33 @@ import {
   Spinner,
   Text,
 } from "native-base";
+import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { makeReservation } from "../../api/reservation";
 import { useProfile } from '../../contexts/profile';
 
 export function ReservationScreen({ navigation, route }) {
   const { parkingPlace } = route.params;
-    const { userId } = useProfile();
+  const { userId } = useProfile();
 
-  const reservation = {
-    user: userId,
-    location: parkingPlace.id,
-    total_price: parkingPlace.price,
-    bike_count: 1,
-    is_active: true,
-    payment_method: "PIX",
-  };
+  const [ startTime, setStartTime ] = useState("2023-09-30 10:00:00");
+  const [ endTime, setEndTime ] = useState("2023-09-30 14:00:00");
+  const [ paymentMethod, setPaymentMethod ] = useState("CREDIT");
+
+  const sendReservation = () => {
+    const reservation = {
+      user: userId,
+      location: parkingPlace.id,
+      total_price: parkingPlace.price,
+      bike_count: 1,
+      is_active: true,
+      payment_method: paymentMethod,
+      start: startTime,
+      end: endTime
+    };
+
+    makeReservation(reservation);
+  }
 
   return (
     <>
@@ -55,6 +66,7 @@ export function ReservationScreen({ navigation, route }) {
             <Ionicons name="calendar-outline" color="black" size={29} />
 
             {/* TODO: Replace typescript constants with variables */}
+            {/* TODO: Format datetime values to fit this constants */}
             <Box flex={1} p={2}>
               <HStack>
                 <Text bold>{"21 de setembro"} • </Text>
@@ -89,9 +101,8 @@ export function ReservationScreen({ navigation, route }) {
             {/* O Ionicons não tinha um ícone para PIX, então usei esse como placeholder */}
             <Ionicons name="wallet-outline" color="black" size={29} />
 
-            {/* TODO: Replace typescript constant with variables */}
             <Box flex={1} p={2}>
-              <Text bold>{"PIX"}</Text>
+              <Text bold>{paymentMethod}</Text>
               <Text fontSize="xs">Monthly budget</Text>
             </Box>
 
@@ -137,7 +148,7 @@ export function ReservationScreen({ navigation, route }) {
             bg: "#299900",
             _text: { color: "muted.200" }
           }}
-          onPress={() => makeReservation(reservation)}
+          onPress={sendReservation}
         >
           Confirmar compra
         </Button>
