@@ -113,8 +113,8 @@ export function MyReservations() {
                             contentContainerCustomStyle={{ paddingHorizontal: 0 }}
                         />
                         <Box px={2} py={3} >
-                            <Flex alignItems="center" flexDirection="row">
-                                <Box ml="3" mr="20">
+                            <Flex alignItems="center" flexDirection="row" justifyContent="space-between">
+                                <Box ml="3">
                                     <Text fontSize="lg" bold>
                                         {item.name}
                                     </Text>
