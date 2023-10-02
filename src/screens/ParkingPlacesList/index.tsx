@@ -78,7 +78,7 @@ export function ParkingPlacesList({ navigation }) {
             navigation.navigate("Reservation", { parkingPlace: item });
           }}
         >
-          <Flex flexDirection="row">
+          <Flex flexDirection="row" alignItems="center">
             <Box
               h={Dimensions.get('window').width * 0.2 | 0}
               w={Dimensions.get('window').width * 0.2 | 0}
@@ -86,7 +86,9 @@ export function ParkingPlacesList({ navigation }) {
               overflow="hidden"
               borderRadius={20}
               alignItems="center"
-              justifyContent="center">
+              justifyContent="center"
+              px={10}
+            >
               <Image
                 source={{ uri: item.images }}
                 alt="Imagem do local"
@@ -110,10 +112,10 @@ export function ParkingPlacesList({ navigation }) {
             </Box>
 
             <Box
-            bg="gray"
-            borderRadius={10}
-            px={10}
-            py={5}
+              bg="#505050"
+              borderRadius={10}
+              px={10}
+              py={5}
             >
               <Text fontSize={16}>
                 {calculateDistance(userLocation, [item.latitude, item.longitude])}m
