@@ -1,5 +1,6 @@
 import { Box, Button, Container, Flex, Heading, Image, Text, FlatList } from "native-base";
 import React, { useState, useEffect } from "react";
+import { Dimensions } from "react-native";
 import { getPartnerLocations } from "../../api/partnerLocation";
 
 import Carousel from 'react-native-snap-carousel';
@@ -18,19 +19,22 @@ interface ParkingPlace {
     rating: number;
   }
 
+const CARD_WIDTH_MOD = 0.9
 const carouselData = [
     'https://blog.urbansystems.com.br/wp-content/uploads/2021/06/T157_02.png',
     'https://cdn.progresso.com.br/upload/dn_arquivo/2023/06/recife-2023-06-21-at-142701-1.jpeg'
 ];
 
 const renderItem = ({ item }) => {
+    const screenWidth = Dimensions.get("window").width;
+
     return (
-        <Box h={200} bg="gray.400" overflow="hidden">
+        <Box h={200} overflow="hidden">
             <Image
                 source={{uri: item}}
                 alt="Imagem do local"
-                w="100%"
-                h="100%"
+                w={screenWidth * CARD_WIDTH_MOD}
+                h="200px"
             />
             <Box
                 position="absolute"
@@ -51,10 +55,10 @@ const renderItem = ({ item }) => {
   };
 
 export function MyReservations() {
+    const screenWidth = Dimensions.get("window").width;
     const [parkingPlaceData, setParkingPlaceData] = useState<ParkingPlace[]>([]);
 
     useEffect(() => {
-        // Fetch parking place data when the component mounts
         async function fetchParkingPlaces() {
           try {
             const data = await getPartnerLocations();
@@ -66,7 +70,7 @@ export function MyReservations() {
         fetchParkingPlaces();
       }, []);
 
-    const [isActivePressed, setIsActivePressed] = useState(false);
+    const [isActivePressed, setIsActivePressed] = useState(true);
     const [isClosedPressed, setIsClosedPressed] = useState(false);
   
     const handleActivePress = () => {
@@ -95,7 +99,7 @@ export function MyReservations() {
             <FlatList
                 data={parkingPlaceData}
                 renderItem={(item:ParkingPlace) => (
-                    <Box bg="white" mt="10" style={{borderRadius: 20}} ml='5' mr="5">
+                    <Box bg="white" mt="10" style={{borderRadius: 20}} w={screenWidth * CARD_WIDTH_MOD}>
                         <Carousel
                             data={carouselData}
                             renderItem={renderItem}
@@ -120,6 +124,9 @@ export function MyReservations() {
                     </Box>
                 )}
                 keyExtractor={(item) => item.name}
+                contentContainerStyle={{
+                    alignItems: "center"
+                }}
             />
         </React.Fragment>
     );
