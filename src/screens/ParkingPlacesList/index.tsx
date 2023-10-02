@@ -108,7 +108,7 @@ export function ParkingPlacesList({ navigation }) {
             </Box>
 
             <Box
-              bg="#404040"
+              bg="#808080"
               borderRadius={10}
               px={3}
               py={2}
