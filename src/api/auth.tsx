@@ -2,10 +2,7 @@ import { encode } from "base-64";
 import { api } from "./config";
 import { saveData } from "./local-storage";
 
-export const performLogin = async (
-  email: string,
-  password: string
-): Promise<void> => {
+export const performLogin = async (email: string, password: string): Promise<void> => {
   if (!global.btoa) {
     global.btoa = encode;
   }
