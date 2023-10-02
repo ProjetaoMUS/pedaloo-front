@@ -52,7 +52,7 @@ export function Navbar() {
         ],
       })}
     >
-      <Tab.Screen name={homeName} component={BookingDetails} />
+      <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={bookingName} component={ParkingPlaces} />
       <Tab.Screen name={profileName} component={Profile} />
       <Tab.Screen
