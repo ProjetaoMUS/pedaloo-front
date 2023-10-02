@@ -99,25 +99,21 @@ export function ParkingPlacesList({ navigation }) {
             </Box>
 
             <Box flex={1} px={2} py={3}>
-              <Text fontSize="lg" bold>
+              <Text fontSize="md" bold>
                 {item.name}
               </Text>
-              <Text color="muted.500">
+              <Text fontSize="sm" color="muted.500">
                 {item.address}
-              </Text>
-              <Text>R${item.price} por hora</Text>
-              <Text color={item.parking_spaces_count < 5 ? "red.600" : "black"}>
-                {item.parking_spaces_count} vagas restantes
               </Text>
             </Box>
 
             <Box
-              bg="#505050"
-              borderRadius={10}
+              bg="#404040"
+              borderRadius={4}
               px={10}
               py={5}
             >
-              <Text fontSize={16}>
+              <Text fontSize={10}>
                 {calculateDistance(userLocation, [item.latitude, item.longitude])}m
               </Text>
             </Box>
