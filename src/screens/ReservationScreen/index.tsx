@@ -17,16 +17,18 @@ import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { makeReservation } from "../../api/reservation";
 import { useProfile } from '../../contexts/profile';
+import { useFeedback } from '../../contexts/feedback';
 
 export function ReservationScreen({ navigation, route }) {
   const { parkingPlace } = route.params;
+  const { sendFeedback } = useFeedback();
   const { userId } = useProfile();
 
   const [ startTime, setStartTime ] = useState("2023-09-30 10:00:00");
   const [ endTime, setEndTime ] = useState("2023-09-30 14:00:00");
   const [ paymentMethod, setPaymentMethod ] = useState("CREDIT");
 
-  const sendReservation = () => {
+  const sendReservation = async () => {
     const reservation = {
       user: userId,
       location: parkingPlace.id,
@@ -38,7 +40,12 @@ export function ReservationScreen({ navigation, route }) {
       end: endTime
     };
 
-    makeReservation(reservation);
+    const responseData = await makeReservation(reservation);
+    if (responseData == null) {
+      sendFeedback("error", "Não conseguimos fazer a sua reserva. Tente novamente.")
+    } else {
+      sendFeedback("success", "Reserva feita com sucesso." );
+    }
   }
 
   return (
