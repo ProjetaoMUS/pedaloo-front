@@ -114,7 +114,7 @@ export function MyReservations() {
                         />
                         <Box px={2} py={3} >
                             <Flex alignItems="center" flexDirection="row" justifyContent="space-between">
-                                <Box ml="3">
+                                <Box ml="3" w="80%">
                                     <Text fontSize="lg" bold>
                                         {item.name}
                                     </Text>
