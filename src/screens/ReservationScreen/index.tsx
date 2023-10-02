@@ -11,10 +11,40 @@ import {
   Spinner,
   Text,
 } from "native-base";
+import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { makeReservation } from "../../api/reservation";
+import { useProfile } from '../../contexts/profile';
+import { useFeedback } from '../../contexts/feedback';
 
 export function ReservationScreen({ navigation, route }) {
   const { parkingPlace } = route.params;
+  const { sendFeedback } = useFeedback();
+  const { userId } = useProfile();
+
+  const [ startTime, setStartTime ] = useState("2023-09-30 10:00:00");
+  const [ endTime, setEndTime ] = useState("2023-09-30 14:00:00");
+  const [ paymentMethod, setPaymentMethod ] = useState("CREDIT");
+
+  const sendReservation = async () => {
+    const reservation = {
+      user: userId,
+      location: parkingPlace.id,
+      total_price: parkingPlace.price,
+      bike_count: 1,
+      is_active: true,
+      payment_method: paymentMethod,
+      start: startTime,
+      end: endTime
+    };
+
+    const responseData = await makeReservation(reservation);
+    if (responseData == null) {
+      sendFeedback("error", "Não conseguimos fazer a sua reserva. Tente novamente.")
+    } else {
+      sendFeedback("success", "Reserva feita com sucesso." );
+    }
+  }
 
   return (
     <>
@@ -35,19 +65,18 @@ export function ReservationScreen({ navigation, route }) {
           />
         </Center>
 
-        <Box w="100%" px={5} py={3}>
-          <Text fontSize="sm" bold>Data e hora de agendamento</Text>
+        <Box w="100%" px={6} py={3}>
+          <Text fontSize="lg" bold>Data e hora de agendamento</Text>
           <HStack p={1} alignItems="center">
             <Ionicons name="calendar-outline" color="black" size={29} />
 
             {/* TODO: Replace typescript constants with variables */}
+            {/* TODO: Format datetime values to fit this constants */}
             <Box flex={1} p={2}>
               <HStack>
                 <Text bold>{"21 de setembro"} • </Text>
                 <Text color="muted.500" bold>{"13:00"} - {"19:00"}</Text>
               </HStack>
-
-              <Text fontSize="xs">Monthly budget</Text>
             </Box>
 
             {/* TODO: Something with this button */}
@@ -70,16 +99,11 @@ export function ReservationScreen({ navigation, route }) {
         <Divider w="100%" />
 
         <Box w="100%" px={6} py={3}>
-          <Text fontSize="sm" bold>Forma de pagamento</Text>
+          <Text fontSize="lg" bold>Forma de pagamento</Text>
           <HStack p={1} alignItems="center">
             {/* O Ionicons não tinha um ícone para PIX, então usei esse como placeholder */}
             <Ionicons name="wallet-outline" color="black" size={29} />
-
-            {/* TODO: Replace typescript constant with variables */}
-            <Box flex={1} p={2}>
-              <Text bold>{"PIX"}</Text>
-              <Text fontSize="xs">Monthly budget</Text>
-            </Box>
+            <Text pl={2} flex={1} bold>Cartão de crédito</Text>
 
             {/* TODO: Something with this button */}
             <Button
@@ -123,7 +147,7 @@ export function ReservationScreen({ navigation, route }) {
             bg: "#299900",
             _text: { color: "muted.200" }
           }}
-          onPress={() => console.log("Press confirm")}
+          onPress={sendReservation}
         >
           Confirmar compra
         </Button>
@@ -138,7 +162,7 @@ export function ReservationScreen({ navigation, route }) {
           _pressed={{
             _text: { color: "muted.400" }
           }}
-          onPress={() => console.log("Press cancel")}
+          onPress={navigation.goBack}
         >
           Cancelar
         </Button>

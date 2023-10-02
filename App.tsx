@@ -1,5 +1,6 @@
 import { NativeBaseProvider } from 'native-base'
 import { FeedbackProvider } from './src/contexts/feedback';
+import { ProfileProvider } from './src/contexts/profile';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 
@@ -33,13 +34,15 @@ export default function App() {
   return(
     <NativeBaseProvider>
       <FeedbackProvider>
-        <NavigationContainer>
+        <ProfileProvider>
           <Feedback />
-          { loggedIn
-            ? <Navbar />
-            : <Login onLogin={() => setLoggedIn(true)} />
-          }
-        </NavigationContainer>
+          <NavigationContainer>
+            { loggedIn
+              ? <Navbar />
+              : <Login onLogin={() => setLoggedIn(true)} />
+            }
+          </NavigationContainer>
+        </ProfileProvider>
       </FeedbackProvider>
     </NativeBaseProvider>
 

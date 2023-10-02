@@ -4,10 +4,12 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { ProfileProvider } from '../../contexts/profile';
 
 import { ProfileStackHeader } from './profile-header';
+import * as React from "react";
 
 // Screens
 import { Home } from "../Home";
 import { ParkingPlacesList } from "../ParkingPlacesList";
+import { MyReservations } from "../MyReservations";
 import { ParkingPlaceInfo } from "../ParkingPlaceInfo";
 import { Profile } from "../Profile";
 import { ReservationScreen } from "../ReservationScreen";
@@ -15,6 +17,7 @@ import { Account } from '../Account';
 import { Contact } from '../Contact';
 import { Help } from '../Help';
 import { Settings } from '../Settings';
+import { BookingDetails } from "../BookingDetails";
 
 //Screen names
 const infoName = "Info";
@@ -36,6 +39,13 @@ const ParkingPlacesStack = () => (
     <Stack.Screen name={"Booking Home"} component={ParkingPlacesList} />
     <Stack.Screen name={infoName} component={ParkingPlaceInfo} />
     <Stack.Screen name={reservationName} component={ReservationScreen} />
+  </Stack.Navigator>
+)
+
+const ReservationStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name={"Reservation Home"} component={MyReservations} />
+    <Stack.Screen name={"Details"} component={BookingDetails} />
   </Stack.Navigator>
 )
 
@@ -63,7 +73,7 @@ const NavbarApp = () => (
       )}}
     />
     <Tab.Screen
-      name={"Booking"} component={ParkingPlacesStack}
+      name={"Booking"} component={ReservationStack}
       options={{ tabBarIcon: ({ color, size }) => (
         <Ionicons name="cart-outline" size={size} color={color} />
       )}}

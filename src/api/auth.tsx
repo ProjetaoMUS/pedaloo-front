@@ -1,5 +1,5 @@
-import { encode } from "base-64";
 import { api } from "./config";
+import { encode } from "base-64";
 import { saveData } from "./local-storage";
 
 export const performLogin = async (email: string, password: string): Promise<void> => {
@@ -8,7 +8,7 @@ export const performLogin = async (email: string, password: string): Promise<voi
   }
 
   try {
-    const response = await api.post('auth/login/', {}, {
+    const response = await api.post(`auth/login/`, {}, {
       auth: {
         username: email,
         password: password,
