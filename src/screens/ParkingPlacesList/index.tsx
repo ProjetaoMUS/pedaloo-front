@@ -1,4 +1,5 @@
-import { Box, Divider, FlatList, Image, Pressable, Text } from "native-base";
+import { Box, Divider, FlatList, Image, Pressable, Text, Flex} from "native-base";
+import { Dimensions} from "react-native";
 import { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getPartnerLocations } from "../../api/partnerLocation";
@@ -70,50 +71,59 @@ export function ParkingPlacesList({ navigation }) {
           w="90%"
           mx="auto"
           borderRadius={20}
-          borderWidth={1}
           borderColor="muted.200"
-          shadow={3}
           onPress={() => {
-            navigation.navigate("Reservation", { parkingPlace: item });
+            navigation.navigate("Info", { parkingPlace: item });
           }}
         >
-          <Box h={200} bg="gray.400" overflow="hidden" borderRadius={20}>
-            <Image
-              source={{ uri: item.images }}
-              alt="Imagem do local"
-              w="100%"
-              h="100%"
-            />
+          <Flex flexDirection="row" alignItems="center">
             <Box
-              position="absolute"
-              bg="muted.200:alpha.40"
-              py={1}
-              px={2}
-              borderBottomRightRadius={10}
-              flexDirection="row"
+              h={Dimensions.get('window').width * 0.2 | 0}
+              w={Dimensions.get('window').width * 0.2 | 0}
+              bg="gray.400"
+              overflow="hidden"
+              borderRadius={20}
               alignItems="center"
-              _text={{
-                fontSize: 12,
-              }}
+              justifyContent="center"
+              px={10}
             >
-              {/* TODO: Read rating from server */}
-              <Ionicons name="star" color="black" /> {item.rating}
+              <Image
+                source={{ uri: item.images }}
+                alt="Imagem do local"
+                w="100%"
+                h="100%"
+                borderRadius={20}
+              />
             </Box>
-          </Box>
 
-          <Box px={2} py={3}>
-            <Text fontSize="lg" bold>
-              {item.name}
-            </Text>
-            <Text color="muted.500">
-              {calculateDistance(userLocation, [item.latitude, item.longitude])}
-              m do endereço
-            </Text>
-            <Text>R${item.price} por hora</Text>
-            <Text color={item.parking_spaces_count < 5 ? "red.600" : "black"}>
-              {item.parking_spaces_count} vagas restantes
-            </Text>
-          </Box>
+            <Box flex={1} px={2} py={3}>
+              <Text fontSize="md" bold>
+                {item.name}
+              </Text>
+              <Text fontSize="sm" color="muted.500">
+                {item.address}
+              </Text>
+            </Box>
+
+            <Box
+            alignItems="center"
+            px={3}
+            >
+              <Box
+              bg="#808080"
+              borderRadius={10}
+              px={3}
+              py={2}
+              >
+                <Text fontSize={9} color="white">
+                  {calculateDistance(userLocation, [item.latitude, item.longitude])}m
+                </Text>
+              </Box>
+              <Box py={3}>
+                <Ionicons name="arrow-forward" size={25} color="black" />
+              </Box>
+            </Box>
+          </Flex>
         </Pressable>
       );
 
@@ -129,10 +139,7 @@ export function ParkingPlacesList({ navigation }) {
         data={parkingPlaceData}
         renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
-        ItemSeparatorComponent={<Divider my={4} w="80%" mx="auto"></Divider>}
-        style={{
-          marginBottom: 10,
-        }}
+        ItemSeparatorComponent={<Divider w="100%" mx="auto"></Divider>}
       />
     </Box>
   );

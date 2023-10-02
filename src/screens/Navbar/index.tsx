@@ -7,8 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { MyReservations } from "../MyReservations";
 import { ParkingPlaces } from "../ParkingPlaces";
 import { Profile } from "../Profile";
-import { ReservationScreen } from "../ReservationScreen";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { ParkingPlaceInfo } from "../ParkingPlaceInfo";
 
 //Screen names
 const homeName = "Home";
@@ -57,7 +56,7 @@ export function Navbar() {
       <Tab.Screen name={profileName} component={Profile} />
       <Tab.Screen
         name={reservationName}
-        component={ReservationScreen}
+        component={ParkingPlaceInfo}
         options={{
           tabBarItemStyle: { display: "none" },
         }}

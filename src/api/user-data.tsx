@@ -1,13 +1,10 @@
-import { API_URL } from "@env";
-import axios from "axios";
+import { api } from "./config";
 
-const API_BASE_URL = API_URL;
-
-export const getUserData = async (id: number) => {
+export const getUserData = async () => {
   try {
-    const idStr = id.toString();
-    const res = await axios.get(API_BASE_URL + "users/" + idStr);
-    return res.data;
+    const response = await api.get(`users/`);
+    return response.data[0];
+
   } catch (err) {
     console.log(err);
   }
@@ -17,14 +14,9 @@ export const getUserData = async (id: number) => {
 
 export const updateUserData = async (id: number, data) => {
   try {
-    const idStr = id.toString();
-    const url = API_BASE_URL + "users/" + idStr + "/";
-    console.log(`Updating account information in route ${url}
-New account info:
-	first_name: ${data.first_name}
-	email: ${data.email}
-	phone_number: ${data.phone_number}`);
-    return true;
+    const response = await api.patch(`users/${id}/`, data);
+    return response.data;
+
   } catch (err) {
     console.log(err);
   }

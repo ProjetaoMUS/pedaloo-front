@@ -1,43 +1,24 @@
-// import { API_URL } from "@env";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 import { encode } from "base-64";
+import { api } from "./config";
+import { saveData } from "./local-storage";
 
-const API_BASE_URL = "http://192.168.25.5:8000/api/";
-
-const saveData = async (key: string, value: string): Promise<void> => {
-  try {
-    await AsyncStorage.setItem(key, value);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const performLogin = async (
-  email: string,
-  password: string
-): Promise<void> => {
+export const performLogin = async (email: string, password: string): Promise<void> => {
   if (!global.btoa) {
     global.btoa = encode;
   }
 
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}auth/login/`,
-      {},
-      {
-        auth: {
-          username: email,
-          password: password,
-        },
-      }
-    );
+    const response = await api.post('auth/login/', {}, {
+      auth: {
+        username: email,
+        password: password,
+      },
+    });
 
     await saveData("token", response.data.token);
-    return true;
-  } catch (err) {
-    console.log(err);
-  }
+    return response.data;
 
-  return false;
+  } catch (err) {
+    console.error(err);
+  }
 };
