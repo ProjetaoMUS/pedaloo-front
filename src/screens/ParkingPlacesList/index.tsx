@@ -71,9 +71,7 @@ export function ParkingPlacesList({ navigation }) {
           w="90%"
           mx="auto"
           borderRadius={20}
-          borderWidth={1}
           borderColor="muted.200"
-          shadow={3}
           onPress={() => {
             navigation.navigate("Info", { parkingPlace: item });
           }}
@@ -141,10 +139,7 @@ export function ParkingPlacesList({ navigation }) {
         data={parkingPlaceData}
         renderItem={renderItem([userLatitude, userLongitude])}
         keyExtractor={(item) => item.name}
-        ItemSeparatorComponent={<Divider my={4} w="80%" mx="auto"></Divider>}
-        style={{
-          marginBottom: 10,
-        }}
+        ItemSeparatorComponent={<Divider w="100%" mx="auto"></Divider>}
       />
     </Box>
   );
