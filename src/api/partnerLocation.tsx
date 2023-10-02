@@ -2,7 +2,8 @@ import { api } from "./config";
 
 export const getPartnerLocations = async () => {
   try {
-    const response = await api.get("partner_location/");
+    const url = `${API_BASE_URL}partner_location/`;
+    const response = await axios.get(url);
 
     // Async Storage
 
