@@ -1,5 +1,6 @@
-import { Box, Button, Container, Flex, Heading, Image, Text } from "native-base";
-import React, { useState } from "react";
+import { Box, Button, Container, Flex, Heading, Image, Text, FlatList } from "native-base";
+import React, { useState, useEffect } from "react";
+import { getPartnerLocations } from "../../api/partnerLocation";
 
 import Carousel from 'react-native-snap-carousel';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -37,6 +38,21 @@ const renderItem = ({ item }) => {
   };
 
 export function MyReservations() {
+    const [parkingPlaceData, setParkingPlaceData] = useState([]);
+
+    useEffect(() => {
+        // Fetch parking place data when the component mounts
+        async function fetchParkingPlaces() {
+          try {
+            const data = await getPartnerLocations();
+            setParkingPlaceData(data);
+          } catch (error) {
+            console.error("Error fetching parking places:", error);
+          }
+        }
+        fetchParkingPlaces();
+      }, []);
+
     const [isActivePressed, setIsActivePressed] = useState(false);
     const [isClosedPressed, setIsClosedPressed] = useState(false);
   
@@ -63,29 +79,35 @@ export function MyReservations() {
                     </Flex>
                 </Container>
             </Flex>
-            <Box bg="white" mt="10" style={{borderRadius: 20}} ml='5' mr="5">
-                <Carousel
-                    data={carouselData}
-                    renderItem={renderItem}
-                    sliderWidth={372}
-                    itemWidth={400}
-                    contentContainerCustomStyle={{ paddingHorizontal: 0 }}
-                />
-                <Box px={2} py={3} >
-                    <Flex alignItems="center" flexDirection="row">
-                        <Box ml="3" mr="20">
-                            <Text fontSize="lg" bold>
-                                Estacionamento Moinho
-                            </Text>
-                            <Text color="muted.500">
-                                R. de São Jorge, 240 - Recife, PE.
-                            </Text>
-                            <Text color="muted.500">R$5 por hora</Text>
+            <FlatList
+                data={parkingPlaceData}
+                renderItem={() => (
+                    <Box bg="white" mt="10" style={{borderRadius: 20}} ml='5' mr="5">
+                        <Carousel
+                            data={carouselData}
+                            renderItem={renderItem}
+                            sliderWidth={372}
+                            itemWidth={400}
+                            contentContainerCustomStyle={{ paddingHorizontal: 0 }}
+                        />
+                        <Box px={2} py={3} >
+                            <Flex alignItems="center" flexDirection="row">
+                                <Box ml="3" mr="20">
+                                    <Text fontSize="lg" bold>
+                                        Estacionamento Moinho
+                                    </Text>
+                                    <Text color="muted.500">
+                                        R. de São Jorge, 240 - Recife, PE.
+                                    </Text>
+                                    <Text color="muted.500">R$5 por hora</Text>
+                                </Box>
+                                <Ionicons name="arrow-forward" size={32} color="black" />
+                            </Flex>
                         </Box>
-                        <Ionicons name="arrow-forward" size={32} color="black" />
-                    </Flex>
-                </Box>
-            </Box>
+                    </Box>
+                )}
+                keyExtractor={(item) => item.name}
+            />
         </React.Fragment>
     );
 }
