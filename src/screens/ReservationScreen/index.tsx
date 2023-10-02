@@ -30,11 +30,6 @@ export function ReservationScreen({ navigation, route }) {
     payment_method: "PIX",
   };
 
-  const sendReservation = () => {
-    console.log(reservation);
-    makeReservation(reservation);
-  }
-
   return (
     <>
       <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
@@ -142,7 +137,7 @@ export function ReservationScreen({ navigation, route }) {
             bg: "#299900",
             _text: { color: "muted.200" }
           }}
-          onPress={() => sendReservation()}
+          onPress={() => makeReservation(reservation)}
         >
           Confirmar compra
         </Button>
