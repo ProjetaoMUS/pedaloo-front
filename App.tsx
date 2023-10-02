@@ -16,7 +16,9 @@ export default function App() {
 
   useEffect(() => {
     const checkSavedToken = async () => {
-      const token = await getData("token");
+      const token = null; // await getData("token");
+
+      // TODO: validate token
 
       if (token != null) {
         setToken(token);
