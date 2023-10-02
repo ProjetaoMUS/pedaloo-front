@@ -1,4 +1,5 @@
-import { Box, Divider, FlatList, Image, Pressable, Text, Flex , Dimensions} from "native-base";
+import { Box, Divider, FlatList, Image, Pressable, Text, Flex} from "native-base";
+import { Dimensions} from "react-native";
 import { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getPartnerLocations } from "../../api/partnerLocation";
