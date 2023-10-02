@@ -8,7 +8,7 @@ export const performLogin = async (email: string, password: string): Promise<voi
   }
 
   try {
-    const response = await api.post('auth/login/', {}, {
+    const response = await api.post(`auth/login/`, {}, {
       auth: {
         username: email,
         password: password,

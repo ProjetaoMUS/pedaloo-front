@@ -171,27 +171,14 @@ export function ParkingPlaceInfo({ navigation, route }) {
         <Divider w="100%" />
 
         <Box flex={1} px={6} py={3}>
-          <HStack justifyContent="space-between">
-            <Box>
-              <HStack>
-                <Text fontSize="lg" bold>
-                  {/* TODO: Replace typescript constants with variables */}
-                  <Text underline>Horas</Text>: <Text color="success.500">{"Aberto"}</Text>
-                  <Text bold>⋅ Fecha à {"00:00"}</Text>
-                </Text>
-              </HStack>
-              <Text fontSize="lg" color="muted.400">4 vagas disponiveis</Text>
-            </Box>
-
-            {/* TODO: Define what in the name of Richard Stallman this button is supposed to do */}
-            <IconButton
-              borderRadius="full"
-              onPress={() => console.log("Press")}
-              icon={
-                <Ionicons name="arrow-forward" color="black" size={25} />
-              }
-            />
+          <HStack>
+            <Text fontSize="lg" bold>
+              {/* TODO: Replace typescript constants with variables */}
+              <Text underline>Horas</Text>: <Text color="success.500">{"Aberto"}</Text>
+              <Text bold>⋅ Fecha à {"00:00"}</Text>
+            </Text>
           </HStack>
+          <Text fontSize="lg" color="muted.400">4 vagas disponiveis</Text>
         </Box>
 
         <Divider w="100%" />
