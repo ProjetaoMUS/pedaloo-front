@@ -98,7 +98,7 @@ export function MyReservations() {
             </Flex>
             <FlatList
                 data={parkingPlaceData}
-                renderItem={(item:ParkingPlace) => (
+                renderItem={({ item }) => (
                     <Box
                         bg="white" mt="10"
                         style={{borderRadius: 20}}
