@@ -108,15 +108,19 @@ export function ParkingPlacesList({ navigation }) {
             </Box>
 
             <Box
+            alignItems="center"
+            px={3}
+            >
+              <Box
               bg="#808080"
               borderRadius={10}
-              alignItems="center"
               px={3}
               py={2}
-            >
-              <Text fontSize={9} color="white">
-                {calculateDistance(userLocation, [item.latitude, item.longitude])}m
-              </Text>
+              >
+                <Text fontSize={9} color="white">
+                  {calculateDistance(userLocation, [item.latitude, item.longitude])}m
+                </Text>
+              </Box>
               <Ionicons name="arrow-forward" size={14} color="black" />
             </Box>
           </Flex>
