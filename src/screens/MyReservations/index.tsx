@@ -5,6 +5,19 @@ import { getPartnerLocations } from "../../api/partnerLocation";
 import Carousel from 'react-native-snap-carousel';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+interface ParkingPlace {
+    id: number;
+    name: string;
+    parking_spaces_count: number;
+    images: string | null;
+    address: string;
+    description: string;
+    price: number;
+    latitude: number;
+    longitude: number;
+    rating: number;
+  }
+
 const carouselData = [
     'https://blog.urbansystems.com.br/wp-content/uploads/2021/06/T157_02.png',
     'https://cdn.progresso.com.br/upload/dn_arquivo/2023/06/recife-2023-06-21-at-142701-1.jpeg'
@@ -81,7 +94,7 @@ export function MyReservations() {
             </Flex>
             <FlatList
                 data={parkingPlaceData}
-                renderItem={() => (
+                renderItem={(item) => (
                     <Box bg="white" mt="10" style={{borderRadius: 20}} ml='5' mr="5">
                         <Carousel
                             data={carouselData}
@@ -94,12 +107,12 @@ export function MyReservations() {
                             <Flex alignItems="center" flexDirection="row">
                                 <Box ml="3" mr="20">
                                     <Text fontSize="lg" bold>
-                                        Estacionamento Moinho
+                                        {item.name}
                                     </Text>
                                     <Text color="muted.500">
-                                        R. de São Jorge, 240 - Recife, PE.
+                                        {item.address}
                                     </Text>
-                                    <Text color="muted.500">R$5 por hora</Text>
+                                    <Text color="muted.500">R${item.price | 2} por hora</Text>
                                 </Box>
                                 <Ionicons name="arrow-forward" size={32} color="black" />
                             </Flex>
